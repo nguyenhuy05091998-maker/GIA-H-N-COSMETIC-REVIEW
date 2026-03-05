@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanh Toán - Gia Hân Cosmetics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink: #FF1493; --pink-light: #ffd6e7; --pink-pale: #fce4ec;
+      --green: #00c853; --gray: #f5f5f5; --border: #e8e8e8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Be Vietnam Pro', sans-serif; background: #f7f7f7; color: #333; }
+
+    /* ===== HEADER ===== */
+    .site-header {
+      background: #fff; border-bottom: 2px solid var(--pink); padding: 12px 5%;
+      display: flex; justify-content: space-between; align-items: center;
+      position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .logo-home { text-decoration: none; color: var(--pink); }
+    .logo-home h1 { font-size: 22px; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+    .logo-home p { margin: 3px 0 0; font-size: 12px; color: #555; font-style: italic; }
+    .header-actions { display: flex; gap: 12px; align-items: center; }
+    .pill { padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 500; text-decoration: none; color: #333; background: #f0f0f0; white-space: nowrap; transition: 0.3s; }
+    .pill:hover { background: var(--pink); color: #fff; }
+    .user-avatar { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--pink); object-fit: cover; display: none; cursor: pointer; }
+
+    /* Progress Bar */
+    .checkout-progress { background: #fff; padding: 18px 32px; border-bottom: 1px solid var(--border); display: flex; justify-content: center; }
+    .progress-steps { display: flex; align-items: center; }
+    .step { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #bbb; }
+    .step.active { color: var(--pink); }
+    .step.done { color: var(--green); }
+    .step-num { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #ddd; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+    .step.active .step-num { border-color: var(--pink); background: var(--pink); color: #fff; }
+    .step.done .step-num { border-color: var(--green); background: var(--green); color: #fff; }
+    .step-line { width: 60px; height: 2px; background: #ddd; margin: 0 8px; }
+
+    /* Main */
+    .checkout-main { max-width: 1100px; margin: 28px auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 380px; gap: 24px; }
+    @media(max-width:768px) { .checkout-main { grid-template-columns: 1fr; } }
+
+    .card { background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); margin-bottom: 18px; }
+    .card h3 { font-size: 16px; font-weight: 700; color: #222; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1.5px solid var(--pink-pale); display: flex; align-items: center; gap: 8px; }
+
+    /* Form */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .form-row.full { grid-template-columns: 1fr; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 13px; font-weight: 600; color: #555; }
+    .form-group input, .form-group select, .form-group textarea { padding: 11px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 14px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(255,20,147,0.08); }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+
+    /* Payment Methods */
+    .pay-methods { display: flex; flex-direction: column; gap: 10px; }
+    .pay-opt { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 2px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.2s; user-select: none; }
+    .pay-opt:hover { border-color: var(--pink-light); background: #fff9fb; }
+    .pay-opt.selected { border-color: var(--pink); background: var(--pink-pale); }
+    .pay-radio { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #ccc; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .pay-opt.selected .pay-radio { border-color: var(--pink); }
+    .pay-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--pink); display: none; }
+    .pay-opt.selected .pay-dot { display: block; }
+    .pay-icon { font-size: 26px; }
+    .pay-info { flex: 1; }
+    .pay-name { font-size: 14px; font-weight: 700; color: #222; }
+    .pay-desc { font-size: 12px; color: #888; margin-top: 2px; }
+    .pay-badge { font-size: 10px; background: var(--green); color: #fff; padding: 2px 7px; border-radius: 999px; font-weight: 700; }
+    .discount-tag { font-size: 11px; background: #fff3e0; color: #e65100; padding: 2px 7px; border-radius: 999px; font-weight: 700; margin-left: 6px; }
+
+    .bank-info { display: none; margin-top: 14px; padding: 16px; background: linear-gradient(135deg, #e8f5e9, #f1f8e9); border-radius: 12px; border: 1px dashed #a5d6a7; }
+    .bank-info.show { display: block; }
+    .bank-info h4 { font-size: 13px; font-weight: 700; color: #2e7d32; margin-bottom: 10px; }
+    .bank-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; }
+    .bank-row span:first-child { color: #666; }
+    .bank-row span:last-child { font-weight: 700; color: #222; }
+    .qr-placeholder { width: 140px; height: 140px; background: #fff; border: 1px solid #ddd; border-radius: 10px; margin: 12px auto; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #aaa; font-size: 12px; text-align: center; }
+    .qr-placeholder span { font-size: 40px; display: block; margin-bottom: 4px; }
+
+    .cod-info { display: none; margin-top: 14px; padding: 14px; background: #fff8e1; border-radius: 12px; border: 1px dashed #ffc107; font-size: 13px; color: #795548; line-height: 1.6; }
+    .cod-info.show { display: block; }
+
+    /* Order Summary */
+    .summary-card { position: sticky; top: 80px; }
+    .order-items { max-height: 280px; overflow-y: auto; margin-bottom: 16px; }
+    .order-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .order-item:last-child { border-bottom: none; }
+    .item-img { width: 58px; height: 58px; border-radius: 10px; object-fit: cover; background: var(--gray); flex-shrink: 0; }
+    .item-details { flex: 1; }
+    .item-name { font-size: 13.5px; font-weight: 600; color: #222; line-height: 1.3; }
+    .item-qty { font-size: 12px; color: #888; margin-top: 3px; }
+    .item-price { font-size: 14px; font-weight: 700; color: var(--pink); white-space: nowrap; }
+
+    .summary-rows { margin-bottom: 16px; }
+    .sum-row { display: flex; justify-content: space-between; font-size: 14px; padding: 7px 0; color: #555; }
+    .sum-row.total { border-top: 2px solid var(--pink-pale); margin-top: 6px; padding-top: 12px; font-size: 18px; font-weight: 800; color: var(--pink); }
+
+    .coupon-row { display: flex; gap: 8px; margin-bottom: 16px; }
+    .coupon-row input { flex: 1; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 13px; font-family: inherit; outline: none; }
+    .coupon-row input:focus { border-color: var(--pink); }
+    .coupon-btn { padding: 10px 16px; background: var(--pink-pale); color: var(--pink); border: none; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; transition: background 0.2s; }
+    .coupon-btn:hover { background: var(--pink-light); }
+
+    .btn-place-order { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--pink), #ff69b4); color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 800; cursor: pointer; font-family: inherit; transition: all 0.3s; box-shadow: 0 6px 20px rgba(255,20,147,0.35); letter-spacing: 0.3px; }
+    .btn-place-order:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,20,147,0.45); }
+
+    /* Success Modal */
+    .success-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); display: none; align-items: center; justify-content: center; z-index: 9999; backdrop-filter: blur(6px); }
+    .success-overlay.open { display: flex; animation: fadeIn 0.3s; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .success-box { background: #fff; width: 420px; padding: 44px 36px; border-radius: 24px; text-align: center; box-shadow: 0 40px 100px rgba(0,0,0,0.25); animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+    @keyframes popIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .success-icon { font-size: 64px; margin-bottom: 12px; }
+    .success-title { font-size: 24px; font-weight: 800; color: var(--green); margin-bottom: 8px; }
+    .success-sub { font-size: 14px; color: #888; margin-bottom: 20px; line-height: 1.7; }
+    .order-code { background: var(--gray); border-radius: 10px; padding: 12px 20px; margin: 16px 0; }
+    .order-code p { font-size: 12px; color: #888; }
+    .order-code span { font-size: 20px; font-weight: 800; color: var(--pink); letter-spacing: 2px; }
+    .success-details { text-align: left; font-size: 13px; color: #555; margin-bottom: 22px; }
+    .success-detail-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f0f0f0; }
+    .success-detail-row:last-child { border-bottom: none; }
+    .success-detail-row span:last-child { font-weight: 700; }
+    .btn-back-home { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--pink), #ff69b4); color: #fff; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; box-shadow: 0 4px 15px rgba(255,20,147,0.3); transition: all 0.2s; }
+    .btn-back-home:hover { transform: translateY(-2px); }
+    .btn-continue { width: 100%; padding: 12px; background: #f5f5f5; color: #555; border: none; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; margin-top: 10px; transition: background 0.2s; }
+    .btn-continue:hover { background: #eee; }
+
+    /* Loading */
+    .loading-overlay { position: fixed; inset: 0; background: rgba(255,255,255,0.85); display: none; align-items: center; justify-content: center; z-index: 8888; backdrop-filter: blur(4px); }
+    .loading-overlay.open { display: flex; }
+    .loading-box { text-align: center; }
+    .spinner { width: 50px; height: 50px; border: 4px solid var(--pink-pale); border-top-color: var(--pink); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-box p { font-size: 15px; font-weight: 600; color: var(--pink); }
+
+    .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--pink); font-size: 14px; font-weight: 600; text-decoration: none; padding: 8px 16px; border-radius: 999px; background: var(--pink-pale); transition: all 0.2s; margin: 20px 0 0 20px; }
+    .back-link:hover { background: var(--pink-light); transform: translateX(-2px); }
+    .order-note { text-align: center; font-size: 11.5px; color: #aaa; margin-top: 10px; }
+  <link rel="stylesheet" href="theme.css">
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <a href="index.html" class="logo-home">
+      <h1>Gia Hân Cosmetics</h1>
+      <p>KOL Mỹ phẩm uy tín – chính hãng</p>
+    </a>
+    <div class="header-actions">
+      <a href="cart.html" class="pill">🛒 Giỏ hàng (<span id="cartCount">0</span>)</a>
+      <img id="userAvatar" class="user-avatar" src="" alt="Avatar" title="Đăng xuất" onclick="handleLogout()">
+    </div>
+  </header>
+
+<a href="cart.html" class="back-link">← Quay lại giỏ hàng</a>
+
+<!-- Progress -->
+<div class="checkout-progress">
+  <div class="progress-steps">
+    <div class="step done">
+      <div class="step-num">✓</div>
+      <span>Giỏ hàng</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step active">
+      <div class="step-num">2</div>
+      <span>Thanh toán</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <span>Xác nhận</span>
+    </div>
+  </div>
+</div>
+
+<div class="checkout-main">
+  <!-- LEFT COLUMN -->
+  <div>
+    <div class="card">
+      <h3>📦 Thông tin giao hàng</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Họ và tên *</label>
+          <input type="text" id="fullname" placeholder="Nguyễn Văn A">
+        </div>
+        <div class="form-group">
+          <label>Số điện thoại *</label>
+          <input type="tel" id="phone" placeholder="0901 234 567">
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="email@example.com">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tỉnh / Thành phố *</label>
+          <select id="province">
+            <option value="">-- Chọn tỉnh thành --</option>
+            <option>Hồ Chí Minh</option><option>Hà Nội</option><option>Đà Nẵng</option>
+            <option>Cần Thơ</option><option>Bình Dương</option><option>Đồng Nai</option>
+            <option>Long An</option><option>Tiền Giang</option><option>An Giang</option>
+            <option>Kiên Giang</option><option>Khác</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Quận / Huyện *</label>
+          <input type="text" id="district" placeholder="Quận / Huyện">
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="form-group">
+          <label>Địa chỉ cụ thể *</label>
+          <input type="text" id="address" placeholder="Số nhà, tên đường, phường/xã...">
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="form-group">
+          <label>Ghi chú đơn hàng</label>
+          <textarea id="note" placeholder="Ghi chú cho người giao hàng (tuỳ chọn)..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="shippingCard">
+      <h3>🚚 Phương thức vận chuyển</h3>
+      <div class="pay-methods">
+        <label class="pay-opt selected" onclick="selectShipping(this, 35000)">
+          <div class="pay-radio"><div class="pay-dot"></div></div>
+          <div class="pay-icon">⚡</div>
+          <div class="pay-info">
+            <div class="pay-name">Giao nhanh (2–4 giờ) <span class="pay-badge">PHỔ BIẾN</span></div>
+            <div class="pay-desc">Nội thành TP.HCM, Hà Nội · 35.000đ</div>
+          </div>
+        </label>
+        <label class="pay-opt" onclick="selectShipping(this, 20000)">
+          <div class="pay-radio"><div class="pay-dot"></div></div>
+          <div class="pay-icon">📦</div>
+          <div class="pay-info">
+            <div class="pay-name">Giao tiêu chuẩn (1–3 ngày)</div>
+            <div class="pay-desc">Toàn quốc · 20.000đ · Miễn phí khi đơn trên 500.000đ</div>
+          </div>
+        </label>
+        <label class="pay-opt" onclick="selectShipping(this, 0)">
+          <div class="pay-radio"><div class="pay-dot"></div></div>
+          <div class="pay-icon">🏪</div>
+          <div class="pay-info">
+            <div class="pay-name">Nhận tại cửa hàng</div>
+            <div class="pay-desc">Miễn phí · Có thể nhận ngay hôm nay</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="card" id="paymentCard">
+      <h3>💳 Phương thức thanh toán</h3>
+      <div class="pay-methods">
+        <label class="pay-opt" onclick="selectPayment(this, 'cod')">
+          <div class="pay-radio"><div class="pay-dot"></div></div>
+          <div class="pay-icon">💵</div>
+          <div class="pay-info">
+            <div class="pay-name">Thanh toán khi nhận hàng (COD)</div>
+            <div class="pay-desc">Thanh toán bằng tiền mặt khi nhận hàng</div>
+          </div>
+        </label>
+        <label class="pay-opt selected" onclick="selectPayment(this, 'bank')">
+          <div class="pay-radio"><div class="pay-dot"></div></div>
+          <div class="pay-icon">🏦</div>
+          <div class="pay-info">
+            <div class="pay-name">Chuyển khoản ngân hàng <span class="discount-tag">-5%</span></div>
+            <div class="pay-desc">Thanh toán qua tài khoản ngân hàng / QR Code</div>
+          </div>
+        </label>
+        <label class="pay-opt" onclick="selectPayment(this, 'momo')">
+          <div class="pay-radio"><div class="pay-dot"></div></div>
+          <div class="pay-icon">💜</div>
+          <div class="pay-info">
+            <div class="pay-name">Ví MoMo <span class="pay-badge">NHANH</span></div>
+            <div class="pay-desc">Thanh toán nhanh qua ví điện tử MoMo</div>
+          </div>
+        </label>
+        <label class="pay-opt" onclick="selectPayment(this, 'zalopay')">
+          <div class="pay-radio"><div class="pay-dot"></div></div>
+          <div class="pay-icon">🔵</div>
+          <div class="pay-info">
+            <div class="pay-name">ZaloPay</div>
+            <div class="pay-desc">Thanh toán qua ví ZaloPay</div>
+          </div>
+        </label>
+        <label class="pay-opt" onclick="selectPayment(this, 'vnpay')">
+          <div class="pay-radio"><div class="pay-dot"></div></div>
+          <div class="pay-icon">💳</div>
+          <div class="pay-info">
+            <div class="pay-name">Thẻ ATM / Visa / MasterCard</div>
+            <div class="pay-desc">Thanh toán trực tuyến qua VNPay</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="bank-info show" id="bankInfo">
+        <h4>📋 Thông tin chuyển khoản</h4>
+        <div class="bank-row"><span>Ngân hàng:</span><span>Vietcombank</span></div>
+        <div class="bank-row"><span>Số tài khoản:</span><span>1234567890</span></div>
+        <div class="bank-row"><span>Chủ tài khoản:</span><span>GIA HAN COSMETICS</span></div>
+        <div class="bank-row"><span>Nội dung CK:</span><span>GH + Số điện thoại</span></div>
+        <div class="payment-container">
+    <div class="qr-card">
+        <h3 class="account-name">PHAN NGỌC GIA HÂN</h3>
+        <p class="account-number">*******926</p>
+
+        <div class="qr-wrapper">
+            <img src="images/qr.jpg" alt="Mã QR Thanh Toán" class="qr-image">
+        </div>
+
+        <div class="payment-footer">
+            <p><strong>📱 Quét QR để chuyển khoản</strong></p>
+            <p class="sub-text">Đơn hàng sẽ được xác nhận sau khi nhận được thanh toán</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .payment-container {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .qr-card {
+        background-color: #fff0f6; /* Màu hồng nhạt theo tông ảnh */
+        border-radius: 20px;
+        padding: 30px;
+        width: 100%;
+        max-width: 350px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        border: 1px solid #f9dbe7;
+    }
+
+    .account-name {
+        margin: 0;
+        font-size: 18px;
+        color: #333;
+        letter-spacing: 1px;
+    }
+
+    .account-number {
+        margin: 5px 0 20px 0;
+        color: #666;
+        font-size: 14px;
+    }
+
+    .qr-wrapper {
+        background: white;
+        padding: 15px;
+        border-radius: 15px;
+        display: inline-block;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .qr-image {
+        width: 100%;
+        max-width: 250px;
+        height: auto;
+        display: block;
+        border-radius: 5px;
+    }
+
+    .payment-footer {
+        margin-top: 20px;
+    }
+
+    .payment-footer p {
+        margin: 5px 0;
+        color: #444;
+        font-size: 15px;
+    }
+
+    .sub-text {
+        font-size: 11.5px !important;
+        color: #888 !important;
+        line-height: 1.4;
+    }
+</style>  </div>
+      <div class="cod-info" id="codInfo">
+        💡 Bạn sẽ thanh toán bằng tiền mặt khi nhận hàng. Vui lòng chuẩn bị đúng số tiền để thuận tiện cho người giao hàng. Phí thu hộ: miễn phí.
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div class="summary-card">
+    <div class="card">
+      <h3>🛍️ Đơn hàng của bạn</h3>
+      <div class="order-items" id="orderItems"></div>
+      <div class="coupon-row">
+        <input type="text" id="couponInput" placeholder="Mã giảm giá...">
+        <button class="coupon-btn" onclick="applyCoupon()">Áp dụng</button>
+      </div>
+      <div class="summary-rows" id="summaryRows"></div>
+      <button class="btn-place-order" onclick="placeOrder()">🌸 ĐẶT HÀNG NGAY</button>
+      <p class="order-note">🔒 Thông tin của bạn được bảo mật tuyệt đối</p>
+    </div>
+  </div>
+</div>
+
+<!-- Loading -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-box">
+    <div class="spinner"></div>
+    <p>Đang xử lý đơn hàng...</p>
+    <p style="font-size:12px;color:#aaa;margin-top:6px;" id="loadingStep">Kiểm tra thông tin...</p>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div class="success-overlay" id="successOverlay">
+  <div class="success-box">
+    <div class="success-icon">🎉</div>
+    <div class="success-title">Đặt hàng thành công!</div>
+    <p class="success-sub">Cảm ơn bạn đã tin tưởng Gia Hân Cosmetics!<br>Chúng tôi sẽ xử lý đơn hàng sớm nhất có thể.</p>
+    <div class="order-code">
+      <p>Mã đơn hàng của bạn</p>
+      <span id="orderCode">GH-000000</span>
+    </div>
+    <div class="success-details" id="successDetails"></div>
+    <button class="btn-back-home" onclick="window.location.href='index.html'">🏠 Về trang chủ</button>
+    <button class="btn-continue" onclick="window.location.href='spmoi.html'">✨ Tiếp tục mua sắm</button>
+  </div>
+</div>
+
+<script>
+  // ===== CART HELPERS (cùng key "cart" với cart.html) =====
+  function getCart() {
+    try { return JSON.parse(localStorage.getItem('cart') || '[]'); } catch(e) { return []; }
+  }
+  function formatVND(n) { return new Intl.NumberFormat('vi-VN').format(n) + 'đ'; }
+
+  // ===== STATE =====
+  let selectedPayment = 'bank';
+  let shippingFee = 35000;
+
+  // ===== HEADER =====
+  function initHeader() {
+    const savedAvatar = localStorage.getItem("userAvatar");
+    if (savedAvatar) {
+      const el = document.getElementById("userAvatar");
+      el.style.display = "block";
+      el.src = savedAvatar;
+    }
+    document.getElementById("cartCount").innerText = getCart().reduce((s,i) => s + i.quantity, 0);
+  }
+  function handleLogout() {
+    if (confirm("Bạn có muốn đăng xuất không?")) {
+      localStorage.removeItem("userAvatar");
+      location.reload();
+    }
+  }
+
+  // ===== RENDER ORDER SUMMARY (lấy từ localStorage cart) =====
+  function renderOrder() {
+    const cart = getCart();
+    const itemsContainer = document.getElementById("orderItems");
+    const summaryContainer = document.getElementById("summaryRows");
+
+    if (cart.length === 0) {
+      document.querySelector('.checkout-main').innerHTML = `
+        <div class="card" style="grid-column:1/-1;text-align:center;padding:50px;">
+          <h2 style="color:#FF1493;margin-bottom:20px;">Giỏ hàng của bạn đang trống!</h2>
+          <a href="index.html" style="display:inline-block;padding:12px 30px;background:#FF1493;color:#fff;border-radius:999px;text-decoration:none;font-weight:700;">← Quay lại mua sắm</a>
+        </div>`;
+      return;
+    }
+
+    // Render danh sách sản phẩm
+    itemsContainer.innerHTML = cart.map(item => `
+      <div class="order-item">
+        <img src="${item.image}" alt="${item.name}" class="item-img" onerror="this.src='https://via.placeholder.com/60/fce4ec/FF1493?text=SP'">
+        <div class="item-details">
+          <div class="item-name">${item.name}</div>
+          <div class="item-qty">x${item.quantity}</div>
+        </div>
+        <div class="item-price">${formatVND(item.price * item.quantity)}</div>
+      </div>
+    `).join('');
+
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const cart = getCart();
+    const subtotal = cart.reduce((t, i) => t + i.price * i.quantity, 0);
+    const bankDiscount = selectedPayment === 'bank' ? Math.round(subtotal * 0.05) : 0;
+
+    // Miễn ship nếu đơn > 500k và phương thức không phải giao nhanh
+    const effectiveShipping = (subtotal > 500000 && shippingFee === 20000) ? 0 : shippingFee;
+    const finalTotal = subtotal + effectiveShipping - bankDiscount;
+
+    document.getElementById("summaryRows").innerHTML = `
+      <div class="sum-row"><span>Tạm tính:</span><span>${formatVND(subtotal)}</span></div>
+      <div class="sum-row"><span>Phí vận chuyển:</span><span style="color:${effectiveShipping===0?'#00c853':'inherit'}">${effectiveShipping===0?'🎉 Miễn phí':formatVND(effectiveShipping)}</span></div>
+      ${bankDiscount > 0 ? `<div class="sum-row" style="color:#00c853;"><span>Giảm giá CK (5%):</span><span>-${formatVND(bankDiscount)}</span></div>` : ''}
+      <div class="sum-row total"><span>Tổng cộng:</span><span>${formatVND(finalTotal)}</span></div>
+    `;
+  }
+
+  // ===== CHỌN PHƯƠNG THỨC VẬN CHUYỂN =====
+  function selectShipping(element, fee) {
+    document.querySelectorAll('#shippingCard .pay-opt').forEach(o => o.classList.remove('selected'));
+    element.classList.add('selected');
+    shippingFee = fee;
+    updateSummary();
+  }
+
+  // ===== CHỌN PHƯƠNG THỨC THANH TOÁN =====
+  function selectPayment(element, type) {
+    document.querySelectorAll('#paymentCard .pay-opt').forEach(o => o.classList.remove('selected'));
+    element.classList.add('selected');
+    selectedPayment = type;
+    document.getElementById('bankInfo').classList.toggle('show', type === 'bank');
+    document.getElementById('codInfo').classList.toggle('show', type === 'cod');
+    updateSummary();
+  }
+
+  // ===== MÃ GIẢM GIÁ (demo) =====
+  function applyCoupon() {
+    const code = document.getElementById('couponInput').value.trim().toUpperCase();
+    if (code === 'GIAHAN10') {
+      alert('Áp dụng mã thành công! Giảm thêm 10% cho đơn hàng.');
+    } else {
+      alert('Mã giảm giá không hợp lệ hoặc đã hết hạn.');
+    }
+  }
+
+  // ===== ĐẶT HÀNG =====
+  function placeOrder() {
+    const name = document.getElementById('fullname').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const province = document.getElementById('province').value;
+    const address = document.getElementById('address').value.trim();
+
+    if (!name || !phone || !province || !address) {
+      alert("Vui lòng điền đầy đủ thông tin giao hàng (Họ tên, SĐT, Tỉnh thành, Địa chỉ)!");
+      return;
+    }
+
+    const cart = getCart();
+    if (cart.length === 0) { alert('Giỏ hàng trống!'); return; }
+
+    // Hiện loading
+    document.getElementById('loadingOverlay').classList.add('open');
+
+    const steps = ['Kiểm tra thông tin...', 'Xác nhận đơn hàng...', 'Hoàn tất!'];
+    let stepIdx = 0;
+    const stepInterval = setInterval(() => {
+      if (stepIdx < steps.length) {
+        document.getElementById('loadingStep').innerText = steps[stepIdx++];
+      }
+    }, 600);
+
+    setTimeout(() => {
+      clearInterval(stepInterval);
+      document.getElementById('loadingOverlay').classList.remove('open');
+
+      // Tính tổng để hiển thị trong modal
+      const subtotal = cart.reduce((t,i) => t + i.price * i.quantity, 0);
+      const bankDiscount = selectedPayment === 'bank' ? Math.round(subtotal * 0.05) : 0;
+      const effectiveShipping = (subtotal > 500000 && shippingFee === 20000) ? 0 : shippingFee;
+      const finalTotal = subtotal + effectiveShipping - bankDiscount;
+
+      // Hiện modal thành công
+      document.getElementById('orderCode').innerText = "GH-" + Math.floor(100000 + Math.random() * 900000);
+      document.getElementById('successDetails').innerHTML = `
+        <div class="success-detail-row"><span>Người nhận:</span><span>${name}</span></div>
+        <div class="success-detail-row"><span>Số điện thoại:</span><span>${phone}</span></div>
+        <div class="success-detail-row"><span>Địa chỉ:</span><span>${province}</span></div>
+        <div class="success-detail-row"><span>Tổng tiền:</span><span style="color:#FF1493">${formatVND(finalTotal)}</span></div>
+        <div class="success-detail-row"><span>Thanh toán:</span><span>${{cod:'Tiền mặt (COD)',bank:'Chuyển khoản',momo:'MoMo',zalopay:'ZaloPay',vnpay:'Thẻ ngân hàng'}[selectedPayment]||selectedPayment}</span></div>
+      `;
+      document.getElementById('successOverlay').classList.add('open');
+
+      // Xóa giỏ hàng sau khi đặt thành công
+      localStorage.removeItem('cart');
+    }, 2000);
+  }
+
+  window.addEventListener('load', () => { initHeader(); renderOrder(); });
+</script>
+</body>
+</html>

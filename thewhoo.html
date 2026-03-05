@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whoo - Gia Hân Cosmetics Review</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      background-color: #ffffff;
+      color: #333;
+    }
+
+    /* ===== MARQUEE BAR ===== */
+    .marquee-bar {
+      background: #e8d5f5;
+      padding: 8px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      gap: 60px;
+      animation: marquee 35s linear infinite;
+    }
+
+    .marquee-track span {
+      font-size: 13px;
+      font-weight: 500;
+      color: #6b21a8;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      background: #fff;
+      border-bottom: 1px solid #f0f0f0;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo h1 {
+      color: #FF1493;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .logo p {
+      color: #888;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    /* ===== SEARCH BOX ===== */
+    .search-box {
+      flex: 1;
+      max-width: 420px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 9px 40px 9px 14px;
+      border: 1.5px solid #FFB6C1;
+      border-radius: 25px;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box input:focus { border-color: #FF1493; }
+
+    .search-box button {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #FF1493;
+      font-size: 16px;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .search-results {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0; right: 0;
+      background: #fff;
+      border: 1px solid #f0d0e0;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(255,20,147,0.1);
+      z-index: 999;
+      max-height: 300px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .search-results.visible { display: block; }
+
+    .search-result-item {
+      padding: 10px 14px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.15s;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .search-result-item:hover { background: #fff0f7; color: #FF1493; }
+
+    .search-no-result {
+      padding: 14px;
+      text-align: center;
+      color: #999;
+      font-size: 13px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ===== PILL BAR ===== */
+    .pill-bar {
+      background: #fff;
+      padding: 10px 24px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .menu-pills {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .menu-pills::-webkit-scrollbar { display: none; }
+
+    .pill {
+      flex: 1;
+      min-width: 0;
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #444;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      font-family: 'Be Vietnam Pro', sans-serif;
+    }
+
+    .pill:hover { filter: brightness(0.93); color: #FF1493; }
+    .pill.active { color: #FF1493; font-weight: 600; }
+
+    .pill.brand  { background: #fce4ec; }
+    .pill.tapchi { background: #e8f5e9; }
+    .pill.km     { background: #fff3e0; }
+    .pill.miffy  { background: #ffe0b2; }
+    .pill.td     { background: #e8f5e9; }
+    .pill.csd    { background: #e3f2fd; }
+    .pill.csct   { background: #e0f7fa; }
+    .pill.spmoi  { background: #fce4ec; }
+    .pill.cart   { background: #f3e5f5; }
+    .pill.login  { background: #e8eaf6; }
+
+    .header-actions .pill { flex: none; padding: 8px 16px; }
+
+    /* ===== BRAND INFO ===== */
+    .brand-info {
+      background: #fff;
+      padding: 32px 24px 30px;
+      border-radius: 10px;
+      max-width: 1000px;
+      margin: 30px auto 20px;
+    }
+
+    .brand-info h2 {
+      color: #222;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .brand-meta {
+      margin-bottom: 18px;
+      color: #888;
+      font-size: 13.5px;
+      text-align: center;
+    }
+
+    .brand-meta span { margin-right: 14px; }
+
+    .brand-text {
+      line-height: 1.75;
+      color: #444;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+      font-size: 14.5px;
+    }
+
+    .brand-text.collapsed {
+      max-height: 150px;
+      position: relative;
+    }
+
+    .brand-text.collapsed::after {
+      content: "";
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 50px;
+      background: linear-gradient(transparent, #fff);
+    }
+
+    .brand-text h3 {
+      color: #FF1493;
+      font-size: 17px;
+      font-weight: 600;
+      margin-top: 22px;
+      margin-bottom: 10px;
+    }
+
+    .brand-text p { margin-bottom: 10px; }
+
+    /* Card vàng hoàng cung cho thành phần quý */
+    .royal-card {
+      background: linear-gradient(135deg, #fffbf0 0%, #fff8e8 100%);
+      border: 1px solid #e8c97a;
+      border-left: 4px solid #c9a227;
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 14px 0;
+    }
+
+    .royal-card ul {
+      padding-left: 20px;
+      list-style: none;
+    }
+
+    .royal-card ul li {
+      margin-bottom: 8px;
+      padding-left: 4px;
+      position: relative;
+    }
+
+    .royal-card ul li::before {
+      content: "♦";
+      position: absolute;
+      left: -18px;
+      color: #c9a227;
+      font-size: 11px;
+      top: 3px;
+    }
+
+    /* Card sản phẩm */
+    .product-card {
+      background: #fff8fb;
+      border-left: 4px solid #FF1493;
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 14px 0;
+    }
+
+    .product-card ul {
+      padding-left: 20px;
+      list-style: none;
+    }
+
+    .product-card ul li {
+      margin-bottom: 8px;
+      padding-left: 4px;
+      position: relative;
+    }
+
+    .product-card ul li::before {
+      content: "•";
+      position: absolute;
+      left: -14px;
+      color: #FF1493;
+      font-weight: 700;
+    }
+
+    .toggle-btn {
+      background: none;
+      border: 1.5px solid #FF1493;
+      color: #FF1493;
+      padding: 8px 22px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto 0;
+      font-weight: 600;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .toggle-btn:hover { background: #FF1493; color: #fff; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 24px;
+      background-color: #FFB6C1;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-left { flex: 0 0 62%; }
+
+    .footer-left p {
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    .footer-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .footer-right > p {
+      font-size: 13.5px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .payment-methods {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .payment-methods img {
+      width: 70px;
+      height: 48px;
+      object-fit: contain;
+      border: 1px solid #FF1493;
+      border-radius: 5px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .header { flex-direction: column; text-align: center; }
+      .search-box { max-width: 100%; }
+      .menu-pills { flex-wrap: wrap; justify-content: center; }
+      .pill { flex: none; }
+      footer { flex-direction: column; }
+      .footer-left, .footer-right { flex: none; width: 100%; }
+      .footer-right { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MARQUEE BAR -->
+  <div class="marquee-bar">
+    <div class="marquee-track">
+      <span>🚚 FREESHIP 15K MỌI ĐƠN HÀNG</span>
+      <span>💥 NHẬP MÃ T01FREESHIP30K – GIẢM NGAY 30K CHO ĐƠN HÀNG 199K</span>
+      <span>🎁 HỖ TRỢ GÓI QUÀ + KHẮC SÔN MIỄN PHÍ</span>
+      <span>✨ MUA ONLINE – NHẬN TẠI CỬA HÀNG GẦN NHẤT</span>
+      <span>🛍️ MIFFY CHÍNH HÃNG – ĐỒ CHƠI NHỒI BÔNG CAO CẤP</span>
+      <span>🌸 MỸ PHẨM CHÍNH HÃNG – GIÁ TỐT NHẤT THỊ TRƯỜNG</span>
+      <span>🚚 FREESHIP 15K MỌI ĐƠN HÀNG</span>
+      <span>💥 NHẬP MÃ T01FREESHIP30K – GIẢM NGAY 30K CHO ĐƠN HÀNG 199K</span>
+      <span>🎁 HỖ TRỢ GÓI QUÀ + KHẮC SÔN MIỄN PHÍ</span>
+      <span>✨ MUA ONLINE – NHẬN TẠI CỬA HÀNG GẦN NHẤT</span>
+      <span>🛍️ MIFFY CHÍNH HÃNG – ĐỒ CHƠI NHỒI BÔNG CAO CẤP</span>
+      <span>🌸 MỸ PHẨM CHÍNH HÃNG – GIÁ TỐT NHẤT THỊ TRƯỜNG</span>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">
+      <h1><a href="index.html" style="text-decoration:none;color:inherit;">Gia Hân Cosmetics Review</a></h1>
+      <p>KOL cho các thương hiệu mỹ phẩm uy tín – chính hãng</p>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm, thương hiệu..." autocomplete="off">
+      <button onclick="doSearch()">🔍</button>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+
+    <div class="header-actions">
+      <a href="cart.html" class="pill cart">🛒 Giỏ hàng</a>
+      <a href="login.html" class="pill login">Đăng Nhập</a>
+    </div>
+  </header>
+
+  <!-- PILL BAR -->
+  <nav class="pill-bar">
+    <div class="menu-pills">
+      <a href="brand.html"  class="pill brand active">Thương Hiệu</a>
+      <a href="tapchi.html" class="pill tapchi">Tạp Chí Làm Đẹp</a>
+      <a href="km.html"     class="pill km">Khuyến Mãi</a>
+      <a href="miffy.html"  class="pill miffy">MIFFY Chính Hãng</a>
+      <a href="td.html"     class="pill td">Trang Điểm</a>
+      <a href="csd.html"    class="pill csd">Chăm Sóc Da Mặt</a>
+      <a href="csct.html"   class="pill csct">Chăm Sóc Cơ Thể</a>
+      <a href="spmoi.html"  class="pill spmoi">Sản Phẩm Mới</a>
+    </div>
+  </nav>
+
+  <!-- BRAND INFO -->
+  <section class="brand-info">
+    <h2>THE HISTORY OF WHOO</h2>
+
+    <div class="brand-meta">
+      <span>8 sản phẩm</span>
+      <span>896 lượt mua</span>
+    </div>
+
+    <div class="brand-text collapsed" id="brandText">
+      <p>
+        Thương hiệu <b>Whoo</b> (The History of Whoo) là biểu tượng của sự kết hợp hoàn hảo giữa truyền thống Đông y
+        và công nghệ hiện đại trong lĩnh vực chăm sóc da. Được phát triển bởi LG Household & Health Care, Whoo mang đến
+        những sản phẩm chăm sóc sắc đẹp cao cấp, lấy cảm hứng từ bí quyết làm đẹp hoàng cung Hàn Quốc.
+      </p>
+
+      <h3>Lịch Sử & Triết Lý Thương Hiệu</h3>
+      <p>
+        The History of Whoo ra đời với mục tiêu tái hiện lại những phương pháp làm đẹp của các nữ hoàng và hoàng hậu
+        trong cung đình xưa. Thương hiệu không chỉ đơn thuần cung cấp các sản phẩm chăm sóc da, mà còn là những tuyệt
+        phẩm kết tinh từ trí tuệ và nghệ thuật Đông y. Triết lý của Whoo là mang đến sự cân bằng và hòa hợp cho làn da,
+        giúp phụ nữ hiện đại sở hữu vẻ đẹp thanh tao và sang trọng như những bậc nữ hoàng xưa.
+      </p>
+
+      <h3>Công Thức Độc Đáo từ Cung Đình</h3>
+      <p>
+        Các sản phẩm của Whoo được chế tác từ những thành phần thảo dược quý hiếm và công thức bí truyền từ cung đình
+        Hàn Quốc, kết hợp với công nghệ hiện đại. Những thành phần chính bao gồm:
+      </p>
+      <div class="royal-card">
+        <ul>
+          <li><b>Nhân Sâm Hoàng Cung:</b> Tăng cường sinh lực và tái tạo làn da.</li>
+          <li><b>Đông Trùng Hạ Thảo:</b> Chống lão hóa và cung cấp dưỡng chất sâu cho da.</li>
+          <li><b>Ngọc Trai và Vàng:</b> Làm sáng da và tăng độ đàn hồi.</li>
+        </ul>
+      </div>
+      <p>
+        Mỗi sản phẩm của Whoo không chỉ là sự kết hợp của các thành phần quý giá, mà còn là quá trình nghiên cứu kỹ
+        lưỡng để đảm bảo hiệu quả và an toàn cho người sử dụng.
+      </p>
+
+      <h3>Dòng Sản Phẩm Đa Dạng</h3>
+      <div class="product-card">
+        <ul>
+          <li><b>Bộ chăm sóc da chuyên sâu:</b> Các dòng chống lão hóa, dưỡng trắng và cung cấp độ ẩm sâu.</li>
+          <li><b>Mặt nạ dưỡng da:</b> Đem lại sự tươi trẻ và mịn màng ngay từ lần sử dụng đầu tiên.</li>
+          <li><b>Sản phẩm trang điểm:</b> Kết hợp dưỡng da và trang điểm, mang lại vẻ đẹp tự nhiên và lâu trôi.</li>
+        </ul>
+      </div>
+
+      <h3>Thiết Kế Sang Trọng Cung Đình</h3>
+      <p>
+        Không chỉ nổi bật với chất lượng vượt trội, sản phẩm của Whoo còn được thiết kế với bao bì sang trọng, lấy cảm
+        hứng từ nghệ thuật và văn hóa cung đình Hàn Quốc. Mỗi sản phẩm đều mang vẻ đẹp tinh tế, đẳng cấp — là món quà
+        hoàn hảo dành tặng cho chính bản thân hoặc những người thân yêu.
+      </p>
+
+      <h3>Cam Kết Chất Lượng</h3>
+      <p>
+        Whoo luôn cam kết mang đến những sản phẩm chất lượng cao, an toàn và hiệu quả. Thương hiệu không ngừng nghiên
+        cứu và phát triển để đáp ứng nhu cầu ngày càng cao của người tiêu dùng, đồng thời duy trì giá trị truyền thống
+        và bản sắc văn hóa Hàn Quốc.
+      </p>
+
+      <h3>Mua Whoo chính hãng tại Gia Hân Cosmetics Review</h3>
+      <p>
+        <b>Gia Hân Cosmetics Review</b> phân phối mỹ phẩm The History of Whoo chính hãng tại Việt Nam. Hãy khám phá và
+        trải nghiệm những sản phẩm đẳng cấp từ thương hiệu danh tiếng này!
+      </p>
+    </div>
+
+    <button class="toggle-btn" onclick="toggleBrand()" id="btnToggle">Xem thêm nội dung</button>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      <p>
+        Website <strong>Gia Hân Cosmetics Review</strong> thuộc quyền quản lý và vận hành bởi
+        <strong>KOL Gia Hân</strong>. Giấy chứng nhận đăng ký kinh doanh số
+        <strong>0309802418</strong>, cấp ngày 23/01/2026 tại Sở Kế hoạch và Đầu tư TP. Hồ Chí Minh.
+      </p>
+      <p>Gia Hân Cosmetics Review chuyên cung cấp mỹ phẩm chính hãng, được chọn lọc kỹ lưỡng từ các thương hiệu uy tín trong và ngoài nước.</p>
+      <p>Địa chỉ hoạt động: 613 Âu Cơ, Quận Tân Phú, TP. Hồ Chí Minh, Việt Nam.</p>
+      <p>Gia Hân Cosmetics Review cam kết mang đến trải nghiệm mua sắm minh bạch, tiện lợi và đáng tin cậy cho khách hàng.</p>
+    </div>
+    <div class="footer-right">
+      <p>Phương thức thanh toán</p>
+      <div class="payment-methods">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/06414657-24ed-4da4-8a54-f207d45ab1be.webp" alt="">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/afebded0-f4e7-4c5f-aee3-aa01271174c3.webp" alt="">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/64102078-db30-4f18-a473-2582467505fd.webp" alt="">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/a19ac3f9-5d5e-43c3-aa84-49576cad1102.webp" alt="">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/3e4a7882-d755-4110-83b5-6496bf5e689c.webp" alt="">
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ===== TOGGLE ===== */
+    function toggleBrand() {
+      const text = document.getElementById('brandText');
+      const btn = document.getElementById('btnToggle');
+      if (text.classList.contains('collapsed')) {
+        text.classList.remove('collapsed');
+        text.style.maxHeight = '3000px';
+        btn.textContent = 'Thu gọn nội dung';
+      } else {
+        text.classList.add('collapsed');
+        text.style.maxHeight = '150px';
+        btn.textContent = 'Xem thêm nội dung';
+      }
+    }
+
+    /* ===== SEARCH ===== */
+    const searchData = [
+      { name: 'Whoo', url: 'whoo.html', icon: '👑' },
+      { name: 'The History of Whoo', url: 'whoo.html', icon: '👑' },
+      { name: 'Klavuu', url: 'klavuu.html', icon: '🐚' },
+      { name: 'Goodal', url: 'goodal.html', icon: '🍊' },
+      { name: 'Club Clio', url: 'clio.html', icon: '💄' },
+      { name: 'AHC', url: 'ahc.html', icon: '✨' },
+      { name: 'THE FACE SHOP', url: 'thefaceshop.html', icon: '🌿' },
+      { name: 'MIFFY Chính Hãng', url: 'miffy.html', icon: '🐰' },
+      { name: 'Thương Hiệu', url: 'brand.html', icon: '🏷️' },
+      { name: 'Tạp Chí Làm Đẹp', url: 'tapchi.html', icon: '📖' },
+      { name: 'Khuyến Mãi', url: 'km.html', icon: '💥' },
+      { name: 'Trang Điểm', url: 'td.html', icon: '💄' },
+      { name: 'Chăm Sóc Da Mặt', url: 'csd.html', icon: '✨' },
+      { name: 'Chăm Sóc Cơ Thể', url: 'csct.html', icon: '🧴' },
+      { name: 'Sản Phẩm Mới', url: 'spmoi.html', icon: '🆕' },
+    ];
+
+    const input = document.getElementById('searchInput');
+    const resultsBox = document.getElementById('searchResults');
+
+    input.addEventListener('input', function () {
+      const query = this.value.trim().toLowerCase();
+      resultsBox.innerHTML = '';
+      if (!query) { resultsBox.classList.remove('visible'); return; }
+      const matches = searchData.filter(item => item.name.toLowerCase().includes(query));
+      if (matches.length === 0) {
+        resultsBox.innerHTML = '<div class="search-no-result">Không tìm thấy kết quả cho "<b>' + query + '</b>"</div>';
+      } else {
+        matches.forEach(item => {
+          const el = document.createElement('a');
+          el.href = item.url;
+          el.className = 'search-result-item';
+          el.innerHTML = '<span>' + item.icon + '</span>' + item.name;
+          resultsBox.appendChild(el);
+        });
+      }
+      resultsBox.classList.add('visible');
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.search-box')) resultsBox.classList.remove('visible');
+    });
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') doSearch();
+    });
+
+    function doSearch() {
+      const q = input.value.trim().toLowerCase();
+      if (!q) return;
+      const match = searchData.find(i => i.name.toLowerCase().includes(q));
+      if (match) window.location.href = match.url;
+    }
+
+    /* ===== LOGIN CHECK ===== */
+    document.addEventListener('DOMContentLoaded', function () {
+      const loginPill = document.querySelector('.pill.login');
+      if (loginPill && localStorage.getItem('loggedIn') === 'true') {
+        const currentUser = localStorage.getItem('currentUser') || 'User';
+        const avatar = document.createElement('div');
+        avatar.style.cssText = 'width:38px;height:38px;border-radius:50%;background:#FF1493;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;cursor:pointer;font-size:16px;';
+        avatar.textContent = currentUser.charAt(0).toUpperCase();
+        avatar.title = 'Click để đăng xuất';
+        avatar.addEventListener('click', function () {
+          localStorage.removeItem('loggedIn');
+          localStorage.removeItem('currentUser');
+          location.reload();
+        });
+        loginPill.parentNode.replaceChild(avatar, loginPill);
+      }
+    });
+  </script>
+</body>
+</html>

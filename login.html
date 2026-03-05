@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beauty KOL Store - KOL Gia Hân</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #00BFFF; overflow-x: hidden; }
+    .header { background: #fff; border-bottom: 2px solid #FF1493; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .logo-home { text-decoration: none; color: #FF1493; }
+    .logo h1 { font-size: 28px; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+    .logo p { margin: 5px 0 0; font-size: 13px; color: #555; font-style: italic; }
+    .search-box { flex: 1; margin: 0 30px; max-width: 500px; }
+    .search-box input { width: 100%; padding: 10px 15px; border: 1px solid #FF1493; border-radius: 25px; outline: none; }
+    .header-actions { display: flex; gap: 15px; align-items: center; }
+
+    .user-avatar {
+      width: 45px; height: 45px; border-radius: 50%; border: 2px solid #FF1493;
+      object-fit: cover; display: none; cursor: pointer; transition: transform 0.3s;
+    }
+    .user-avatar:hover { transform: scale(1.1); }
+
+    .pill { padding: 8px 18px; border-radius: 20px; font-size: 14px; font-weight: 500; text-decoration: none; color: #333; background: #f0f0f0; white-space: nowrap; transition: 0.3s; }
+    .pill:hover { background: #FF1493; color: #fff; }
+    .pill.login { background: #ffe4e1; color: #FF1493; border: none; cursor: pointer; }
+
+    .video-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; }
+    .video-container video { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+    .main-content { position: relative; z-index: 1; padding: 50px 20px; text-align: center; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+    .login-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 2000; }
+    .login-box { background: #fff; width: 350px; padding: 30px; border-radius: 15px; text-align: center; color: #333; }
+    .login-box input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+    .login-btn { width: 100%; padding: 12px; background: #FF1493; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    .close-btn { float: right; cursor: pointer; font-size: 20px; }
+  <link rel="stylesheet" href="theme.css">
+  </style>
+</head>
+<body>
+  <div class="video-container">
+    <video id="bgVideo" muted autoplay playsinline></video>
+  </div>
+
+  <header class="header">
+    <div class="logo">
+      <h1><a href="index.html" class="logo-home">Gia Hân Cosmetics</a></h1>
+      <p>KOL Mỹ phẩm uy tín – chính hãng</p>
+    </div>
+    
+    <div class="search-box">
+      <input type="text" placeholder="Tìm kiếm sản phẩm, thương hiệu...">
+    </div>
+    
+    <div class="header-actions">
+      <!-- ✅ ĐÃ XÓA NÚT GIỎ HÀNG KHỎI TRANG LOGIN/INDEX -->
+      <button id="loginBtn" class="pill login" onclick="openLogin()">Đăng Nhập</button>
+      <img id="userAvatar" class="user-avatar" src="" alt="User Avatar" title="Đăng xuất" onclick="handleLogout()">
+    </div>
+  </header>
+
+  <div class="main-content">
+    <h2 style="font-size: 40px;">Chào mừng bạn đến với thế giới làm đẹp</h2>
+    <h3 Đăng nhập ngay để không bỏ lỡ những ưu đãi chỉ dành riêng cho bạn!</h3>
+    <p id="welcomeText">Đăng nhập ngay để nhận những ưu đãi độc quyền mà chỉ có bạn mới được nhận!</p>
+  </div>
+
+  <div class="login-modal" id="loginModal">
+    <div class="login-box">
+      <span class="close-btn" onclick="closeLogin()">×</span>
+      <h2>ĐĂNG NHẬP</h2>
+      <p style="font-size: 13px;">Bạn chưa có tài khoản? Không cần đăng ký. Đăng nhập nhanh với GIA HÂN COSMETICS REVIEW bằng số điện thoại.</p>
+      <input type="tel" placeholder="+84 123 456 789" id="phoneInput">
+      <button class="login-btn" onclick="handleLogin()">ĐĂNG NHẬP</button>
+    </div>
+  </div>
+
+  <script>
+    // --- VIDEO ---
+    const videoList = ["videos/video6.mp4","videos/video2.mp4","videos/video3.mp4","videos/video1.mp4","videos/video5.mp4","videos/video4.mp4"];
+    let currentVideoIdx = 0;
+    const videoPlayer = document.getElementById("bgVideo");
+
+    function loadAndPlayVideo() {
+      videoPlayer.src = videoList[currentVideoIdx];
+      videoPlayer.load();
+      videoPlayer.play();
+    }
+
+    videoPlayer.addEventListener('ended', () => {
+      currentVideoIdx = (currentVideoIdx + 1) % videoList.length;
+      loadAndPlayVideo();
+    });
+
+    // --- ĐĂNG NHẬP & AVATAR ---
+    const avatarList = [
+      "images/đại diện 1.jpg","images/đại diện 2.jpg","images/đại diện 3.jpg",
+      "images/đại diện 4.jpg","images/đại diện 5.jpg","images/đại diện 6.jpg"
+    ];
+
+    function checkLoginStatus() {
+      const savedAvatar = localStorage.getItem("userAvatar");
+      if (savedAvatar) {
+        document.getElementById("loginBtn").style.display = "none";
+        const avatarImg = document.getElementById("userAvatar");
+        avatarImg.style.display = "block";
+        avatarImg.src = savedAvatar;
+        document.getElementById("welcomeText").innerText = "Chào mừng bạn trở lại! Khám phá những ưu đãi tuyệt vời đang chờ bạn.";
+      }
+    }
+
+    function handleLogin() {
+      const phone = document.getElementById("phoneInput").value;
+      if (phone.length >= 10) {
+        const randomIdx = Math.floor(Math.random() * avatarList.length);
+        localStorage.setItem("userAvatar", avatarList[randomIdx]);
+        alert("Đăng nhập thành công! Gia Hân chúc bạn có một trải nghiệm tuyệt vời nhé.");
+        closeLogin();
+        checkLoginStatus();
+      } else {
+        alert("Vui lòng nhập số điện thoại đúng!");
+      }
+    }
+
+    function handleLogout() {
+      if (confirm("Bạn có muốn đăng xuất không?")) {
+        localStorage.removeItem("userAvatar");
+        location.reload();
+      }
+    }
+
+    function openLogin() { document.getElementById("loginModal").style.display = "flex"; }
+    function closeLogin() { document.getElementById("loginModal").style.display = "none"; }
+
+    window.onload = () => {
+      loadAndPlayVideo();
+      checkLoginStatus();
+    };
+  </script>
+</body>
+</html>

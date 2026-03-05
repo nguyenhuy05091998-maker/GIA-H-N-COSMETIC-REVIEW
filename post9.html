@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>"Da trắng dáng thon" với 5 công thức nước detox đơn giản - Gia Hân Cosmetics Review</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Be Vietnam Pro', sans-serif; background: #f7f7f7; color: #222; }
+
+    /* ===== BACK BAR ===== */
+    .back-bar {
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      padding: 12px 20px;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #FF1493;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: #fff0f5;
+      border: 1.5px solid #ffb6d9;
+      transition: all 0.2s ease;
+    }
+    .back-btn:hover { background: #ffd6e7; color: #cc0077; }
+    .back-btn .arrow { font-size: 18px; line-height: 1; }
+
+    /* ===== ARTICLE ===== */
+    .article-wrapper {
+      max-width: 860px; margin: 36px auto 60px; background: #fff;
+      padding: 44px 52px 64px; border-radius: 16px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.07);
+    }
+    .article-wrapper h1 { font-size: 34px; font-weight: 800; line-height: 1.35; color: #111; margin-bottom: 12px; }
+    .meta { font-size: 14px; color: #888; margin-bottom: 28px; display: block; }
+    .banner-img { width: 100%; height: auto; border-radius: 14px; margin-bottom: 32px; display: block; object-fit: cover; }
+
+    .article-body { font-size: 16px; line-height: 1.9; color: #333; }
+    .article-body p { margin-bottom: 18px; }
+    .article-body h2 { font-size: 20px; font-weight: 800; color: #111; margin: 40px 0 14px; padding-bottom: 10px; border-bottom: 2.5px solid #FF1493; }
+    .article-body h3 { font-size: 17px; font-weight: 700; color: #FF1493; margin: 28px 0 10px; }
+    .article-body ul { list-style: none; padding: 0; margin-bottom: 18px; }
+    .article-body ul li { padding: 6px 0 6px 22px; position: relative; font-size: 15.5px; }
+    .article-body ul li::before { content: "–"; position: absolute; left: 0; color: #FF1493; font-weight: bold; }
+
+    .highlight-box { background: #fff5f9; border-left: 4px solid #FF1493; border-radius: 8px; padding: 20px 22px; margin: 22px 0; font-size: 15.5px; line-height: 1.85; color: #444; }
+
+    .recipe-card { border-radius: 16px; padding: 26px 28px; margin: 28px 0; border: 2px solid #ffd6e7; background: #fff9fb; }
+    .recipe-title { font-size: 18px; font-weight: 800; color: #FF1493; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+    .recipe-section { margin-bottom: 16px; }
+    .recipe-section-label { font-size: 13px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+    .recipe-steps { counter-reset: step; }
+    .recipe-step { padding: 8px 0 8px 36px; position: relative; font-size: 15.5px; border-bottom: 1px dashed #f0c0d0; }
+    .recipe-step:last-child { border-bottom: none; }
+    .recipe-step::before { counter-increment: step; content: counter(step); position: absolute; left: 0; top: 8px; width: 24px; height: 24px; border-radius: 50%; background: #FF1493; color: #fff; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+    .note-box { background: #fff8e1; border-left: 3px solid #ffc107; border-radius: 8px; padding: 12px 16px; margin-top: 12px; font-size: 14px; color: #795548; }
+
+    .content-img { width: 100%; height: auto; border-radius: 14px; margin: 24px 0; display: block; object-fit: cover; }
+    .img-caption { text-align: center; font-size: 13px; color: #aaa; margin-top: -18px; margin-bottom: 24px; font-style: italic; }
+
+    .benefit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 22px 0; }
+    .benefit-item { background: #f9f9f9; border-radius: 12px; padding: 18px 16px; text-align: center; border: 1.5px solid #f0f0f0; }
+    .benefit-icon { font-size: 30px; margin-bottom: 10px; display: block; }
+    .benefit-title { font-size: 14px; font-weight: 700; color: #222; margin-bottom: 6px; }
+    .benefit-desc { font-size: 13px; color: #666; line-height: 1.6; }
+
+    .ingredient-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 16px; }
+    .tag { background: #fce4ec; color: #FF1493; padding: 5px 14px; border-radius: 999px; font-size: 13.5px; font-weight: 600; }
+
+    .warning-card { background: #fff8f0; border: 2px solid #f97316; border-radius: 14px; padding: 22px 24px; margin: 28px 0; }
+    .warning-title { font-size: 17px; font-weight: 800; color: #ea580c; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+
+    .closing { margin-top: 40px; padding: 30px 26px; background: linear-gradient(135deg, #fff5f9, #fff0f6); border-radius: 14px; font-size: 15.5px; color: #444; line-height: 1.9; text-align: center; }
+    .closing .wish { font-size: 20px; font-weight: 800; color: #FF1493; margin-bottom: 14px; display: block; }
+
+    .source-list { margin-top: 36px; padding-top: 24px; border-top: 1px solid #eee; }
+    .source-list h4 { font-size: 14px; font-weight: 700; color: #888; margin-bottom: 10px; }
+    .source-list a { font-size: 13px; color: #aaa; display: block; margin-bottom: 4px; word-break: break-all; }
+    .source-list a:hover { color: #FF1493; }
+
+    /* ===== FOOTER ===== */
+    footer { display: flex; justify-content: space-between; align-items: flex-start; padding: 24px 32px; background: linear-gradient(135deg, #FFB6C1, #fce4ec); margin-top: 20px; flex-wrap: wrap; gap: 20px; }
+    .footer-left { flex: 0 0 65%; }
+    .footer-left p { margin-bottom: 8px; font-size: 13.5px; color: #555; line-height: 1.7; }
+    .footer-left strong { color: #FF1493; }
+    .footer-right { flex: 1; display: flex; flex-direction: column; align-items: flex-end; }
+    .footer-right p { font-size: 13px; font-weight: 600; color: #555; margin-bottom: 10px; }
+    .payment-methods { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+    .payment-methods img { width: 70px; height: 50px; object-fit: contain; border: 1px solid #FF1493; border-radius: 6px; }
+
+    @media (max-width: 768px) {
+      .article-wrapper { padding: 24px 18px 40px; }
+      .article-wrapper h1 { font-size: 24px; }
+      .benefit-grid { grid-template-columns: 1fr 1fr; }
+      footer { flex-direction: column; }
+      .footer-left { flex: none; width: 100%; }
+      .footer-right { align-items: flex-start; }
+    }
+    @media (max-width: 480px) { .benefit-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <!-- NÚT BACK -->
+  <div class="back-bar">
+    <a href="tapchi.html" class="back-btn">
+      <span class="arrow">←</span> Tạp Chí Làm Đẹp
+    </a>
+  </div>
+
+<div class="article-wrapper">
+
+  <h1>"Da trắng dáng thon" với 5 công thức nước detox đơn giản</h1>
+  <span class="meta">August 3, 2022 &nbsp;•&nbsp; Tạp Chí Làm Đẹp &nbsp;•&nbsp; Beauty Box</span>
+
+  <img src="images/n1.jpg" class="banner-img" alt="5 công thức nước detox làm đẹp da">
+
+  <div class="article-body">
+
+    <p>Thay vì dùng nước lọc thì trong ngày bạn có thể thay thế bằng 1–2 bình nước detox. Detox vừa giúp cơ thể có đủ nước vừa tăng cường các khoáng chất, vitamin có lợi cho làn da. Có một số công thức detox làm đẹp da mà bạn có thể dễ dàng thực hiện tại nhà để dùng hằng ngày. Vậy còn ngại gì mà không cùng Beauty Box thử thay đổi thói quen uống nước của mình ngay hôm nay?</p>
+
+    <h2>Nước detox là gì?</h2>
+    <p>Detox là tên gọi chung cho các loại thức uống có công dụng thải độc da, thanh lọc cơ thể. Ngoài thành phần chính là nước lọc, detox còn được pha chế với các loại trái cây tươi, rau củ hoặc thảo mộc. Điều này không chỉ làm tăng hương vị thức uống mà còn giúp cơ thể có thêm nhiều khoáng chất và vitamin hơn.</p>
+    <p>Nước detox còn được ứng dụng trong kế hoạch giảm cân của nhiều người. Bởi lượng calo thấp, ít đường nên detox thay thế cho các đồ uống khác như soda hay nước ép hoa quả.</p>
+
+    <img src="images/n2.jpg" class="content-img" alt="Detox là công thức nước kết hợp với nhiều loại trái cây, rau củ">
+    <p class="img-caption">Detox là công thức nước kết hợp với nhiều loại trái cây, rau củ — Ảnh: ShutterStock</p>
+
+    <h2>3 lợi ích của nước detox trong sức khỏe và làm đẹp</h2>
+    <p>Detox không chỉ đơn giản là một loại thức uống. Ngoài công dụng chung là thanh lọc cho cơ thể thì nước detox có những tác dụng tích cực khác đến sức khỏe của chúng ta như:</p>
+
+    <div class="benefit-grid">
+      <div class="benefit-item">
+        <span class="benefit-icon">⚖️</span>
+        <div class="benefit-title">Giảm cân</div>
+        <div class="benefit-desc">Hỗ trợ trao đổi chất, tăng đốt cháy calo. Uống 0,5 lít trước bữa ăn giảm đến 40% trọng lượng.</div>
+      </div>
+      <div class="benefit-item">
+        <span class="benefit-icon">🌿</span>
+        <div class="benefit-title">Cải thiện tiêu hóa</div>
+        <div class="benefit-desc">Mất nước nhẹ tác động tới tâm trạng, sự tập trung và năng lượng của cơ thể bạn.</div>
+      </div>
+      <div class="benefit-item">
+        <span class="benefit-icon">🛡️</span>
+        <div class="benefit-title">Tăng hệ miễn dịch</div>
+        <div class="benefit-desc">Cảm thấy khỏe hơn rõ rệt — đặc biệt khi detox được bổ sung thêm vitamin C.</div>
+      </div>
+    </div>
+
+    <img src="images/n5.jpg" class="content-img" alt="Thanh lọc cơ thể bằng detox có những tác động tích cực đến sức khỏe">
+    <p class="img-caption">Thanh lọc cơ thể bằng detox có những tác động tích cực đến sức khỏe — Ảnh: ShutterStock</p>
+
+    <h2>5 công thức nước detox làm đẹp da bạn nên thử</h2>
+
+    <div class="recipe-card">
+      <div class="recipe-title">🥒 1. Dưa leo, chanh và bạc hà</div>
+      <p style="margin-bottom:14px;">Thành phần chống oxy hóa ở dưa leo bao gồm beta-carotene, vitamin C và mangan — vừa giúp duy trì độ đàn hồi quan trọng, vừa dưỡng ẩm sâu để da tăng sự mềm mại, dẻo dai.</p>
+      <div class="recipe-section">
+        <div class="recipe-section-label">🧪 Nguyên liệu</div>
+        <div class="ingredient-tags">
+          <span class="tag">2.5–2.8 lít nước lọc</span>
+          <span class="tag">1 quả dưa leo cỡ vừa</span>
+          <span class="tag">2–3 quả chanh nhỏ</span>
+          <span class="tag">10–12 lá bạc hà tươi</span>
+        </div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">📋 Cách làm</div>
+        <div class="recipe-steps">
+          <div class="recipe-step">Rửa sạch và thái lát mỏng dưa leo, chanh.</div>
+          <div class="recipe-step">Thêm chanh, dưa leo, bạc hà vào bình đựng nước.</div>
+          <div class="recipe-step">Đậy kín và để nước trong tủ lạnh ít nhất <strong>3 giờ</strong> hoặc qua đêm.</div>
+        </div>
+      </div>
+    </div>
+
+    <img src="images/n3.jpg" class="content-img" alt="Dưa chuột, chanh và bạc hà là công thức detox làm đẹp da dễ thực hiện tại nhà">
+    <p class="img-caption">Dưa chuột, chanh và bạc hà — công thức detox dễ thực hiện tại nhà — Ảnh: ShutterStock</p>
+
+    <div class="recipe-card">
+      <div class="recipe-title">🍓 2. Dâu tây và kiwi</div>
+      <p style="margin-bottom:14px;">Dâu tây rất giàu ellagic acid, folate và vitamin C — đều có tác dụng trung hòa các tổn thương ở tế bào da do các gốc tự do gây nên. Ellagic acid còn giúp da chống lại các tác hại từ ánh nắng mặt trời.</p>
+      <div class="recipe-section">
+        <div class="recipe-section-label">🧪 Nguyên liệu</div>
+        <div class="ingredient-tags">
+          <span class="tag">1.5 lít nước lạnh</span>
+          <span class="tag">2 quả kiwi</span>
+          <span class="tag">6 quả dâu tây</span>
+        </div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">📋 Cách làm</div>
+        <div class="recipe-steps">
+          <div class="recipe-step">Thái lát dâu tây và kiwi.</div>
+          <div class="recipe-step">Cho 2 nguyên liệu trên vào nước và để tủ lạnh trong <strong>1–2 tiếng</strong> trước khi sử dụng.</div>
+        </div>
+      </div>
+      <div class="note-box">⚠️ Không nên dùng sau 23–48 tiếng hoặc khi thấy nước bắt đầu có vị đắng.</div>
+    </div>
+
+    <img src="images/n6.jpg" class="content-img" alt="Dâu tây và kiwi cho ra công thức nước detox chống lão hóa tốt">
+    <p class="img-caption">Dâu tây và kiwi cho ra công thức nước detox chống lão hóa tốt — Ảnh: ShutterStock</p>
+
+    <div class="recipe-card">
+      <div class="recipe-title">🌿 3. Nha đam, chanh, dấm táo, mật ong và bạc hà</div>
+      <p style="margin-bottom:14px;">Nha đam vừa có đặc tính làm mát cơ thể, vừa giúp hệ tiêu hóa hoạt động tốt hơn. Từ đó, thúc đẩy da thêm sáng mịn chính là điểm mạnh khi dùng nha đam làm nước detox.</p>
+      <div class="recipe-section">
+        <div class="recipe-section-label">🧪 Nguyên liệu</div>
+        <div class="ingredient-tags">
+          <span class="tag">500ml nước lọc</span>
+          <span class="tag">1 quả chanh nhỏ</span>
+          <span class="tag">1 muỗng dấm táo</span>
+          <span class="tag">1 muỗng nha đam</span>
+          <span class="tag">1 muỗng mật ong</span>
+        </div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">📋 Cách làm</div>
+        <div class="recipe-steps">
+          <div class="recipe-step">Chanh ép lấy nước hoặc cắt lát.</div>
+          <div class="recipe-step">Kết hợp tất cả nguyên liệu vào bình nước.</div>
+        </div>
+      </div>
+      <div class="note-box">💡 Uống lạnh: để tủ lạnh qua đêm. Uống nóng/âm ấm: chờ khoảng 30 phút để nước "thấm" các dưỡng chất.</div>
+    </div>
+
+    <img src="images/n7.jpg" class="content-img" alt="Nước detox từ nha đam hỗ trợ tiêu hóa">
+    <p class="img-caption">Nước detox từ nha đam hỗ trợ tiêu hóa — Ảnh: ShutterStock</p>
+
+    <div class="recipe-card">
+      <div class="recipe-title">🍉 4. Dưa hấu và bạc hà</div>
+      <p style="margin-bottom:14px;">Dưa hấu hỗ trợ cơ thể loại bỏ độc tố cùng các gốc tự do để bạn cảm thấy tươi trẻ, khỏe mạnh, tinh thần được nâng cao.</p>
+      <div class="recipe-section">
+        <div class="recipe-section-label">🧪 Nguyên liệu</div>
+        <div class="ingredient-tags">
+          <span class="tag">1–2 lít nước nguội</span>
+          <span class="tag">2–3 miếng dưa hấu cỡ vừa</span>
+          <span class="tag">1 quả chanh</span>
+          <span class="tag">10–13 lá bạc hà tươi</span>
+        </div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">📋 Cách làm</div>
+        <div class="recipe-steps">
+          <div class="recipe-step">Dưa hấu cắt thành miếng vuông nhỏ, vừa ăn.</div>
+          <div class="recipe-step">Cắt lát chanh tươi.</div>
+          <div class="recipe-step">Cho chanh, dưa hấu và bạc hà vào nước và <strong>để tủ lạnh qua đêm</strong>.</div>
+        </div>
+      </div>
+    </div>
+
+    <img src="images/n8.jpg" class="content-img" alt="Dùng dưa hấu làm nước detox vừa giúp đẹp da vừa mang đến cảm giác thoải mái">
+    <p class="img-caption">Dùng dưa hấu làm nước detox vừa giúp đẹp da vừa mang đến cảm giác thoải mái — Ảnh: ShutterStock</p>
+
+    <div class="recipe-card">
+      <div class="recipe-title">🍎 5. Táo, chanh và dâu tây</div>
+      <p style="margin-bottom:14px;">Dù là táo xanh hay táo đỏ đều có nhiều malic acid có khả năng làm sạch và mềm da, mang đến nét tươi mới, sáng khỏe hơn cho da.</p>
+      <div class="recipe-section">
+        <div class="recipe-section-label">🧪 Nguyên liệu</div>
+        <div class="ingredient-tags">
+          <span class="tag">1–2 lít nước lọc</span>
+          <span class="tag">1 quả chanh</span>
+          <span class="tag">5 quả dâu tây</span>
+          <span class="tag">1 quả táo cỡ vừa</span>
+          <span class="tag">1 nắm lá bạc hà</span>
+          <span class="tag">1 muỗng quế</span>
+        </div>
+      </div>
+      <div class="recipe-section">
+        <div class="recipe-section-label">📋 Cách làm</div>
+        <div class="recipe-steps">
+          <div class="recipe-step">Chanh lấy nước cốt hoặc thái lát.</div>
+          <div class="recipe-step">Cắt lát dâu tây và táo.</div>
+          <div class="recipe-step">Cho tất cả nguyên liệu vào nước, trang trí bằng lá bạc hà và quế. Có thể <strong>dùng ngay lập tức</strong>, không cần thời gian chờ.</div>
+        </div>
+      </div>
+    </div>
+
+    <img src="images/n9.jpg" class="content-img" alt="Detox cho làn da sáng khỏe bằng táo">
+    <p class="img-caption">Detox cho làn da sáng khỏe bằng táo — Ảnh: ShutterStock</p>
+
+    <h2>Một số nguyên liệu khác để làm phong phú công thức detox</h2>
+
+    <h3>🍊 1. Trái cây họ cam quýt</h3>
+    <p>Các loại trái cây có họ cam quýt có vai trò quan trọng trong việc hình thành collagen cho da bởi hàm lượng vitamin C cao. Thực phẩm giàu vitamin C được xem là chìa khóa cho việc chống oxy hóa, giúp cải thiện da bị thâm sạm.</p>
+
+    <img src="images/n10.jpg" class="content-img" alt="Trái cây họ cam quýt hay dâu tây là nguyên liệu làm nước detox được yêu thích">
+    <p class="img-caption">Trái cây họ cam quýt hay dâu tây là nguyên liệu làm nước detox được yêu thích — Ảnh: ShutterStock</p>
+
+    <h3>🌱 2. Bạc hà</h3>
+    <p>Bạc hà được biết đến với công dụng làm dịu, chống viêm, ngừa mụn và chữa lành cho da. Hơn thế nữa, các chất chống oxy hóa và flavonoid trong bạc hà còn giúp da chống lão hóa hiệu quả.</p>
+
+    <h3>🫚 3. Gừng</h3>
+    <p>Gừng có nhiều dưỡng chất chống lão hóa và chống viêm nên có hiệu quả trong việc làm đẹp da cũng như giữ nước cho da.</p>
+
+    <h3>🍍 4. Trái cây nhiệt đới</h3>
+    <p>Bao gồm đu đủ, dứa, kiwi hay ổi có lượng vitamin C tốt để tăng cường sản sinh collagen cho da. Đặc biệt, ở đu đủ còn có lượng lớn vitamin A, có vai trò tăng tốc độ tái tạo tế bào nhằm phục hồi những vùng da đang chịu tổn thương.</p>
+
+    <img src="images/n11.jpg" class="content-img" alt="Trái cây nhiệt đới giàu vitamin tăng sinh collagen">
+    <p class="img-caption">Trái cây nhiệt đới giàu vitamin tăng sinh collagen — Ảnh: ShutterStock</p>
+
+    <h2>Dùng nước detox làm đẹp da cần lưu ý gì?</h2>
+
+    <div class="warning-card">
+      <div class="warning-title">⚠️ Mẹ bầu và cho con bú</div>
+      <p>Khi mang thai hoặc đang trong giai đoạn cho con bú, bạn đều cần cẩn trọng hơn. Vẫn có thể uống nước detox nhưng cần <strong>tham vấn ý kiến bác sĩ</strong> trước. Khi dùng, cần đảm bảo nước đã được đun sôi, nguyên liệu có độ vệ sinh cao và không dùng khi đã để qua ngày. Đặc biệt, không nên dùng nhiều hoặc dùng mỗi ngày vì hệ tiêu hóa lúc mang thai rất nhạy cảm.</p>
+    </div>
+
+    <img src="images/n12.jpg" class="content-img" alt="Mẹ bầu hoặc đang cho con bú là đối tượng cần cẩn trọng dùng các loại nước detox">
+    <p class="img-caption">Mẹ bầu hoặc đang cho con bú cần cẩn trọng khi dùng nước detox — Ảnh: ShutterStock</p>
+
+    <div class="warning-card">
+      <div class="warning-title">⚠️ Cẩn trọng khi có bệnh lý</div>
+      <p>Nếu hệ tiêu hóa không tốt hoặc đang có bệnh lý như tiểu đường, cao huyết áp thì nên tham khảo ý kiến bác sĩ trước khi có bất kỳ thay đổi nào trong chế độ ăn uống. Một số loại trái cây hay thảo dược có thể không phù hợp như người bình thường.</p>
+    </div>
+
+    <div class="highlight-box">
+      💧 <strong>Đừng lạm dụng detox thay thế hoàn toàn nước lọc!</strong><br>
+      Nước detox là cách thay đổi hương vị và hỗ trợ khoáng chất. Bạn có thể kết hợp detox với chế độ ăn uống, nghỉ ngơi lành mạnh — cơ thể sẽ được cải thiện và khỏe mạnh hơn từng ngày.
+    </div>
+
+    <div class="closing">
+      <span class="wish">✨ Thử Ngay Hôm Nay!</span>
+      <p>Các công thức detox làm đẹp da của Beauty Box là cách bổ trợ để quá trình skincare hay chăm sóc cơ thể thêm phong phú và hiệu quả bạn nhé. Bất kỳ phương pháp nào liên quan đến sức khỏe đều cần áp dụng một cách hợp lý, tránh lạm dụng hay "đốt cháy giai đoạn". Có như thế mới mang đến những hiệu quả như mong muốn.</p>
+    </div>
+
+    <div class="source-list">
+      <h4>NGUỒN THAM KHẢO</h4>
+      <a href="https://www.bellavidasb.com/blogs/news/7-detox-water-recipes-to-get-your-skin-glowing-from-the-inside" target="_blank">7 DETOX WATER RECIPES TO GET YOUR SKIN GLOWING — bellavidasb.com</a>
+      <a href="https://www.purefiji.com/blog/drink-clear-glowing-skin/" target="_blank">Detox Water: Drink Your Way to Clear Glowing Skin — purefiji.com</a>
+      <a href="https://dailyburn.com/life/recipes/how-to-detox-healthy-recipes/" target="_blank">How to Detox the Healthy Way: 16 Recipes You'll Love — dailyburn.com</a>
+      <a href="https://www.healthline.com/nutrition/detox-water-101" target="_blank">Detox Water Health Benefits and Myths — healthline.com</a>
+      <a href="https://www.momjunction.com/articles/is-it-safe-to-detox-during-pregnancy_00331369/" target="_blank">Is It Safe To Detox During Pregnancy? — momjunction.com</a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">
+    <p>Website <strong>Gia Hân Cosmetics Review</strong> thuộc quyền quản lý và vận hành bởi <strong>KOL Gia Hân</strong>. Giấy chứng nhận đăng ký kinh doanh số <strong>0309802418</strong>, cấp ngày 23/01/2026 tại Sở Kế hoạch và Đầu tư TP. Hồ Chí Minh.</p>
+    <p>Gia Hân Cosmetics Review chuyên cung cấp mỹ phẩm chính hãng, được chọn lọc kỹ lưỡng từ các thương hiệu uy tín trong và ngoài nước.</p>
+    <p>Địa chỉ hoạt động: 613 Âu Cơ, Quận Tân Phú, TP. Hồ Chí Minh, Việt Nam.</p>
+  </div>
+  <div class="footer-right">
+    <p>Phương thức thanh toán</p>
+    <div class="payment-methods">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/06414657-24ed-4da4-8a54-f207d45ab1be.webp" alt="VNPay">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/afebded0-f4e7-4c5f-aee3-aa01271174c3.webp" alt="MoMo">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/64102078-db30-4f18-a473-2582467505fd.webp" alt="ZaloPay">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/a19ac3f9-5d5e-43c3-aa84-49576cad1102.webp" alt="Visa">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/3e4a7882-d755-4110-83b5-6496bf5e689c.webp" alt="MasterCard">
+    </div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/render.js"></script>
+</body>
+</html>

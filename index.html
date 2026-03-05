@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gia Hân Cosmetics Review</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Be Vietnam Pro', Arial, sans-serif; background: #fff; }
+
+    /* ===== MARQUEE ===== */
+    .marquee-bar { background: #b39ddb; color: #fff; padding: 10px 0; overflow: hidden; white-space: nowrap; }
+    .marquee-track { display: inline-block; animation: marquee 55s linear infinite; font-size: 14px; font-weight: 600; letter-spacing: 0.5px; }
+    .marquee-track span { margin: 0 40px; }
+    @keyframes marquee { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
+
+    .header { background: #fff; border-bottom: 1px solid #eee; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; position: sticky; top: 0; z-index: 900; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .logo h1 { margin: 0; }
+    .logo h1 a { color: #FF1493; font-size: 26px; text-decoration: none; }
+    .logo p { color: #555; font-size: 13px; margin-top: 2px; }
+    .search-box { position: relative; }
+    .search-box input { width: 360px; max-width: 100%; padding: 8px 36px 8px 12px; border: 1.5px solid #FF1493; border-radius: 20px; outline: none; font-size: 14px; font-family: inherit; }
+    .search-box input:focus { box-shadow: 0 0 0 3px rgba(255,20,147,0.12); }
+    .search-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #bbb; font-size: 16px; display: none; }
+    .search-clear.show { display: block; }
+    .search-results-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #fff; border: 1.5px solid #ffd6e7; border-radius: 14px; box-shadow: 0 8px 24px rgba(255,20,147,0.12); z-index: 9999; max-height: 380px; overflow-y: auto; display: none; }
+    .search-results-dropdown.show { display: block; }
+    .search-result-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; cursor: pointer; transition: background 0.15s; border-bottom: 1px solid #fff5f8; }
+    .search-result-item:last-child { border-bottom: none; }
+    .search-result-item:hover { background: #fff0f8; }
+    .search-result-img { width: 44px; height: 44px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+    .search-result-info { flex: 1; }
+    .search-result-name { font-size: 13px; font-weight: 500; color: #222; line-height: 1.3; }
+    .search-result-brand { font-size: 11px; color: #aaa; text-transform: uppercase; font-weight: 600; margin-top: 2px; }
+    .search-result-price { font-size: 13px; font-weight: 700; color: #FF1493; flex-shrink: 0; }
+    .search-no-result { padding: 20px; text-align: center; color: #bbb; font-size: 13px; }
+    .search-section-label { padding: 8px 14px 4px; font-size: 11px; font-weight: 700; color: #FF1493; text-transform: uppercase; letter-spacing: 0.08em; background: #fff8fb; }
+
+    .header-actions { display: flex; gap: 8px; align-items: center; }
+    .pill { padding: 8px 18px; border-radius: 999px; font-size: 14px; font-weight: 500; color: #333; background: #f5f5f5; white-space: nowrap; border: none; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; text-align: center; transition: all 0.2s; }
+    .pill:hover { background: #ffd6e7; color: #ff1493; transform: translateY(-1px); }
+    .pill.cart { background: #f3e5f5; }
+    .pill.login { background: #e8eaf6; }
+    .cart-wrap { position: relative; display: inline-block; }
+    .cart-badge { position: absolute; top: -6px; right: -6px; background: #FF1493; color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; display: none; align-items: center; justify-content: center; font-weight: 700; }
+
+    /* ===== NAV PILLS ===== */
+    .pill-bar { background: #fff; padding: 8px 16px; border-bottom: 1px solid #eee; }
+    .menu-pills { display: flex; gap: 0; justify-content: space-evenly; width: 100%; }
+    .menu-pills .pill { font-size: 13px; padding: 7px 10px; flex: 1; text-align: center; justify-content: center; white-space: nowrap; }
+    .menu-pills .pill:nth-child(1) { background: #fce4ec; }
+    .menu-pills .pill:nth-child(2) { background: #e1f5fe; }
+    .menu-pills .pill:nth-child(3) { background: #ffe0b2; }
+    .menu-pills .pill:nth-child(4) { background: #fde2e4; }
+    .menu-pills .pill:nth-child(5) { background: #e8f5e9; }
+    .menu-pills .pill:nth-child(6) { background: #fce4ec; }
+    .menu-pills .pill:nth-child(7) { background: #f3e5f5; }
+    .menu-pills .pill:nth-child(8) { background: #e8eaf6; }
+    .menu-pills .pill:hover { background: #ffd6e7; color: #FF1493; transform: translateY(-1px); }
+
+    .banner { background: linear-gradient(135deg, #FFB6C1, #fce4ec); text-align: center; padding: 18px 20px; }
+    .banner h2 { color: #FF1493; font-size: 22px; }
+    .banner p { color: #555; margin-top: 6px; font-size: 14px; }
+
+    .video-section { width: 100%; background: #000; position: relative; }
+    .video-section video { width: 100%; max-height: 520px; object-fit: cover; display: block; }
+    .video-label { position: absolute; bottom: 12px; right: 16px; background: rgba(0,0,0,0.45); color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 12px; }
+
+    .img-slideshow { position: relative; width: 100%; height: 480px; overflow: hidden; background: #f9f9f9; }
+    .img-slideshow img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity 0.8s ease; }
+    .img-slideshow img.active { opacity: 1; }
+    .slide-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,182,193,0.8); border: none; border-radius: 50%; width: 44px; height: 44px; font-size: 20px; color: #FF1493; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .slide-btn:hover { background: rgba(255,20,147,0.8); color: #fff; }
+    .slide-btn.prev { left: 12px; }
+    .slide-btn.next { right: 12px; }
+    .slide-dots { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; }
+    .slide-dot { width: 11px; height: 11px; border-radius: 50%; background: rgba(255,182,193,0.6); cursor: pointer; transition: background 0.3s; }
+    .slide-dot.active { background: #FF1493; }
+
+    .section { padding: 28px 20px; max-width: 1280px; margin: 0 auto; }
+    .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .section-header h2 { color: #FF1493; font-size: 20px; }
+    .see-all-btn { padding: 7px 18px; border: 1.5px solid #FF1493; color: #FF1493; border-radius: 999px; text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.2s; white-space: nowrap; }
+    .see-all-btn:hover { background: #FF1493; color: #fff; }
+
+    .product-row { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: thin; }
+    .product-row::-webkit-scrollbar { height: 6px; }
+    .product-row::-webkit-scrollbar-thumb { background: #FFB6C1; border-radius: 3px; }
+
+    .product-card { min-width: 200px; max-width: 200px; background: #fff; border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; text-align: center; flex-shrink: 0; transition: box-shadow 0.25s, transform 0.2s; cursor: pointer; position: relative; }
+    .product-card:hover { box-shadow: 0 6px 20px rgba(255,20,147,0.18); transform: translateY(-3px); }
+    .card-img-wrap { position: relative; overflow: hidden; height: 180px; }
+    .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .product-card:hover .card-img-wrap img { transform: scale(1.06); }
+    .new-badge { position: absolute; top: 8px; left: 8px; background: #222; color: #fff; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 999px; z-index: 2; }
+    .wishlist-mini { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.9); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; z-index: 2; transition: background 0.2s, transform 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+    .wishlist-mini:hover { background: #FF1493; color: #fff; transform: scale(1.1); }
+    .wishlist-mini.active { background: #FF1493; color: #fff; }
+    .quick-view-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255,20,147,0.88); color: #fff; text-align: center; padding: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transform: translateY(100%); transition: transform 0.25s ease; z-index: 3; }
+    .product-card:hover .quick-view-overlay { transform: translateY(0); }
+    .card-body { padding: 10px; }
+    .brand-tag { font-size: 11px; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card-body h4 { font-size: 13px; color: #333; margin: 4px 0; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .card-body .price { color: #FF1493; font-weight: bold; font-size: 14px; margin: 4px 0; }
+    .section-divider { height: 6px; background: linear-gradient(90deg, #fce4ec, #e1f5fe, #e8f5e9, #ffe0b2); }
+
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .modal-overlay.show { opacity: 1; pointer-events: all; }
+    .modal-box { background: #fff; border-radius: 20px; max-width: 820px; width: 100%; max-height: 90vh; overflow-y: auto; display: flex; position: relative; transform: scale(0.92); transition: transform 0.25s; }
+    .modal-overlay.show .modal-box { transform: scale(1); }
+    .modal-close { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 50%; background: #f5f5f5; border: none; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.2s; }
+    .modal-close:hover { background: #ffd6e7; color: #FF1493; }
+    .modal-img-side { width: 360px; flex-shrink: 0; background: #fff9fb; border-radius: 20px 0 0 20px; display: flex; flex-direction: column; overflow: hidden; }
+    .modal-main-img { flex: 1; display: flex; align-items: center; justify-content: center; padding: 24px; min-height: 280px; }
+    .modal-main-img img { max-width: 100%; max-height: 280px; object-fit: contain; }
+    .modal-thumbs { display: flex; gap: 8px; padding: 12px; background: #ffe4f0; overflow-x: auto; }
+    .modal-thumb { width: 56px; height: 56px; border-radius: 8px; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; flex-shrink: 0; }
+    .modal-thumb.active, .modal-thumb:hover { border-color: #FF1493; }
+    .modal-info { flex: 1; padding: 28px 26px 28px 24px; overflow-y: auto; }
+    .modal-brand-tag { font-size: 11px; font-weight: 700; color: #888; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+    .modal-title { font-size: 17px; font-weight: 700; line-height: 1.4; color: #1a1a1a; margin-bottom: 12px; }
+    .modal-stars { margin-bottom: 10px; }
+    .stars { color: #f59e0b; font-size: 13px; }
+    .modal-price-row { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+    .modal-price { font-size: 24px; font-weight: 700; color: #FF1493; }
+    .modal-price-old { font-size: 14px; color: #bbb; text-decoration: line-through; }
+    .modal-sale-tag { background: #FF1493; color: #fff; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+    .modal-desc { font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 18px; }
+    .modal-qty-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .modal-qty-label { font-size: 13px; font-weight: 600; color: #444; }
+    .qty-btn { width: 32px; height: 32px; border-radius: 8px; border: 1.5px solid #ddd; background: #fff; font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s; }
+    .qty-btn:hover { border-color: #FF1493; color: #FF1493; }
+    .qty-num { font-size: 16px; font-weight: 600; min-width: 28px; text-align: center; }
+    .modal-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-add-cart { flex: 1; padding: 13px; background: #fff; color: #FF1493; border: 2px solid #FF1493; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+    .btn-add-cart:hover { background: #fff0f5; }
+    .btn-buy-now { flex: 1; padding: 13px; background: linear-gradient(135deg, #FF1493, #ff69b4); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.15s; font-family: inherit; }
+    .btn-buy-now:hover { opacity: 0.9; transform: translateY(-1px); }
+    .modal-info-note { margin-top: 16px; padding: 12px; background: #fff9fb; border-radius: 10px; font-size: 12px; color: #888; line-height: 1.8; border: 1px solid #ffe4f0; }
+    .modal-info-note b { color: #444; }
+
+    /* CART DRAWER */
+    .cart-drawer { position: fixed; top: 0; right: 0; width: 370px; height: 100vh; background: #fff; box-shadow: -4px 0 24px rgba(0,0,0,0.12); z-index: 1500; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
+    .cart-drawer.open { transform: translateX(0); }
+    .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 1400; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .cart-overlay.show { opacity: 1; pointer-events: all; }
+    .cart-head { padding: 18px 20px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #fff0f5, #ffd6e7); }
+    .cart-head h2 { font-size: 18px; font-weight: 700; color: #1a1a1a; }
+    .cart-head-close { background: none; border: none; font-size: 22px; cursor: pointer; color: #666; }
+    .cart-items-list { flex: 1; overflow-y: auto; padding: 14px; }
+    .cart-empty-msg { text-align: center; padding: 40px 20px; color: #bbb; font-size: 14px; }
+    .cart-empty-msg .icon { font-size: 46px; margin-bottom: 10px; }
+    .cart-item-row { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f5f5f5; }
+    .cart-item-row img { width: 68px; height: 68px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+    .cart-item-body { flex: 1; }
+    .cart-item-name { font-size: 12px; font-weight: 500; line-height: 1.4; margin-bottom: 4px; }
+    .cart-item-brand { font-size: 10px; color: #aaa; text-transform: uppercase; font-weight: 600; margin-bottom: 4px; }
+    .cart-item-price { color: #FF1493; font-weight: 700; font-size: 14px; }
+    .cart-item-qty-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+    .cart-item-qty-btn { width: 24px; height: 24px; border-radius: 6px; border: 1px solid #ddd; background: #fff; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .cart-item-qty-btn:hover { border-color: #FF1493; color: #FF1493; }
+    .cart-item-qty-num { font-size: 13px; font-weight: 600; min-width: 20px; text-align: center; }
+    .cart-item-del { background: none; border: none; cursor: pointer; color: #ccc; font-size: 17px; align-self: flex-start; margin-left: auto; }
+    .cart-item-del:hover { color: #FF1493; }
+    .cart-foot { padding: 18px 20px; border-top: 1px solid #eee; }
+    .cart-total-row { display: flex; justify-content: space-between; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .cart-total-row span:last-child { color: #FF1493; }
+    .cart-go-cart-btn { width: 100%; padding: 12px; background: #fff; color: #FF1493; border: 2px solid #FF1493; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; margin-bottom: 8px; transition: all 0.2s; }
+    .cart-go-cart-btn:hover { background: #fff0f5; }
+    .cart-checkout-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #FF1493, #ff69b4); color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
+    .cart-checkout-btn:hover { opacity: 0.9; }
+
+    .toast { position: fixed; bottom: 28px; right: 28px; background: #1a1a1a; color: #fff; padding: 13px 20px; border-radius: 12px; font-size: 14px; z-index: 2000; transform: translateY(16px); opacity: 0; transition: all 0.3s; pointer-events: none; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    footer { display: flex; justify-content: space-between; align-items: flex-start; padding: 24px 30px; background: #FFB6C1; margin-top: 20px; flex-wrap: wrap; gap: 16px; }
+    .footer-left { flex: 0 0 62%; }
+    .footer-left p { font-size: 13px; color: #333; margin-bottom: 8px; line-height: 1.6; }
+    .footer-right { flex: 1; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+    .footer-right p { font-size: 13px; font-weight: 600; }
+    .payment-methods { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+    .payment-methods img { width: 65px; height: 44px; object-fit: contain; border: 1px solid #FF1493; border-radius: 5px; background: #fff; }
+
+    @media (max-width: 900px) { .menu-pills .pill { font-size: 11px; padding: 6px 6px; } }
+    @media (max-width: 768px) {
+      .header { flex-direction: column; text-align: center; }
+      .search-box input { width: 100%; }
+      footer { flex-direction: column; }
+      .footer-left, .footer-right { flex: none; width: 100%; }
+      .footer-right { align-items: flex-start; }
+      .modal-box { flex-direction: column; }
+      .modal-img-side { width: 100%; border-radius: 20px 20px 0 0; min-height: 240px; }
+      .cart-drawer { width: 100%; }
+      .menu-pills { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+      .menu-pills .pill { flex: 0 0 auto; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>🚚 FREESHIP 15K MỌI ĐƠN HÀNG</span>
+    <span>💥 NHẬP MÃ T01FREESHIP30K – GIẢM NGAY 30K CHO ĐƠN HÀNG 199K</span>
+    <span>🎁 HỖ TRỢ GÓI QUÀ + KHẮC SÔN MIỄN PHÍ</span>
+    <span>✨ MUA ONLINE – NHẬN TẠI CỬA HÀNG GẦN NHẤT</span>
+    <span>🛍️ MIFFY CHÍNH HÃNG – ĐỒ CHƠI NHỒI BÔNG CAO CẤP</span>
+    <span>🌸 MỸ PHẨM CHÍNH HÃNG – GIÁ TỐT NHẤT THỊ TRƯỜNG</span>
+    <span>🚚 FREESHIP 15K MỌI ĐƠN HÀNG</span>
+    <span>💥 NHẬP MÃ T01FREESHIP30K – GIẢM NGAY 30K CHO ĐƠN HÀNG 199K</span>
+    <span>🎁 HỖ TRỢ GÓI QUÀ + KHẮC SÔN MIỄN PHÍ</span>
+    <span>✨ MUA ONLINE – NHẬN TẠI CỬA HÀNG GẦN NHẤT</span>
+    <span>🛍️ MIFFY CHÍNH HÃNG – ĐỒ CHƠI NHỒI BÔNG CAO CẤP</span>
+    <span>🌸 MỸ PHẨM CHÍNH HÃNG – GIÁ TỐT NHẤT THỊ TRƯỜNG</span>
+  </div>
+</div>
+
+<header class="header">
+  <div class="logo">
+    <h1><a href="index.html">Gia Hân Cosmetics Review</a></h1>
+    <p>KOL cho các thương hiệu mỹ phẩm uy tín – chính hãng</p>
+  </div>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm, thương hiệu..." autocomplete="off">
+    <button class="search-clear" id="searchClear" title="Xóa">✕</button>
+    <div class="search-results-dropdown" id="searchDropdown"></div>
+  </div>
+  <div class="header-actions">
+    <div class="cart-wrap">
+      <button class="pill cart" onclick="openCart()" style="cursor:pointer;">🛒 Giỏ Hàng</button>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </div>
+    <a href="login.html" class="pill login" id="loginPill">Đăng Nhập</a>
+  </div>
+</header>
+
+<nav class="pill-bar">
+  <div class="menu-pills">
+    <a href="brand.html"  class="pill">Thương Hiệu</a>
+    <a href="tapchi.html" class="pill">Tạp Chí Làm Đẹp</a>
+    <a href="km.html"     class="pill">Khuyến Mãi</a>
+    <a href="miffy.html"  class="pill">MIFFY Chính Hãng</a>
+    <a href="td.html"     class="pill">Trang Điểm</a>
+    <a href="csd.html"    class="pill">Chăm Sóc Da Mặt</a>
+    <a href="csct.html"   class="pill">Chăm Sóc Cơ Thể</a>
+    <a href="spmoi.html"  class="pill">Sản Phẩm Mới</a>
+  </div>
+</nav>
+
+<section class="banner">
+  <h2>Mỹ phẩm chính hãng – Thương hiệu nổi tiếng</h2>
+  <p>Từ skincare, makeup đến quà tặng kèm xịn xò,<br>
+  cần gì cũng có – để <strong>Gia Hân lo</strong> 💄✨<br>
+  <em>Nhấn vào sản phẩm để xem nhanh và thêm vào giỏ hàng!</em></p>
+</section>
+
+<div class="video-section" id="videoSection" style="position:relative;">
+  <video id="mainVideo" autoplay muted playsinline preload="auto" disablePictureInPicture controlsList="nodownload nofullscreen noremoteplayback" style="width:100%;max-height:520px;object-fit:cover;display:block;pointer-events:none;"></video>
+  <div class="video-label" id="videoLabel">Đang tải...</div>
+  <div id="videoError" style="display:none;position:absolute;inset:0;background:#111;color:#aaa;align-items:center;justify-content:center;flex-direction:column;gap:12px;font-size:14px;text-align:center;padding:20px;">
+    <span style="font-size:44px">🎬</span><span>Không tìm thấy file video.</span>
+  </div>
+</div>
+
+<script>
+const VIDEO_FILES = ["videos/video11.mp4","videos/video12.mp4","videos/video13.mp4","videos/video14.mp4","videos/video15.mp4","videos/video16.mp4","videos/video17.mp4"];
+(function() {
+  const vid = document.getElementById('mainVideo');
+  const lbl = document.getElementById('videoLabel');
+  const errEl = document.getElementById('videoError');
+  let idx = 0, fails = 0;
+  vid.addEventListener("contextmenu", e => e.preventDefault());
+  vid.addEventListener("click", e => e.preventDefault());
+  vid.addEventListener("pause", () => { vid.play().catch(()=>{}); });
+  function play(i) { vid.src = VIDEO_FILES[i]; vid.load(); vid.play().catch(()=>{}); lbl.textContent = 'Video ' + (i+1) + ' / ' + VIDEO_FILES.length; }
+  vid.addEventListener('canplay', function() { fails = 0; vid.style.display = 'block'; errEl.style.display = 'none'; });
+  vid.addEventListener('ended', function() { idx = (idx+1)%VIDEO_FILES.length; play(idx); });
+  vid.addEventListener('error', function() { fails++; if (fails >= VIDEO_FILES.length) { vid.style.display='none'; lbl.style.display='none'; errEl.style.display='flex'; return; } idx=(idx+1)%VIDEO_FILES.length; setTimeout(()=>play(idx),600); });
+  play(0);
+})();
+</script>
+
+<div class="img-slideshow" id="imgSlideshow">
+  <img src="images/1.jpg" alt="Slide 1" class="active">
+  <img src="images/2(1).jpg" alt="Slide 2">
+  <img src="images/3.jpg" alt="Slide 3">
+  <img src="images/tết-KOL GIA HÂN.jpg" alt="Slide 4">
+  <img src="images/mifit-kol.jpg" alt="Slide 5">
+  <button class="slide-btn prev" id="imgPrev">←</button>
+  <button class="slide-btn next" id="imgNext">→</button>
+  <div class="slide-dots" id="slideDots">
+    <span class="slide-dot active" data-idx="0"></span>
+    <span class="slide-dot" data-idx="1"></span>
+    <span class="slide-dot" data-idx="2"></span>
+    <span class="slide-dot" data-idx="3"></span>
+    <span class="slide-dot" data-idx="4"></span>
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- MIFFY -->
+<div class="section">
+  <div class="section-header"><h2>🐰 MIFFY Chính Hãng</h2><a href="miffy.html" class="see-all-btn">Xem tất cả →</a></div>
+  <div class="product-row" id="miffyRow"></div>
+</div>
+<div class="section-divider"></div>
+
+<!-- TRANG ĐIỂM -->
+<div class="section">
+  <div class="section-header"><h2>💄 Trang Điểm</h2><a href="td.html" class="see-all-btn">Xem tất cả →</a></div>
+  <div class="product-row" id="tdRow"></div>
+</div>
+<div class="section-divider"></div>
+
+<!-- CHĂM SÓC DA MẶT -->
+<div class="section">
+  <div class="section-header"><h2>🌿 Chăm Sóc Da Mặt</h2><a href="csd.html" class="see-all-btn">Xem tất cả →</a></div>
+  <div class="product-row" id="csdRow"></div>
+</div>
+<div class="section-divider"></div>
+
+<!-- CHĂM SÓC CƠ THỂ -->
+<div class="section">
+  <div class="section-header"><h2>🧴 Chăm Sóc Cơ Thể</h2><a href="csct.html" class="see-all-btn">Xem tất cả →</a></div>
+  <div class="product-row" id="csctRow"></div>
+</div>
+<div class="section-divider"></div>
+
+<!-- SẢN PHẨM MỚI -->
+<div class="section">
+  <div class="section-header"><h2>✨ Sản Phẩm Mới</h2><a href="spmoi.html" class="see-all-btn">Xem tất cả →</a></div>
+  <div class="product-row" id="spmoiRow"></div>
+</div>
+
+<footer>
+  <div class="footer-left">
+    <p>Website <strong>Gia Hân Cosmetics Review</strong> thuộc quyền quản lý và vận hành bởi <strong>KOL Gia Hân</strong>. Giấy chứng nhận đăng ký kinh doanh số <strong>0309802418</strong>, cấp ngày 23/01/2026 tại Sở Kế hoạch và Đầu tư TP. Hồ Chí Minh.</p>
+    <p>Gia Hân Cosmetics Review chuyên cung cấp mỹ phẩm chính hãng, được chọn lọc kỹ lưỡng từ các thương hiệu uy tín trong và ngoài nước.</p>
+    <p>Địa chỉ hoạt động: 613 Âu Cơ, Quận Tân Phú, TP. Hồ Chí Minh, Việt Nam.</p>
+    <p>Cam kết mang đến trải nghiệm mua sắm minh bạch, tiện lợi và đáng tin cậy cho khách hàng.</p>
+  </div>
+  <div class="footer-right">
+    <p>Phương thức thanh toán</p>
+    <div class="payment-methods">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/06414657-24ed-4da4-8a54-f207d45ab1be.webp" alt="payment">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/afebded0-f4e7-4c5f-aee3-aa01271174c3.webp" alt="payment">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/64102078-db30-4f18-a473-2582467505fd.webp" alt="payment">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/a19ac3f9-5d5e-43c3-aa84-49576cad1102.webp" alt="payment">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/3e4a7882-d755-4110-83b5-6496bf5e689c.webp" alt="payment">
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-img-side">
+      <div class="modal-main-img"><img id="modalImg" src="" alt=""></div>
+      <div class="modal-thumbs" id="modalThumbs"></div>
+    </div>
+    <div class="modal-info">
+      <div class="modal-brand-tag" id="modalBrand"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-stars"><span class="stars">★★★★☆</span> <span style="color:#aaa;font-size:12px">(Đánh giá mới)</span></div>
+      <div class="modal-price-row">
+        <div class="modal-price" id="modalPrice"></div>
+        <div class="modal-price-old" id="modalOldPrice" style="display:none"></div>
+        <div class="modal-sale-tag" id="modalSaleTag" style="display:none"></div>
+      </div>
+      <div class="modal-desc" id="modalDesc"></div>
+      <div class="modal-qty-row">
+        <span class="modal-qty-label">Số lượng:</span>
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <span class="qty-num" id="qtyNum">1</span>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-add-cart" onclick="addToCartFromModal()">🛒 Thêm vào giỏ</button>
+        <button class="btn-buy-now" onclick="buyNow()">Mua ngay</button>
+      </div>
+      <div class="modal-info-note">
+        <b>🚚 Freeship</b> cho đơn từ 300.000đ &nbsp;|&nbsp; <b>💯 Chính hãng 100%</b><br>
+        <b>🔄 Đổi trả 30 ngày</b> nếu hàng lỗi &nbsp;|&nbsp; <b>📦 Giao nhanh 2–3 ngày</b>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-head">
+    <h2>🛒 Giỏ hàng của bạn</h2>
+    <button class="cart-head-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items-list" id="cartItemsList">
+    <div class="cart-empty-msg"><div class="icon">🛍️</div>Giỏ hàng trống. Hãy thêm sản phẩm!</div>
+  </div>
+  <div class="cart-foot">
+    <div class="cart-total-row"><span>Tổng cộng:</span><span id="cartTotal">0đ</span></div>
+    <button class="cart-go-cart-btn" onclick="goToCart()">🛒 Xem giỏ hàng</button>
+    <button class="cart-checkout-btn" onclick="goToCheckout()">💳 Thanh toán ngay →</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===== DỮ LIỆU SẢN PHẨM ===== */
+const SAMPLE_MIFFY = [
+  { name:"Đồ Chơi Nhồi Bông Melanie Tulip Vipo (18cm)", brand:"MIFFY", price:"340.000đ", img:"images/hoa1.jpg", isNew:true, desc:"Đồ chơi nhồi bông Miffy chính hãng cao cấp. Chất liệu bông mềm mịn, an toàn cho trẻ em." },
+  { name:"Đồ Chơi Nhồi Bông Miffy Vương Miện Vipo (18cm)", brand:"MIFFY", price:"340.000đ", img:"images/miffy-vm.jpg", isNew:true, desc:"Miffy đội vương miện xinh xắn – phiên bản đặc biệt. Kích thước 18cm, chính hãng từ Hà Lan." },
+  { name:"Móc Khoá Boris 2D Vipo x Boris 2D Keychain (6.5cm)", brand:"MIFFY", price:"166.000đ", img:"images/mk1.jpg", isNew:false, desc:"Móc khoá Boris 2D siêu dễ thương, kích thước 6.5cm." },
+  { name:"Đồ Chơi Nhồi Bông Miffy Táo Vipo (18cm)", brand:"MIFFY", price:"340.000đ", img:"images/tao1.jpg", isNew:true, desc:"Miffy ôm quả táo đỏ xinh yêu – phiên bản mùa thu cực dễ thương." },
+  { name:"Móc Khoá Túi Mini Miffy Bag Keychain", brand:"MIFFY", price:"329.000đ", img:"images/tunhien.jpg", isNew:true, desc:"Túi mini hình Miffy siêu cute, có thể dùng làm móc khoá hoặc trang trí túi xách." },
+  { name:"Gối Boris Vipo x Boris Cushion", brand:"MIFFY", price:"548.000đ", img:"images/vipo1.jpg", isNew:false, desc:"VIPO x Boris Cushion là lựa chọn hoàn hảo cho những ai yêu thích phong cách tối giản." },
+];
+
+const SAMPLE_TD = [
+  {
+    name: "Kem Nền Che Khuyết Điểm Clio Kill Cover Founwear Foundation SPF30+ PA++",
+    brand: "CLUB CLIO",
+    price: "545.000đ",
+    img: "images/td1.jpg",
+    isNew: true,
+    desc: "Kem nền che phủ hoàn hảo, giữ nếp cả ngày. SPF30+ PA++ bảo vệ da khỏi tia UV. Phù hợp mọi loại da."
+  },
+  {
+    name: "Son Thạch Bóng Thuần Chay Amuse Jel-Fit Tint 3.8g",
+    brand: "AMUSE",
+    price: "299.000đ",
+    img: "images/td2.jpg",
+    isNew: true,
+    desc: "Son thạch bóng thuần chay cho màu sắc tươi tắn và dưỡng môi căng mọng."
+  },
+  {
+    name: "Bảng Phấn Mắt 9 Ô Thuần Chay Amuse Eye Color Palette 11g",
+    brand: "AMUSE",
+    price: "560.150đ",
+    img: "images/td3.jpg",
+    isNew: true,
+    desc: "Bảng phấn mắt 9 ô với tone màu đa dạng, pigment cao, dễ blend."
+  },
+  {
+    name: "Mascara Làm Cong Mi Chống Trôi Clio Kill Lash Superproof Mascara 7g",
+    brand: "CLUB CLIO",
+    price: "275.000đ",
+    img: "images/td4.jpg",
+    isNew: false,
+    desc: "Mascara chống nước cực tốt, giữ cong mi cả ngày. Lông mi dài và dày tự nhiên."
+  },
+  {
+    name: "Phấn Phủ Nén Kiềm Dầu Clio Stay Perfect Finish Pact 8g",
+    brand: "CLUB CLIO",
+    price: "409.000đ",
+    img: "images/td5.jpg",
+    isNew: false,
+    desc: "Phấn phủ nén kiểm soát dầu nhờn, cho lớp nền mượt mà suốt 12 tiếng."
+  },
+  {
+    name: "Phấn Nước Clio Kill Cover Founwear Cushion 15g SPF50+ PA+++",
+    brand: "CLUB CLIO",
+    price: "565.000đ",
+    img: "images/td6.jpg",
+    isNew: true,
+    desc: "Phấn nước che phủ cao, mỏng nhẹ SPF50+ PA+++. Giữ nếp cả ngày ngay cả trong thời tiết ẩm."
+  }
+];
+const SAMPLE_CSD = [
+  {
+    name: "Sữa Rửa Mặt Trà Xanh Innisfree Green Tea Foam Cleanser 150ml",
+    brand: "INNISFREE",
+    price: "198.000đ",
+    img: "images/d1-2.jpg",
+    isNew: false,
+    desc: "Sữa rửa mặt dạng bọt mịn với chiết xuất trà xanh Jeju thuần khiết. Làm sạch sâu bã nhờn, bụi bẩn và tế bào chết. Da sạch mướt, không khô căng sau khi rửa."
+  },
+  {
+    name: "Sữa Rửa Mặt Cetaphil Gentle Skin Cleanser Da Nhạy Cảm 250ml",
+    brand: "CETAPHIL",
+    price: "245.000đ",
+    img: "images/d2.jpg",
+    isNew: false,
+    desc: "Sữa rửa mặt không xà phòng, không gây kích ứng, được bác sĩ da liễu khuyên dùng. Làm sạch dịu nhẹ, giữ ẩm tự nhiên cho da."
+  },
+  {
+    name: "Toner AHA BHA PHA 30 Days Miracle Some By Mi 150ml",
+    brand: "SOME BY MI",
+    price: "315.000đ",
+    img: "images/d3.jpg",
+    isNew: false,
+    desc: "Toner kỳ diệu với AHA, BHA, PHA giúp tẩy tế bào chết, thu nhỏ lỗ chân lông, làm sáng và mịn da chỉ trong 30 ngày."
+  },
+  {
+    name: "Toner Dưỡng Ẩm Klairs Supple Preparation Facial Toner 180ml",
+    brand: "KLAIRS",
+    price: "395.000đ",
+    img: "images/d4.jpg",
+    isNew: true,
+    desc: "Toner dưỡng ẩm sâu không cồn, cân bằng pH, chuẩn bị da hấp thụ dưỡng chất tốt nhất. An toàn cho da nhạy cảm."
+  },
+  {
+    name: "Serum Vitamin C 23% + HA Spheres The Ordinary 30ml",
+    brand: "THE ORDINARY",
+    price: "285.000đ",
+    img: "images/d5.jpg",
+    isNew: false,
+    desc: "Serum Vitamin C 23% làm sáng da mạnh mẽ, mờ thâm nám và chống oxy hóa. Kết hợp Hyaluronic Acid dưỡng ẩm sâu."
+  },
+  {
+    name: "Serum Ốc Sên COSRX Advanced Snail 96 Mucin Power Essence 100ml",
+    brand: "COSRX",
+    price: "425.000đ",
+    img: "images/d6.jpg",
+    isNew: false,
+    desc: "Tinh chất 96% chất nhầy ốc sên phục hồi da hư tổn, cấp ẩm tức thì. Làm mờ sẹo mụn và cải thiện kết cấu da."
+  }
+];
+
+const SAMPLE_CSCT = [
+  {
+    name: "Sữa Tắm Dưỡng Ẩm Shea Butter The Body Shop 250ml",
+    brand: "THE BODY SHOP",
+    price: "320.000đ",
+    img: "images/ct1.jpg",
+    isNew: false,
+    desc: "Sữa tắm dưỡng ẩm cao cấp với bơ Shea hữu cơ công bằng thương mại, dưỡng ẩm da suốt 24 giờ. Hương thơm ngọt nhẹ, không chứa paraben và silicone."
+  },
+  {
+    name: "Sữa Tắm Japanese Cherry Blossom Bath & Body Works 295ml",
+    brand: "BATH & BODY WORKS",
+    price: "285.000đ",
+    img: "images/ct2.jpg",
+    isNew: false,
+    desc: "Sữa tắm hương hoa anh đào Nhật Bản lãng mạn và tinh tế. Công thức làm sạch nhẹ nhàng, dưỡng ẩm và để lại hương thơm dịu dàng suốt cả ngày."
+  },
+  {
+    name: "Dưỡng Thể Vitamin E Moisture Lotion The Body Shop 250ml",
+    brand: "THE BODY SHOP",
+    price: "398.000đ",
+    img: "images/ct3.jpg",
+    isNew: true,
+    desc: "Lotion dưỡng thể nhẹ không nhờn với Vitamin E và dầu lúa mì. Thấm nhanh, cấp ẩm 48 giờ, phù hợp mọi loại da kể cả da nhạy cảm."
+  },
+  {
+    name: "Dưỡng Thể Ý Dĩ Hatomugi Skin Conditioner & Lotion 230ml",
+    brand: "HATOMUGI",
+    price: "195.000đ",
+    img: "images/ct4.jpg",
+    isNew: false,
+    desc: "Dưỡng thể ý dĩ nổi tiếng Nhật Bản với chiết xuất Coix Lacryma-Jobi (hạt ý dĩ). Làm mềm mịn da, mờ vết thâm và dưỡng ẩm lâu dài."
+  },
+  {
+    name: "Tẩy Tế Bào Chết Body Jeju Volcanic Innisfree 150ml",
+    brand: "INNISFREE",
+    price: "265.000đ",
+    img: "images/ct5-2.jpg",
+    isNew: false,
+    desc: "Tẩy tế bào chết toàn thân với tro núi lửa Jeju làm sạch sâu lỗ chân lông. Da mềm mịn và sáng hơn sau mỗi lần dùng."
+  },
+  {
+    name: "Tẩy Tế Bào Chết Body Scrub Pink Grapefruit The Body Shop 250ml",
+    brand: "THE BODY SHOP",
+    price: "342.000đ",
+    img: "images/ct6.jpg",
+    isNew: true,
+    desc: "Scrub tẩy tế bào chết hương bưởi hồng tươi mát với hạt đường tự nhiên và dầu bưởi. Loại bỏ da chết, làm sáng và mịn da toàn thân."
+  }
+];
+
+const SAMPLE_SPMOI = [
+  {
+    name: "[Phiên Bản Harry Potter LUMOS] Phấn Nước Kill Cover Cushion SPF50+ PA+++ 15g",
+    brand: "CLUB CLIO",
+    price: "565.000đ",
+    img: "images/td10.jpg",
+    isNew: true,
+    desc: "Phiên bản giới hạn Harry Potter LUMOS cực kỳ hot! Phấn nước che phủ hoàn hảo SPF50+ PA+++, finish mỏng nhẹ tự nhiên, giữ nếp cả ngày. Kèm lõi refill."
+  },
+  {
+    name: "Son Thạch Thuần Chay Amuse Jel-Fit Tint 3.8g – Bộ Sưu Tập Mùa Hè 2025",
+    brand: "AMUSE",
+    price: "299.000đ",
+    img: "images/sp2.jpg",
+    isNew: true,
+    desc: "BST mùa hè với 5 màu mới rực rỡ. Son thạch bóng thuần chay với gel formula cho màu tươi tắn và dưỡng môi căng mọng."
+  },
+  {
+    name: "Kem Chống Nắng COSRX Aloe Soothing Sun Cream SPF50+ 50ml",
+    brand: "COSRX",
+    price: "298.000đ",
+    img: "images/sp3.jpg",
+    isNew: true,
+    desc: "Kem chống nắng với 72% Aloe Vera làm dịu da đồng thời bảo vệ tối đa khỏi UVA/UVB. Finish trong mờ, không bóng nhờn."
+  },
+  {
+    name: "Serum Niacinamide 10% ANUA Heartleaf Niacinamide Serum 30ml",
+    brand: "ANUA",
+    price: "398.000đ",
+    img: "images/sp4.jpg",
+    isNew: true,
+    desc: "Serum Niacinamide 10% kết hợp Heartleaf 77% làm sáng da, thu nhỏ lỗ chân lông và kiểm soát nhờn cực hiệu quả."
+  },
+  {
+    name: "Son Kem Lì Peripera Ink Velvet Tint – Phiên Bản Hè 2025",
+    brand: "PERIPERA",
+    price: "219.000đ",
+    img: "images/sp5.jpg",
+    isNew: true,
+    desc: "BST hè 2025 với 5 màu son mới cực hot! Công thức Ink Velvet lì mịn siêu lâu trôi, không gây khô môi."
+  },
+  {
+    name: "Toner Mới TORRIDEN Dive-In Low-Molecular Hyaluronic Acid Toner 200ml",
+    brand: "TORRIDEN",
+    price: "365.000đ",
+    img: "images/sp6.jpg",
+    isNew: true,
+    desc: "Toner cấp ẩm phân tử nhỏ với 5 loại Hyaluronic Acid thẩm thấu sâu từng tầng da, cấp ẩm suốt 72 giờ."
+  }
+];
+
+/* Gộp tất cả để tìm kiếm */
+const ALL_PRODUCTS = [
+  ...SAMPLE_MIFFY.map(p => ({...p, _cat:'MIFFY Chính Hãng'})),
+  ...SAMPLE_TD.map(p => ({...p, _cat:'Trang Điểm'})),
+  ...SAMPLE_CSD.map(p => ({...p, _cat:'Chăm Sóc Da Mặt'})),
+  ...SAMPLE_CSCT.map(p => ({...p, _cat:'Chăm Sóc Cơ Thể'})),
+  ...SAMPLE_SPMOI.map(p => ({...p, _cat:'Sản Phẩm Mới'})),
+];
+
+/* ===== SLIDESHOW ===== */
+const slideshowEl = document.getElementById('imgSlideshow');
+const slideImgs   = slideshowEl.querySelectorAll('img');
+const slideDots   = slideshowEl.querySelectorAll('.slide-dot');
+let currentSlide = 0, autoTimer;
+function showSlide(idx) {
+  slideImgs.forEach((img,i) => img.classList.toggle('active', i===idx));
+  slideDots.forEach((dot,i) => dot.classList.toggle('active', i===idx));
+  currentSlide = idx;
+}
+function nextImg() { showSlide((currentSlide+1) % slideImgs.length); }
+function prevImg() { showSlide((currentSlide-1+slideImgs.length) % slideImgs.length); }
+document.getElementById('imgNext').addEventListener('click', () => { clearInterval(autoTimer); nextImg(); autoTimer=setInterval(nextImg,4000); });
+document.getElementById('imgPrev').addEventListener('click', () => { clearInterval(autoTimer); prevImg(); autoTimer=setInterval(nextImg,4000); });
+slideDots.forEach(dot => dot.addEventListener('click', () => { clearInterval(autoTimer); showSlide(parseInt(dot.dataset.idx)); autoTimer=setInterval(nextImg,4000); }));
+autoTimer = setInterval(nextImg, 4000);
+
+/* ===== LOGIN CHECK ===== */
+document.addEventListener('DOMContentLoaded', function() {
+  const loginPill   = document.getElementById('loginPill');
+  const savedAvatar = localStorage.getItem('userAvatar');
+  if (savedAvatar) {
+    const img = document.createElement('img');
+    img.src = savedAvatar;
+    img.style.cssText = 'width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #FF1493;cursor:pointer;';
+    img.title = 'Đăng xuất';
+    img.onclick = () => { if(confirm('Bạn có muốn đăng xuất không?')) { localStorage.removeItem('userAvatar'); location.reload(); } };
+    loginPill.replaceWith(img);
+  }
+});
+
+/* ===== SEARCH ===== */
+(function() {
+  const input    = document.getElementById('searchInput');
+  const dropdown = document.getElementById('searchDropdown');
+  const clearBtn = document.getElementById('searchClear');
+  let searchTimer;
+  function normalize(str) {
+    return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D');
+  }
+  function doSearch(query) {
+    const q = normalize(query.trim());
+    if (!q) { dropdown.classList.remove('show'); dropdown.innerHTML=''; return; }
+    const results = ALL_PRODUCTS.filter(p =>
+      normalize(p.name).includes(q) || normalize(p.brand||'').includes(q) || normalize(p._cat||'').includes(q)
+    ).slice(0,10);
+    if (!results.length) {
+      dropdown.innerHTML = `<div class="search-no-result">😔 Không tìm thấy "<b>${query}</b>"</div>`;
+      dropdown.classList.add('show'); return;
+    }
+    const grouped = {};
+    results.forEach(p => { if(!grouped[p._cat]) grouped[p._cat]=[]; grouped[p._cat].push(p); });
+    let html = '';
+    Object.entries(grouped).forEach(([cat,items]) => {
+      html += `<div class="search-section-label">📂 ${cat}</div>`;
+      items.forEach(p => {
+        const safeP = JSON.stringify(p).replace(/"/g,'&quot;');
+        html += `<div class="search-result-item" onclick='searchSelectProduct(${safeP})'>
+          <img class="search-result-img" src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/44x44'">
+          <div class="search-result-info">
+            <div class="search-result-name">${p.name}</div>
+            <div class="search-result-brand">${p.brand||''}</div>
+          </div>
+          <div class="search-result-price">${p.price}</div>
+        </div>`;
+      });
+    });
+    dropdown.innerHTML = html;
+    dropdown.classList.add('show');
+  }
+  input.addEventListener('input', function() {
+    clearTimeout(searchTimer);
+    clearBtn.classList.toggle('show', this.value.length > 0);
+    searchTimer = setTimeout(() => doSearch(this.value), 220);
+  });
+  input.addEventListener('keydown', e => { if(e.key==='Escape') { dropdown.classList.remove('show'); input.blur(); } });
+  clearBtn.addEventListener('click', () => { input.value=''; clearBtn.classList.remove('show'); dropdown.classList.remove('show'); input.focus(); });
+  document.addEventListener('click', e => { if(!e.target.closest('.search-box')) dropdown.classList.remove('show'); });
+})();
+
+function searchSelectProduct(p) {
+  document.getElementById('searchDropdown').classList.remove('show');
+  document.getElementById('searchInput').value = p.name;
+  document.getElementById('searchClear').classList.add('show');
+  openQuickView(p);
+}
+
+/* ===== CART ===== */
+function getCart()   { try { return JSON.parse(localStorage.getItem('cart')||'[]'); } catch(e) { return []; } }
+function saveCart(c) { localStorage.setItem('cart', JSON.stringify(c)); }
+let currentProduct = null, currentQty = 1;
+function updateBadge() {
+  const total = getCart().reduce((s,c) => s+(c.quantity||0), 0);
+  const badge = document.getElementById('cartBadge');
+  badge.style.display = total ? 'flex' : 'none';
+  badge.textContent = total;
+}
+
+/* ===== MODAL ===== */
+function openQuickView(product) {
+  currentProduct = product; currentQty = 1;
+  document.getElementById('modalImg').src       = product.img || '';
+  document.getElementById('modalBrand').textContent = product.brand || '';
+  document.getElementById('modalTitle').textContent = product.name || '';
+  document.getElementById('modalPrice').textContent = product.price || '';
+  document.getElementById('qtyNum').textContent  = 1;
+  document.getElementById('modalDesc').textContent  = product.desc || 'Sản phẩm chính hãng, chất lượng cao.';
+  const oldEl = document.getElementById('modalOldPrice');
+  const saleEl = document.getElementById('modalSaleTag');
+  if (product.oldPrice) { oldEl.textContent=product.oldPrice; oldEl.style.display='block'; saleEl.textContent=product.saleTag||'SALE'; saleEl.style.display='block'; }
+  else { oldEl.style.display='none'; saleEl.style.display='none'; }
+  const thumbs = document.getElementById('modalThumbs');
+  if (product.imgs && product.imgs.length > 1) {
+    thumbs.innerHTML = product.imgs.map((img,i) => `<img class="modal-thumb ${i===0?'active':''}" src="${img}" onclick="switchModalImg(this,'${img}')">`).join('');
+    thumbs.style.display = 'flex';
+  } else { thumbs.innerHTML=''; thumbs.style.display='none'; }
+  document.getElementById('modalOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function switchModalImg(el, src) { document.querySelectorAll('.modal-thumb').forEach(t=>t.classList.remove('active')); el.classList.add('active'); document.getElementById('modalImg').src=src; }
+function closeModal() { document.getElementById('modalOverlay').classList.remove('show'); document.body.style.overflow=''; }
+function closeModalOutside(e) { if(e.target===document.getElementById('modalOverlay')) closeModal(); }
+function changeQty(d) { currentQty=Math.max(1,currentQty+d); document.getElementById('qtyNum').textContent=currentQty; }
+function addToCartFromModal() {
+  if (!currentProduct) return;
+  const cart = getCart();
+  const ex = cart.find(c => c.name===currentProduct.name);
+  if (ex) ex.quantity += currentQty;
+  else cart.push({ name:currentProduct.name, brand:currentProduct.brand||'', price:currentProduct.price, image:currentProduct.img, img:currentProduct.img, quantity:currentQty });
+  saveCart(cart); updateBadge(); closeModal();
+  showToast(`✅ Đã thêm "${currentProduct.name.slice(0,30)}..." vào giỏ!`);
+}
+function buyNow() { addToCartFromModal(); setTimeout(() => window.location.href='checkout.html', 300); }
+
+/* ===== CART DRAWER ===== */
+function openCart() { renderCartDrawer(); document.getElementById('cartDrawer').classList.add('open'); document.getElementById('cartOverlay').classList.add('show'); document.body.style.overflow='hidden'; }
+function closeCart() { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('show'); document.body.style.overflow=''; }
+function goToCart() { window.location.href='cart.html'; }
+function goToCheckout() { if(!getCart().length) { showToast('⚠️ Giỏ hàng trống!'); return; } window.location.href='checkout.html'; }
+function renderCartDrawer() {
+  const cart = getCart(); const el = document.getElementById('cartItemsList');
+  if (!cart.length) { el.innerHTML='<div class="cart-empty-msg"><div class="icon">🛍️</div>Giỏ hàng trống. Hãy thêm sản phẩm!</div>'; document.getElementById('cartTotal').textContent='0đ'; return; }
+  el.innerHTML = cart.map((item,i) => `
+    <div class="cart-item-row">
+      <img src="${item.image||item.img}" alt="${item.name}" onerror="this.src='https://placehold.co/68x68'">
+      <div class="cart-item-body">
+        <div class="cart-item-brand">${item.brand||''}</div>
+        <div class="cart-item-name">${item.name.slice(0,55)}${item.name.length>55?'...':''}</div>
+        <div class="cart-item-price">${item.price}</div>
+        <div class="cart-item-qty-row">
+          <button class="cart-item-qty-btn" onclick="drawerQty(${i},-1)">−</button>
+          <span class="cart-item-qty-num">${item.quantity}</span>
+          <button class="cart-item-qty-btn" onclick="drawerQty(${i},1)">+</button>
+        </div>
+      </div>
+      <button class="cart-item-del" onclick="drawerRemove(${i})">✕</button>
+    </div>`).join('');
+  let total = 0;
+  cart.forEach(item => { const n=parseInt((item.price||'').replace(/[^\d]/g,'')); if(!isNaN(n)) total+=n*item.quantity; });
+  document.getElementById('cartTotal').textContent = total ? total.toLocaleString('vi-VN')+'đ' : '—';
+}
+function drawerQty(i,d) { const cart=getCart(); cart[i].quantity=Math.max(1,cart[i].quantity+d); saveCart(cart); updateBadge(); renderCartDrawer(); }
+function drawerRemove(i) { const cart=getCart(); cart.splice(i,1); saveCart(cart); updateBadge(); renderCartDrawer(); }
+
+/* ===== TOAST ===== */
+function showToast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._timer); t._timer=setTimeout(()=>t.classList.remove('show'),2800); }
+
+/* ===== RENDER ROWS ===== */
+function renderRow(rowId, products, limit=8) {
+  const row = document.getElementById(rowId);
+  if (!row) return;
+  const list = products.slice(0, limit);
+  if (!list.length) { row.innerHTML='<p style="color:#aaa;font-size:13px;padding:10px">Đang cập nhật sản phẩm...</p>'; return; }
+  row.innerHTML = list.map(p => `
+    <div class="product-card">
+      <div class="card-img-wrap">
+        ${p.isNew ? '<span class="new-badge">MỚI</span>' : ''}
+        <button class="wishlist-mini" onclick="toggleWish(this,event)">♡</button>
+        <img src="${p.img}" alt="${p.name}" onerror="this.src='https://placehold.co/200x180?text=No+Image'">
+        <div class="quick-view-overlay" onclick='openQuickView(${JSON.stringify(p).replace(/'/g,"&#39;")})'>👁 Xem nhanh</div>
+      </div>
+      <div class="card-body">
+        <div class="brand-tag">${p.brand||''}</div>
+        <h4>${p.name}</h4>
+        <div class="price">${p.price}</div>
+      </div>
+    </div>`).join('');
+}
+function toggleWish(btn, e) { e.stopPropagation(); btn.classList.toggle('active'); btn.textContent=btn.classList.contains('active')?'♥':'♡'; }
+
+/* ===== INIT ===== */
+document.addEventListener('DOMContentLoaded', function() {
+  renderRow('miffyRow',  SAMPLE_MIFFY);
+  renderRow('tdRow',     SAMPLE_TD);
+  renderRow('csdRow',    SAMPLE_CSD);
+  renderRow('csctRow',   SAMPLE_CSCT);
+  renderRow('spmoiRow',  SAMPLE_SPMOI);
+  updateBadge();
+});
+</script>
+</body>
+</html>

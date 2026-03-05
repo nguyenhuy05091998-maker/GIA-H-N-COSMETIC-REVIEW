@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thương Hiệu - Gia Hân Cosmetics Review</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #fff; color: #333; }
+
+    /* ===== MARQUEE BAR ===== */
+    .marquee-bar {
+      background: #ede0f7;
+      overflow: hidden; white-space: nowrap;
+      padding: 8px 0; border-bottom: 1px solid #d8bfee;
+    }
+    .marquee-track {
+      display: inline-flex; gap: 60px;
+      animation: marquee 60s linear infinite;
+    }
+    .marquee-track span { font-size: 13px; color: #6a1b9a; font-weight: 500; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* ===== HEADER ===== */
+    .header {
+      background: #fff; border-bottom: 1px solid #eee;
+      padding: 12px 20px; display: flex;
+      justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+      position: sticky; top: 0; z-index: 900;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+    .logo h1 { color: #FF1493; font-size: 28px; }
+    .logo h1 a { color: inherit; text-decoration: none; }
+    .logo p { color: #666; font-size: 13px; margin-top: 2px; }
+
+    /* ===== SEARCH BOX ===== */
+    .search-box {
+      position: relative; flex: 1;
+      max-width: 420px; min-width: 200px;
+    }
+    .search-box input {
+      width: 100%; padding: 9px 40px 9px 14px;
+      border: 2px solid #FF1493; border-radius: 25px;
+      outline: none; font-size: 14px; transition: box-shadow 0.2s;
+    }
+    .search-box input:focus { box-shadow: 0 0 0 3px rgba(255,20,147,0.12); }
+    .search-btn {
+      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; font-size: 16px; color: #FF1493;
+    }
+    .search-results {
+      position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+      background: #fff; border: 1px solid #f0d0e8; border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(255,20,147,0.12);
+      z-index: 999; display: none; max-height: 320px; overflow-y: auto;
+    }
+    .search-results.show { display: block; }
+    .search-result-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; cursor: pointer; transition: background 0.15s;
+      border-bottom: 1px solid #fce4ec; text-decoration: none; color: #333;
+    }
+    .search-result-item:last-child { border-bottom: none; }
+    .search-result-item:hover { background: #fff0f7; }
+    .result-icon { font-size: 20px; }
+    .result-name { font-weight: 600; font-size: 14px; }
+    .result-cat  { font-size: 12px; color: #999; }
+    .search-no-result { padding: 16px; text-align: center; color: #aaa; font-size: 14px; }
+
+    /* ===== HEADER ACTIONS ===== */
+    .header-actions { display: flex; gap: 8px; align-items: center; }
+
+    .pill {
+      padding: 8px 14px; border-radius: 999px;
+      font-size: 14px; font-weight: 500; color: #333;
+      background: #f5f5f5; white-space: nowrap;
+      border: none; cursor: pointer; transition: all 0.2s ease;
+      text-decoration: none; display: inline-flex;
+      align-items: center; gap: 5px; font-family: inherit;
+    }
+    .pill:hover { transform: translateY(-1px); box-shadow: 0 3px 8px rgba(0,0,0,0.12); }
+    .pill.cart  { background: #f3e5f5; color: #7b1fa2; }
+    .pill.login { background: #e8eaf6; color: #3949ab; }
+
+    .cart-wrap { position: relative; display: inline-block; }
+    .cart-badge {
+      position: absolute; top: -6px; right: -6px;
+      background: #FF1493; color: #fff; border-radius: 50%;
+      width: 18px; height: 18px; font-size: 11px;
+      display: none; align-items: center; justify-content: center; font-weight: 700;
+    }
+
+    /* ===== PILL BAR ===== */
+    .pill-bar { background: #fff; padding: 10px 20px; border-bottom: 1px solid #e8e4f8; }
+    .menu-pills {
+      display: flex; justify-content: space-evenly; align-items: center;
+      max-width: 1400px; margin: 0 auto;
+    }
+    .menu-pills .pill {
+      flex: 1; text-align: center; justify-content: center; margin: 0 4px;
+      font-size: 13px; padding: 9px 8px; border-radius: 999px; min-width: 0;
+      transition: filter 0.18s, transform 0.15s; white-space: nowrap; font-weight: 500;
+    }
+    .menu-pills .pill:hover { filter: brightness(0.91); transform: translateY(-1px); }
+    .menu-pills .pill[href="brand.html"]  { background: #f5f5f5;  color: #cf0e0e; }
+    .menu-pills .pill[href="tapchi.html"] { background: #ffb6c1;  color: #c0396b; }
+    .menu-pills .pill[href="km.html"]     { background: #ffe0b2;  color: #e65100; }
+    .menu-pills .pill[href="miffy.html"]  { background: #e1f5fe;  color: #0277bd; }
+    .menu-pills .pill[href="td.html"]     { background: #e8f5e9;  color: #2e7d32; }
+    .menu-pills .pill[href="csd.html"]    { background: #e0f2f1;  color: #00695c; }
+    .menu-pills .pill[href="csct.html"]   { background: #f3e5f5;  color: #6a1b9a; }
+    .menu-pills .pill[href="spmoi.html"]  { background: #ede7f6;  color: #4527a0; }
+    .menu-pills .pill.active { filter: brightness(0.85); font-weight: 700; }
+    @media (max-width: 900px) {
+      .menu-pills { justify-content: flex-start; overflow-x: auto; scrollbar-width: none; }
+      .menu-pills::-webkit-scrollbar { display: none; }
+      .menu-pills .pill { flex: 0 0 auto; min-width: 110px; }
+    }
+
+    /* ===== BRAND SECTION ===== */
+    .brand-section { background: #fff; padding: 40px 0; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+    .brand-title {
+      text-align: center; font-size: 22px; font-weight: bold;
+      color: #333; margin-bottom: 28px; text-transform: uppercase;
+    }
+    .brand-slider-container { position: relative; display: flex; align-items: center; }
+    .brand-track {
+      display: flex; gap: 15px; overflow-x: auto;
+      scroll-behavior: smooth; scrollbar-width: none; padding: 10px 5px;
+    }
+    .brand-track::-webkit-scrollbar { display: none; }
+    .brand-card {
+      flex: 0 0 calc(100% / 6); min-width: 160px;
+      background: #fff; border-radius: 8px; overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #f0f0f0;
+    }
+    .brand-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    .brand-card img { width: 100%; height: auto; display: block; object-fit: cover; }
+    .nav-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.9); border: 1px solid #ddd;
+      width: 40px; height: 40px; border-radius: 50%;
+      cursor: pointer; z-index: 5; display: flex;
+      align-items: center; justify-content: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 16px;
+    }
+    .nav-btn.prev { left: -20px; }
+    .nav-btn.next { right: -20px; }
+    .nav-btn:hover { background: #FF1493; color: #fff; border-color: #FF1493; }
+
+    /* ===== CART DRAWER ===== */
+    .cart-drawer {
+      position: fixed; top: 0; right: 0; width: 380px; height: 100vh;
+      background: #fff; box-shadow: -4px 0 24px rgba(0,0,0,0.15);
+      z-index: 1500; transform: translateX(100%); transition: transform 0.3s ease;
+      display: flex; flex-direction: column;
+    }
+    .cart-drawer.open { transform: translateX(0); }
+    .cart-drawer-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+      z-index: 1400; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .cart-drawer-overlay.show { opacity: 1; pointer-events: all; }
+    .cart-dheader {
+      padding: 20px; border-bottom: 1px solid #eee;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .cart-dheader h2 { font-size: 18px; font-weight: 700; }
+    .cart-close { background: none; border: none; font-size: 22px; cursor: pointer; color: #666; }
+    .cart-items-list { flex: 1; overflow-y: auto; padding: 16px; }
+    .cart-empty-state { text-align: center; padding: 40px 20px; color: #aaa; font-size: 14px; }
+    .cart-empty-icon { font-size: 48px; margin-bottom: 12px; }
+    .cart-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+    .cart-item img { width: 70px; height: 70px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+    .cart-item-info { flex: 1; }
+    .cart-item-name  { font-size: 12px; line-height: 1.4; font-weight: 500; margin-bottom: 4px; }
+    .cart-item-price { color: #FF1493; font-weight: 700; font-size: 14px; }
+    .cart-item-qty   { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+    .cart-qty-btn {
+      width: 26px; height: 26px; border-radius: 6px; border: 1px solid #ddd;
+      background: #fff; cursor: pointer; font-size: 14px;
+      display: flex; align-items: center; justify-content: center; font-family: inherit;
+    }
+    .cart-qty-btn:hover { border-color: #FF1493; color: #FF1493; }
+    .cart-item-remove {
+      color: #bbb; background: none; border: none;
+      cursor: pointer; font-size: 18px; align-self: flex-start; margin-left: auto;
+    }
+    .cart-item-remove:hover { color: #FF1493; }
+    .cart-dfooter { padding: 20px; border-top: 1px solid #eee; }
+    .cart-total {
+      display: flex; justify-content: space-between;
+      font-size: 16px; font-weight: 700; margin-bottom: 8px;
+    }
+    .cart-total span:last-child { color: #FF1493; }
+    .cart-go-btn {
+      width: 100%; padding: 12px; background: #fff; color: #FF1493;
+      border: 2px solid #FF1493; border-radius: 10px; font-size: 14px;
+      font-weight: 700; cursor: pointer; font-family: inherit;
+      margin-bottom: 8px; transition: background 0.2s;
+    }
+    .cart-go-btn:hover { background: #fff0f5; }
+    .checkout-btn {
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, #FF1493, #ff6ec7);
+      color: #fff; border: none; border-radius: 10px;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      font-family: inherit; transition: opacity 0.2s;
+    }
+    .checkout-btn:hover { opacity: 0.9; }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed; bottom: 30px; right: 30px;
+      background: #222; color: #fff; padding: 14px 22px;
+      border-radius: 12px; font-size: 14px; z-index: 2000;
+      transform: translateY(20px); opacity: 0; transition: all 0.3s; pointer-events: none;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 24px 20px; background: #FFB6C1; margin-top: 20px;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-left { flex: 0 0 62%; font-size: 14px; line-height: 1.7; }
+    .footer-left p { margin-bottom: 8px; }
+    .footer-right { flex: 1; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+    .footer-right p { font-weight: 600; font-size: 13px; }
+    .payment-methods { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+    .payment-methods img {
+      width: 70px; height: 45px; object-fit: contain;
+      border: 1px solid #FF1493; border-radius: 5px; background: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .header { flex-direction: column; text-align: center; }
+      footer { flex-direction: column; }
+      .footer-left, .footer-right { flex: none; width: 100%; }
+      .footer-right { align-items: flex-start; }
+      .brand-card { flex: 0 0 45%; }
+      .nav-btn { display: none; }
+      .cart-drawer { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MARQUEE BAR -->
+  <div class="marquee-bar">
+    <div class="marquee-track">
+      <span>🚚 FREESHIP 15K MỌI ĐƠN HÀNG</span>
+      <span>💥 NHẬP MÃ T01FREESHIP30K – GIẢM NGAY 30K CHO ĐƠN HÀNG 199K</span>
+      <span>🎁 HỖ TRỢ GÓI QUÀ + KHẮC SÔN MIỄN PHÍ</span>
+      <span>✨ MUA ONLINE – NHẬN TẠI CỬA HÀNG GẦN NHẤT</span>
+      <span>🛍️ MIFFY CHÍNH HÃNG – ĐỒ CHƠI NHỒI BÔNG CAO CẤP</span>
+      <span>🌸 MỸ PHẨM CHÍNH HÃNG – GIÁ TỐT NHẤT THỊ TRƯỜNG</span>
+      <span>🚚 FREESHIP 15K MỌI ĐƠN HÀNG</span>
+      <span>💥 NHẬP MÃ T01FREESHIP30K – GIẢM NGAY 30K CHO ĐƠN HÀNG 199K</span>
+      <span>🎁 HỖ TRỢ GÓI QUÀ + KHẮC SÔN MIỄN PHÍ</span>
+      <span>✨ MUA ONLINE – NHẬN TẠI CỬA HÀNG GẦN NHẤT</span>
+      <span>🛍️ MIFFY CHÍNH HÃNG – ĐỒ CHƠI NHỒI BÔNG CAO CẤP</span>
+      <span>🌸 MỸ PHẨM CHÍNH HÃNG – GIÁ TỐT NHẤT THỊ TRƯỜNG</span>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">
+      <h1><a href="index.html">Gia Hân Cosmetics Review</a></h1>
+      <p>KOL cho các thương hiệu mỹ phẩm uy tín – chính hãng</p>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm, thương hiệu..." autocomplete="off">
+      <button class="search-btn" onclick="doSearch()">🔍</button>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+
+    <div class="header-actions">
+      <!-- GIỎ HÀNG: mở cart drawer thay vì link thẳng -->
+      <div class="cart-wrap">
+        <button class="pill cart" onclick="openCart()">🛒 Giỏ Hàng</button>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </div>
+      <!-- ĐĂNG NHẬP: tự đổi thành avatar nếu đã đăng nhập -->
+      <a href="login.html" class="pill login" id="loginPill">Đăng Nhập</a>
+    </div>
+  </header>
+
+  <!-- NAV PILL BAR -->
+  <nav class="pill-bar">
+    <div class="menu-pills">
+      <a href="brand.html"  class="pill active">Thương Hiệu</a>
+      <a href="tapchi.html" class="pill">Tạp Chí Làm Đẹp</a>
+      <a href="km.html"     class="pill">Khuyến Mãi</a>
+      <a href="miffy.html"  class="pill">MIFFY Chính Hãng</a>
+      <a href="td.html"     class="pill">Trang Điểm</a>
+      <a href="csd.html"    class="pill">Chăm Sóc Da Mặt</a>
+      <a href="csct.html"   class="pill">Chăm Sóc Cơ Thể</a>
+      <a href="spmoi.html"  class="pill">Sản Phẩm Mới</a>
+    </div>
+  </nav>
+
+  <!-- BRAND SECTION — giữ nguyên slider gốc -->
+  <section class="brand-section">
+    <div class="container">
+      <h2 class="brand-title">TẤT CẢ THƯƠNG HIỆU</h2>
+      <div class="brand-slider-container">
+        <div class="brand-track" id="brandTrack">
+          <a href="thefaceshop.html" class="brand-card"><img src="images/the face shop.jpg" alt="The Face Shop"></a>
+          <a href="ahc.html"         class="brand-card"><img src="images/ahc.jpg"            alt="AHC"></a>
+          <a href="clio.html"        class="brand-card"><img src="images/clio.jpg"           alt="CLIO"></a>
+          <a href="goodal.html"      class="brand-card"><img src="images/goodal.jpg"         alt="Goodal"></a>
+          <a href="klavuu.html"      class="brand-card"><img src="images/klavuu.jpg"         alt="Klavuu"></a>
+          <a href="thewhoo.html"     class="brand-card"><img src="images/the whoo.jpg"       alt="The Whoo"></a>
+          <a href="amuse.html"       class="brand-card"><img src="images/amusee.jpg"         alt="Amuse"></a>
+          <a href="ohui.html"        class="brand-card"><img src="images/ohui.jpg"           alt="OHUI"></a>
+        </div>
+        <button class="nav-btn prev" id="brandPrev">❮</button>
+        <button class="nav-btn next" id="brandNext">❯</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CART DRAWER -->
+  <div class="cart-drawer-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-dheader">
+      <h2>🛒 Giỏ hàng của bạn</h2>
+      <button class="cart-close" onclick="closeCart()">✕</button>
+    </div>
+    <div class="cart-items-list" id="cartItemsList">
+      <div class="cart-empty-state">
+        <div class="cart-empty-icon">🛍️</div>
+        Giỏ hàng trống. Hãy thêm sản phẩm!
+      </div>
+    </div>
+    <div class="cart-dfooter">
+      <div class="cart-total"><span>Tổng cộng:</span><span id="cartTotal">0đ</span></div>
+      <button class="cart-go-btn" onclick="window.location.href='cart.html'">🛒 Xem giỏ hàng</button>
+      <button class="checkout-btn" onclick="goCheckout()">💳 Thanh toán ngay →</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      <p>Website <strong>Gia Hân Cosmetics Review</strong> thuộc quyền quản lý và vận hành bởi <strong>KOL Gia Hân</strong>. Giấy chứng nhận đăng ký kinh doanh số <strong>0309802418</strong>, cấp ngày 23/01/2026 tại Sở Kế hoạch và Đầu tư TP. Hồ Chí Minh.</p>
+      <p>Gia Hân Cosmetics Review chuyên cung cấp mỹ phẩm chính hãng, được chọn lọc kỹ lưỡng từ các thương hiệu uy tín trong và ngoài nước.</p>
+      <p>Địa chỉ hoạt động: 613 Âu Cơ, Quận Tân Phú, TP. Hồ Chí Minh, Việt Nam.</p>
+      <p>Gia Hân Cosmetics Review cam kết mang đến trải nghiệm mua sắm minh bạch, tiện lợi và đáng tin cậy cho khách hàng.</p>
+    </div>
+    <div class="footer-right">
+      <p>Phương thức thanh toán</p>
+      <div class="payment-methods">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/06414657-24ed-4da4-8a54-f207d45ab1be.webp" alt="payment">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/afebded0-f4e7-4c5f-aee3-aa01271174c3.webp" alt="payment">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/64102078-db30-4f18-a473-2582467505fd.webp" alt="payment">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/a19ac3f9-5d5e-43c3-aa84-49576cad1102.webp" alt="payment">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/3e4a7882-d755-4110-83b5-6496bf5e689c.webp" alt="payment">
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ===== DỮ LIỆU TÌM KIẾM =====
+    const searchData = [
+      { name:"The Face Shop",     cat:"Thương hiệu", icon:"🏪", url:"thefaceshop.html" },
+      { name:"AHC",               cat:"Thương hiệu", icon:"🏪", url:"ahc.html" },
+      { name:"CLIO",              cat:"Thương hiệu", icon:"🏪", url:"clio.html" },
+      { name:"Goodal",            cat:"Thương hiệu", icon:"🏪", url:"goodal.html" },
+      { name:"Klavuu",            cat:"Thương hiệu", icon:"🏪", url:"klavuu.html" },
+      { name:"The Whoo",          cat:"Thương hiệu", icon:"🏪", url:"thewhoo.html" },
+      { name:"Amuse",             cat:"Thương hiệu", icon:"🏪", url:"amuse.html" },
+      { name:"OHUI",              cat:"Thương hiệu", icon:"🏪", url:"ohui.html" },
+      { name:"MIFFY Chính Hãng",  cat:"Đồ chơi nhồi bông", icon:"🐰", url:"miffy.html" },
+      { name:"Trang Điểm",        cat:"Danh mục",    icon:"💄", url:"td.html" },
+      { name:"Chăm Sóc Da Mặt",  cat:"Danh mục",    icon:"🧴", url:"csd.html" },
+      { name:"Chăm Sóc Cơ Thể",  cat:"Danh mục",    icon:"🛁", url:"csct.html" },
+      { name:"Sản Phẩm Mới",     cat:"Danh mục",    icon:"✨", url:"spmoi.html" },
+      { name:"Khuyến Mãi",        cat:"Ưu đãi",      icon:"🎁", url:"km.html" },
+      { name:"Tạp Chí Làm Đẹp",  cat:"Nội dung",    icon:"📖", url:"tapchi.html" },
+    ];
+
+    // ===== SEARCH =====
+    const input      = document.getElementById('searchInput');
+    const resultsBox = document.getElementById('searchResults');
+
+    input.addEventListener('input', function () {
+      const q = this.value.trim().toLowerCase();
+      if (!q) { resultsBox.classList.remove('show'); return; }
+      const filtered = searchData.filter(item =>
+        item.name.toLowerCase().includes(q) || item.cat.toLowerCase().includes(q)
+      );
+      resultsBox.innerHTML = filtered.length
+        ? filtered.map(item => `
+            <a href="${item.url}" class="search-result-item">
+              <span class="result-icon">${item.icon}</span>
+              <div>
+                <div class="result-name">${item.name}</div>
+                <div class="result-cat">${item.cat}</div>
+              </div>
+            </a>`).join('')
+        : `<div class="search-no-result">Không tìm thấy "<strong>${q}</strong>"</div>`;
+      resultsBox.classList.add('show');
+    });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { const f = resultsBox.querySelector('a'); if (f) f.click(); }
+      if (e.key === 'Escape') resultsBox.classList.remove('show');
+    });
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.search-box')) resultsBox.classList.remove('show');
+    });
+    function doSearch() {
+      const q = input.value.trim().toLowerCase();
+      const found = searchData.find(item => item.name.toLowerCase().includes(q));
+      if (found) window.location.href = found.url;
+    }
+
+    // ===== BRAND SLIDER =====
+    const track = document.getElementById('brandTrack');
+    document.getElementById('brandNext').addEventListener('click', () => track.scrollLeft += 200);
+    document.getElementById('brandPrev').addEventListener('click', () => track.scrollLeft -= 200);
+
+    // ===== CART HELPERS =====
+    function getCart()   { try { return JSON.parse(localStorage.getItem('cart') || '[]'); } catch(e) { return []; } }
+    function saveCart(c) { localStorage.setItem('cart', JSON.stringify(c)); }
+
+    function updateCartBadge() {
+      const total = getCart().reduce((s, i) => s + (i.quantity || 0), 0);
+      const badge = document.getElementById('cartBadge');
+      badge.style.display = total ? 'flex' : 'none';
+      badge.textContent = total;
+    }
+
+    // ===== CART DRAWER =====
+    function openCart() {
+      renderCartDrawer();
+      document.getElementById('cartDrawer').classList.add('open');
+      document.getElementById('cartOverlay').classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCart() {
+      document.getElementById('cartDrawer').classList.remove('open');
+      document.getElementById('cartOverlay').classList.remove('show');
+      document.body.style.overflow = '';
+    }
+    function goCheckout() {
+      if (!getCart().length) { showToast('⚠️ Giỏ hàng trống!'); return; }
+      window.location.href = 'checkout.html';
+    }
+
+    function renderCartDrawer() {
+      const cart = getCart();
+      const el   = document.getElementById('cartItemsList');
+      if (!cart.length) {
+        el.innerHTML = '<div class="cart-empty-state"><div class="cart-empty-icon">🛍️</div>Giỏ hàng trống!</div>';
+        document.getElementById('cartTotal').textContent = '0đ';
+        return;
+      }
+      el.innerHTML = cart.map((item, i) => `
+        <div class="cart-item">
+          <img src="${item.image || item.img || ''}" alt="${item.name}"
+               onerror="this.src='https://placehold.co/70x70/fce4ec/FF1493?text=SP'">
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name.slice(0,55)}${item.name.length > 55 ? '...' : ''}</div>
+            <div class="cart-item-price">${item.price}</div>
+            <div class="cart-item-qty">
+              <button class="cart-qty-btn" onclick="cartQty(${i},-1)">−</button>
+              <span>${item.quantity}</span>
+              <button class="cart-qty-btn" onclick="cartQty(${i},1)">+</button>
+            </div>
+          </div>
+          <button class="cart-item-remove" onclick="cartRemove(${i})">✕</button>
+        </div>`).join('');
+      let total = 0;
+      cart.forEach(item => {
+        const num = parseInt((item.price || '').replace(/[^\d]/g, ''));
+        if (!isNaN(num)) total += num * item.quantity;
+      });
+      document.getElementById('cartTotal').textContent = total
+        ? total.toLocaleString('vi-VN') + 'đ' : '—';
+    }
+
+    function cartQty(i, d) {
+      const cart = getCart(); cart[i].quantity = Math.max(1, cart[i].quantity + d);
+      saveCart(cart); updateCartBadge(); renderCartDrawer();
+    }
+    function cartRemove(i) {
+      const cart = getCart(); cart.splice(i, 1);
+      saveCart(cart); updateCartBadge(); renderCartDrawer();
+    }
+
+    // ===== TOAST =====
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      clearTimeout(t._timer); t._timer = setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    // ===== LOGIN CHECK — đồng bộ td.html (dùng userAvatar) =====
+    document.addEventListener('DOMContentLoaded', function () {
+      const loginPill   = document.getElementById('loginPill');
+      const savedAvatar = localStorage.getItem('userAvatar');
+      if (savedAvatar) {
+        const img = document.createElement('img');
+        img.src = savedAvatar;
+        img.style.cssText = 'width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #FF1493;cursor:pointer;';
+        img.title  = 'Đăng xuất';
+        img.onclick = () => {
+          if (confirm('Bạn có muốn đăng xuất không?')) {
+            localStorage.removeItem('userAvatar');
+            location.reload();
+          }
+        };
+        loginPill.replaceWith(img);
+      }
+      updateCartBadge();
+    });
+  </script>
+</body>
+</html>

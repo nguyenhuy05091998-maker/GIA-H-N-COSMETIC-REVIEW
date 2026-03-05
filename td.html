@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang Điểm – Gia Hân Cosmetics Review</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --pink: #FF1493; --pink-light: #FFB6C1; --pink-pale: #fff0f5;
+      --dark: #1a1a2e; --gray: #666; --border: #eee; --white: #fff;
+    }
+    body { font-family: 'Be Vietnam Pro', sans-serif; background: #f8f9fa; color: #333; }
+
+    /* ===== MARQUEE – tím nhẹ, chậm ===== */
+    .marquee-bar { background: #b39ddb; color: #fff; padding: 10px 0; overflow: hidden; white-space: nowrap; }
+    .marquee-track { display: inline-block; animation: marquee 55s linear infinite; font-size: 14px; font-weight: 600; letter-spacing: 0.5px; }
+    .marquee-track span { margin: 0 40px; }
+    @keyframes marquee { 0% { transform: translateX(100vw); } 100% { transform: translateX(-100%); } }
+
+    /* HEADER */
+    .header { background: #fff; border-bottom: 1px solid #eee; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; position: sticky; top: 0; z-index: 900; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .logo h1 { color: var(--pink); font-size: 26px; }
+    .logo h1 a { text-decoration: none; color: inherit; }
+    .logo p { color: #666; font-size: 12px; }
+
+    /* ===== SEARCH WITH DROPDOWN ===== */
+    .search-box { position: relative; }
+    .search-box input { width: 360px; padding: 9px 36px 9px 14px; border: 1.5px solid var(--pink); border-radius: 999px; outline: none; font-family: inherit; font-size: 14px; transition: box-shadow 0.2s; }
+    .search-box input:focus { box-shadow: 0 0 0 3px rgba(255,20,147,0.15); }
+    .search-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #bbb; font-size: 16px; display: none; }
+    .search-clear.show { display: block; }
+    .search-results-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #fff; border: 1.5px solid #ffd6e7; border-radius: 14px; box-shadow: 0 8px 24px rgba(255,20,147,0.12); z-index: 9999; max-height: 400px; overflow-y: auto; display: none; }
+    .search-results-dropdown.show { display: block; }
+    .search-result-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; cursor: pointer; transition: background 0.15s; border-bottom: 1px solid #fff5f8; }
+    .search-result-item:last-child { border-bottom: none; }
+    .search-result-item:hover { background: #fff0f8; }
+    .search-result-img { width: 44px; height: 44px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+    .search-result-info { flex: 1; min-width: 0; }
+    .search-result-name { font-size: 13px; font-weight: 500; color: #222; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .search-result-brand { font-size: 11px; color: #aaa; text-transform: uppercase; font-weight: 600; margin-top: 2px; }
+    .search-result-price { font-size: 13px; font-weight: 700; color: var(--pink); flex-shrink: 0; }
+    .search-no-result { padding: 20px; text-align: center; color: #bbb; font-size: 13px; }
+
+    .header-actions { display: flex; gap: 8px; align-items: center; }
+    .pill { padding: 8px 18px; border-radius: 999px; font-size: 14px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: all 0.2s; cursor: pointer; border: none; font-family: inherit; background: #f5f5f5; color: #333; }
+    .pill.cart { background: #f3e5f5; color: #7b1fa2; }
+    .pill.login { background: #e8eaf6; color: #3949ab; }
+    .pill:hover { transform: translateY(-1px); box-shadow: 0 3px 8px rgba(0,0,0,0.12); }
+    .cart-wrap { position: relative; display: inline-block; }
+    .cart-badge { position: absolute; top: -6px; right: -6px; background: var(--pink); color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; display: none; align-items: center; justify-content: center; font-weight: 700; }
+
+    /* ===== NAV PILLS – dàn đều ===== */
+    .pill-bar { background: #fff; padding: 8px 16px; border-bottom: 1px solid #eee; }
+    .menu-pills { display: flex; justify-content: space-evenly; width: 100%; }
+    .menu-pills .pill { flex: 1; text-align: center; justify-content: center; background: #f5f5f5; color: #333; font-size: 13px; padding: 7px 8px; white-space: nowrap; }
+    .menu-pills .pill:nth-child(1) { background: #fce4ec; }
+    .menu-pills .pill:nth-child(2) { background: #e1f5fe; }
+    .menu-pills .pill:nth-child(3) { background: #ffe0b2; }
+    .menu-pills .pill:nth-child(4) { background: #fde2e4; }
+    .menu-pills .pill:nth-child(5) { background: #e8f5e9; }
+    .menu-pills .pill:nth-child(6) { background: #fce4ec; }
+    .menu-pills .pill:nth-child(7) { background: #f3e5f5; }
+    .menu-pills .pill:nth-child(8) { background: #e8eaf6; }
+    .menu-pills .pill.active { background: #ffd6e7 !important; color: var(--pink); font-weight: 700; }
+    .menu-pills .pill:hover { background: #ffd6e7 !important; color: var(--pink); transform: translateY(-1px); }
+
+    /* PAGE TITLE */
+    .page-title-bar { background: linear-gradient(135deg, #fff0f5 0%, #ffe4f0 100%); padding: 22px 30px; border-bottom: 1px solid #ffd6e8; display: flex; align-items: center; justify-content: space-between; }
+    .page-title-bar h1 { font-size: 28px; font-weight: 700; color: var(--dark); letter-spacing: 0.03em; }
+    .result-count { color: var(--gray); font-size: 14px; }
+    .result-count span { color: var(--pink); font-weight: 700; }
+
+    /* LAYOUT */
+    .main-layout { display: flex; max-width: 1400px; margin: 0 auto; padding: 20px 16px; gap: 24px; }
+
+    /* SIDEBAR */
+    .sidebar { width: 260px; flex-shrink: 0; }
+    .filter-card { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .filter-title { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .filter-title .arrow { transition: transform 0.2s; font-size: 12px; }
+    .filter-title.collapsed .arrow { transform: rotate(-90deg); }
+    .filter-body.hidden { display: none; }
+    .price-options { display: flex; flex-direction: column; gap: 8px; }
+    .price-option { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; padding: 6px 8px; border-radius: 8px; transition: background 0.15s; }
+    .price-option:hover { background: var(--pink-pale); }
+    .price-option input[type="checkbox"] { width: 15px; height: 15px; accent-color: var(--pink); cursor: pointer; }
+    .search-filter { width: 100%; padding: 7px 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; margin-bottom: 10px; outline: none; }
+    .search-filter:focus { border-color: var(--pink); }
+    .category-list { max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
+    .category-list::-webkit-scrollbar { width: 4px; }
+    .category-list::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+    .cat-item { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; padding: 5px 8px; border-radius: 8px; transition: background 0.15s; }
+    .cat-item:hover { background: var(--pink-pale); }
+    .cat-item input { accent-color: var(--pink); cursor: pointer; }
+    .cat-count { color: #aaa; font-size: 12px; margin-left: auto; }
+    .brand-list { display: flex; flex-direction: column; gap: 6px; }
+    .brand-item { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; padding: 5px 8px; border-radius: 8px; transition: background 0.15s; }
+    .brand-item:hover { background: var(--pink-pale); }
+    .brand-item input { accent-color: var(--pink); cursor: pointer; }
+
+    /* SORT BAR */
+    .sort-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+    .sort-label { font-size: 13px; color: var(--gray); }
+    .sort-btn { padding: 7px 16px; border-radius: 999px; border: 1.5px solid #ddd; background: #fff; font-size: 13px; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+    .sort-btn.active, .sort-btn:hover { border-color: var(--pink); color: var(--pink); background: var(--pink-pale); }
+
+    /* PRODUCT GRID */
+    .content-area { flex: 1; min-width: 0; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
+    .product-card { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 5px rgba(0,0,0,0.07); transition: box-shadow 0.25s, transform 0.25s; position: relative; }
+    .product-card:hover { box-shadow: 0 8px 24px rgba(255,20,147,0.15); transform: translateY(-3px); }
+    .product-img-wrap { position: relative; overflow: hidden; background: #fafafa; height: 220px; }
+    .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .product-card:hover .product-img-wrap img { transform: scale(1.07); }
+    .badges { position: absolute; top: 10px; left: 10px; display: flex; flex-direction: column; gap: 5px; z-index: 2; }
+    .badge { padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+    .badge-new { background: #222; color: #fff; }
+    .badge-sale { background: var(--pink); color: #fff; }
+    .badge-freeship { background: linear-gradient(90deg, #ff6ec7, #ff1493); color: #fff; font-size: 10px; padding: 3px 8px; }
+    .wishlist-btn { position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.9); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; z-index: 2; transition: background 0.2s, transform 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+    .wishlist-btn:hover, .wishlist-btn.active { background: var(--pink); color: #fff; transform: scale(1.1); }
+    .quick-view-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255,20,147,0.92); color: #fff; text-align: center; padding: 12px; font-size: 13px; font-weight: 600; cursor: pointer; transform: translateY(100%); transition: transform 0.25s ease; z-index: 3; }
+    .product-card:hover .quick-view-overlay { transform: translateY(0); }
+    .product-info { padding: 14px; }
+    .brand-name { font-size: 11px; font-weight: 700; color: var(--gray); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+    .product-name { font-size: 13px; font-weight: 500; color: #222; line-height: 1.4; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .price-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+    .price-now { color: var(--pink); font-weight: 700; font-size: 16px; }
+    .price-old { color: #bbb; font-size: 12px; text-decoration: line-through; }
+    .discount-tag { background: var(--pink); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+    .stars { color: #f59e0b; font-size: 12px; }
+    .review-count { color: #aaa; font-size: 11px; margin-left: 4px; }
+    .add-cart-btn { width: 100%; padding: 9px; background: var(--pink); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.15s; font-family: inherit; margin-top: 10px; }
+    .add-cart-btn:hover { background: #d4007a; transform: scale(1.02); }
+
+    /* QUICK VIEW MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .modal-overlay.show { opacity: 1; pointer-events: all; }
+    .modal-box { background: #fff; border-radius: 20px; max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto; display: flex; transform: scale(0.92); transition: transform 0.25s; position: relative; }
+    .modal-overlay.show .modal-box { transform: scale(1); }
+    .modal-close { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 50%; background: #f5f5f5; border: none; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.2s; }
+    .modal-close:hover { background: #ffd6e8; color: var(--pink); }
+    .modal-images { width: 400px; flex-shrink: 0; background: #fafafa; border-radius: 20px 0 0 20px; overflow: hidden; display: flex; flex-direction: column; }
+    .modal-main-img { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; min-height: 320px; }
+    .modal-main-img img { max-width: 100%; max-height: 320px; object-fit: contain; }
+    .modal-thumbs { display: flex; gap: 8px; padding: 12px; background: #f5f5f5; overflow-x: auto; }
+    .modal-thumb { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; flex-shrink: 0; }
+    .modal-thumb.active, .modal-thumb:hover { border-color: var(--pink); }
+    .modal-info { flex: 1; padding: 30px 30px 30px 28px; overflow-y: auto; }
+    .modal-brand { font-size: 12px; font-weight: 700; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+    .modal-title { font-size: 18px; font-weight: 700; line-height: 1.4; color: var(--dark); margin-bottom: 16px; }
+    .modal-stars { margin-bottom: 12px; font-size: 13px; }
+    .modal-price-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .modal-price { font-size: 26px; font-weight: 700; color: var(--pink); }
+    .modal-price-old { font-size: 15px; color: #bbb; text-decoration: line-through; }
+    .modal-discount { background: var(--pink); color: #fff; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 5px; }
+    .modal-section { margin-bottom: 18px; }
+    .modal-section-title { font-size: 13px; font-weight: 700; color: #444; margin-bottom: 8px; }
+    .color-options { display: flex; gap: 10px; }
+    .color-btn { width: 34px; height: 34px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: border-color 0.2s, transform 0.15s; }
+    .color-btn.active, .color-btn:hover { border-color: var(--pink); transform: scale(1.1); }
+    .qty-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .qty-btn { width: 34px; height: 34px; border-radius: 8px; border: 1.5px solid #ddd; background: #fff; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s; }
+    .qty-btn:hover { border-color: var(--pink); color: var(--pink); }
+    .qty-num { font-size: 16px; font-weight: 600; min-width: 30px; text-align: center; }
+    .modal-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-add { flex: 1; padding: 14px; background: #fff; color: var(--pink); border: 2px solid var(--pink); border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+    .btn-add:hover { background: var(--pink-pale); }
+    .btn-buy { flex: 1; padding: 14px; background: linear-gradient(135deg, var(--pink), #ff6ec7); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.15s; font-family: inherit; }
+    .btn-buy:hover { opacity: 0.9; transform: translateY(-1px); }
+    .modal-delivery { margin-top: 18px; padding: 14px; background: #f8f9fa; border-radius: 10px; font-size: 12px; color: var(--gray); line-height: 1.6; }
+    .modal-delivery b { color: #333; }
+    .modal-desc { font-size: 13px; color: #555; line-height: 1.7; }
+
+    /* CART DRAWER */
+    .cart-drawer { position: fixed; top: 0; right: 0; width: 380px; height: 100vh; background: #fff; box-shadow: -4px 0 24px rgba(0,0,0,0.15); z-index: 1500; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
+    .cart-drawer.open { transform: translateX(0); }
+    .cart-drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 1400; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .cart-drawer-overlay.show { opacity: 1; pointer-events: all; }
+    .cart-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; }
+    .cart-header h2 { font-size: 18px; font-weight: 700; }
+    .cart-close { background: none; border: none; font-size: 22px; cursor: pointer; color: #666; }
+    .cart-items { flex: 1; overflow-y: auto; padding: 16px; }
+    .cart-empty { text-align: center; padding: 40px 20px; color: #aaa; font-size: 14px; }
+    .cart-empty-icon { font-size: 48px; margin-bottom: 12px; }
+    .cart-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+    .cart-item img { width: 70px; height: 70px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+    .cart-item-info { flex: 1; }
+    .cart-item-name { font-size: 12px; line-height: 1.4; font-weight: 500; margin-bottom: 4px; }
+    .cart-item-price { color: var(--pink); font-weight: 700; font-size: 14px; }
+    .cart-item-qty { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+    .cart-qty-btn { width: 26px; height: 26px; border-radius: 6px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+    .cart-qty-btn:hover { border-color: var(--pink); color: var(--pink); }
+    .cart-item-remove { color: #bbb; background: none; border: none; cursor: pointer; font-size: 18px; align-self: flex-start; margin-left: auto; }
+    .cart-item-remove:hover { color: var(--pink); }
+    .cart-footer { padding: 20px; border-top: 1px solid #eee; }
+    .cart-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .cart-total span:last-child { color: var(--pink); }
+    .cart-go-btn { width: 100%; padding: 12px; background: #fff; color: var(--pink); border: 2px solid var(--pink); border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; margin-bottom: 8px; transition: all 0.2s; }
+    .cart-go-btn:hover { background: var(--pink-pale); }
+    .checkout-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--pink), #ff6ec7); color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
+    .checkout-btn:hover { opacity: 0.9; }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 30px; right: 30px; background: #222; color: #fff; padding: 14px 22px; border-radius: 12px; font-size: 14px; z-index: 2000; transform: translateY(20px); opacity: 0; transition: all 0.3s; pointer-events: none; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* NO RESULTS */
+    .no-results { text-align: center; padding: 60px 20px; color: #aaa; grid-column: 1/-1; }
+    .no-results-icon { font-size: 52px; margin-bottom: 16px; }
+
+    /* FOOTER */
+    footer { display: flex; justify-content: space-between; align-items: flex-start; padding: 24px 30px; background: #FFB6C1; margin-top: 30px; flex-wrap: wrap; gap: 16px; }
+    .footer-left { flex: 0 0 62%; }
+    .footer-left p { font-size: 13px; color: #333; margin-bottom: 8px; line-height: 1.6; }
+    .footer-right { flex: 1; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+    .footer-right p { font-size: 13px; font-weight: 600; }
+    .payment-methods { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+    .payment-methods img { width: 65px; height: 44px; object-fit: contain; border: 1px solid #FF1493; border-radius: 5px; background: #fff; }
+
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .modal-images { width: 260px; }
+    }
+    @media (max-width: 640px) {
+      .modal-box { flex-direction: column; }
+      .modal-images { width: 100%; border-radius: 20px 20px 0 0; }
+      .search-box input { width: 200px; }
+      .cart-drawer { width: 100%; }
+      .menu-pills { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start !important; gap: 6px; }
+      .menu-pills .pill { flex: 0 0 auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== MARQUEE ===== -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>🚚 FREESHIP 15K MỌI ĐƠN HÀNG</span>
+    <span>💥 NHẬP MÃ T01FREESHIP30K – GIẢM NGAY 30K CHO ĐƠN HÀNG 199K</span>
+    <span>🎁 HỖ TRỢ GÓI QUÀ + KHẮC SÔN MIỄN PHÍ</span>
+    <span>✨ MUA ONLINE – NHẬN TẠI CỬA HÀNG GẦN NHẤT</span>
+    <span>🛍️ MIFFY CHÍNH HÃNG – ĐỒ CHƠI NHỒI BÔNG CAO CẤP</span>
+    <span>🌸 MỸ PHẨM CHÍNH HÃNG – GIÁ TỐT NHẤT THỊ TRƯỜNG</span>
+    <span>🚚 FREESHIP 15K MỌI ĐƠN HÀNG</span>
+    <span>💥 NHẬP MÃ T01FREESHIP30K – GIẢM NGAY 30K CHO ĐƠN HÀNG 199K</span>
+    <span>🎁 HỖ TRỢ GÓI QUÀ + KHẮC SÔN MIỄN PHÍ</span>
+    <span>✨ MUA ONLINE – NHẬN TẠI CỬA HÀNG GẦN NHẤT</span>
+    <span>🛍️ MIFFY CHÍNH HÃNG – ĐỒ CHƠI NHỒI BÔNG CAO CẤP</span>
+    <span>🌸 MỸ PHẨM CHÍNH HÃNG – GIÁ TỐT NHẤT THỊ TRƯỜNG</span>
+  </div>
+</div>
+
+<header class="header">
+  <div class="logo">
+    <h1><a href="index.html">Gia Hân Cosmetics Review</a></h1>
+    <p>KOL cho các thương hiệu mỹ phẩm uy tín – chính hãng</p>
+  </div>
+  <!-- ===== SEARCH ===== -->
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm, thương hiệu..." autocomplete="off">
+    <button class="search-clear" id="searchClear" title="Xóa">✕</button>
+    <div class="search-results-dropdown" id="searchDropdown"></div>
+  </div>
+  <div class="header-actions">
+    <div class="cart-wrap">
+      <a href="cart.html" class="pill cart">🛒 Giỏ Hàng</a>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </div>
+    <a href="login.html" class="pill login" id="loginPill">Đăng Nhập</a>
+  </div>
+</header>
+
+<!-- ===== NAV – dàn đều ===== -->
+<nav class="pill-bar">
+  <div class="menu-pills">
+    <a href="brand.html" class="pill">Thương Hiệu</a>
+    <a href="tapchi.html" class="pill">Tạp Chí Làm Đẹp</a>
+    <a href="km.html" class="pill">Khuyến Mãi</a>
+    <a href="miffy.html" class="pill">MIFFY Chính Hãng</a>
+    <a href="td.html" class="pill active">Trang Điểm</a>
+    <a href="csd.html" class="pill">Chăm Sóc Da Mặt</a>
+    <a href="csct.html" class="pill">Chăm Sóc Cơ Thể</a>
+    <a href="spmoi.html" class="pill">Sản Phẩm Mới</a>
+  </div>
+</nav>
+
+<div class="page-title-bar">
+  <h1>💄 TRANG ĐIỂM</h1>
+  <div class="result-count">Hiển thị <span id="countDisplay">0</span> kết quả</div>
+</div>
+
+<div class="main-layout">
+  <aside class="sidebar">
+    <div class="filter-card">
+      <div class="filter-title" onclick="toggleFilter(this)">Giá sản phẩm <span class="arrow">▾</span></div>
+      <div class="filter-body price-options" id="priceFilter">
+        <label class="price-option"><input type="checkbox" value="0-200000" onchange="applyFilters()"> Dưới 200.000đ</label>
+        <label class="price-option"><input type="checkbox" value="200000-400000" onchange="applyFilters()"> 200.000đ – 400.000đ</label>
+        <label class="price-option"><input type="checkbox" value="400000-600000" onchange="applyFilters()"> 400.000đ – 600.000đ</label>
+        <label class="price-option"><input type="checkbox" value="600000-999999999" onchange="applyFilters()"> Trên 600.000đ</label>
+      </div>
+    </div>
+    <div class="filter-card">
+      <div class="filter-title" onclick="toggleFilter(this)">Loại sản phẩm <span class="arrow">▾</span></div>
+      <div class="filter-body" id="catFilter">
+        <input type="text" class="search-filter" placeholder="Tìm..." oninput="filterCatSearch(this)">
+        <div class="category-list" id="catList">
+          <label class="cat-item"><input type="checkbox" value="che-khuyet-diem" onchange="applyFilters()"> Che khuyết điểm <span class="cat-count">(13)</span></label>
+          <label class="cat-item"><input type="checkbox" value="chi-ke-mat" onchange="applyFilters()"> Chì kẻ mắt <span class="cat-count">(21)</span></label>
+          <label class="cat-item"><input type="checkbox" value="chi-ke-may" onchange="applyFilters()"> Chì kẻ mày <span class="cat-count">(26)</span></label>
+          <label class="cat-item"><input type="checkbox" value="co-trang-diem" onchange="applyFilters()"> Cọ trang điểm <span class="cat-count">(47)</span></label>
+          <label class="cat-item"><input type="checkbox" value="duong-moi" onchange="applyFilters()"> Dưỡng môi <span class="cat-count">(53)</span></label>
+          <label class="cat-item"><input type="checkbox" value="highlighter" onchange="applyFilters()"> Highlighter <span class="cat-count">(7)</span></label>
+          <label class="cat-item"><input type="checkbox" value="kem-nen" onchange="applyFilters()"> Kem nền <span class="cat-count">(35)</span></label>
+          <label class="cat-item"><input type="checkbox" value="mascara" onchange="applyFilters()"> Mascara <span class="cat-count">(18)</span></label>
+          <label class="cat-item"><input type="checkbox" value="phan-mat" onchange="applyFilters()"> Phấn mắt <span class="cat-count">(29)</span></label>
+          <label class="cat-item"><input type="checkbox" value="phan-nuoc" onchange="applyFilters()"> Phấn nước <span class="cat-count">(22)</span></label>
+          <label class="cat-item"><input type="checkbox" value="son-moi" onchange="applyFilters()"> Son môi <span class="cat-count">(65)</span></label>
+        </div>
+      </div>
+    </div>
+    <div class="filter-card">
+      <div class="filter-title" onclick="toggleFilter(this)">Thương hiệu <span class="arrow">▾</span></div>
+      <div class="filter-body brand-list" id="brandFilter">
+        <label class="brand-item"><input type="checkbox" value="CLUB CLIO" onchange="applyFilters()"> CLUB CLIO (80)</label>
+        <label class="brand-item"><input type="checkbox" value="AMUSE" onchange="applyFilters()"> AMUSE (45)</label>
+        <label class="brand-item"><input type="checkbox" value="PERIPERA" onchange="applyFilters()"> PERIPERA (40)</label>
+        <label class="brand-item"><input type="checkbox" value="BBIA" onchange="applyFilters()"> BBIA (12)</label>
+        <label class="brand-item"><input type="checkbox" value="CODE GLOKOLOR" onchange="applyFilters()"> CODE GLOKOLOR (4)</label>
+      </div>
+    </div>
+    <button class="pill" onclick="resetFilters()" style="width:100%;justify-content:center;background:#fff0f5;color:var(--pink);border:1.5px solid var(--pink);font-weight:600;">✕ Xóa bộ lọc</button>
+  </aside>
+
+  <div class="content-area">
+    <div class="sort-bar">
+      <span class="sort-label">Sắp xếp:</span>
+      <button class="sort-btn active" onclick="setSort('default',this)">Phổ biến</button>
+      <button class="sort-btn" onclick="setSort('price-asc',this)">Giá thấp → cao</button>
+      <button class="sort-btn" onclick="setSort('price-desc',this)">Giá cao → thấp</button>
+      <button class="sort-btn" onclick="setSort('discount',this)">Giảm giá nhiều</button>
+      <button class="sort-btn" onclick="setSort('newest',this)">Mới nhất</button>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+</div>
+
+<!-- QUICK VIEW MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-images">
+      <div class="modal-main-img"><img id="modalMainImg" src="" alt=""></div>
+      <div class="modal-thumbs" id="modalThumbs"></div>
+    </div>
+    <div class="modal-info">
+      <div class="modal-brand" id="modalBrand"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-stars" id="modalStars"></div>
+      <div class="modal-price-row">
+        <div class="modal-price" id="modalPrice"></div>
+        <div class="modal-price-old" id="modalOldPrice"></div>
+        <div class="modal-discount" id="modalDiscount"></div>
+      </div>
+      <div class="modal-section" id="colorSection" style="display:none;">
+        <div class="modal-section-title">Màu sắc</div>
+        <div class="color-options" id="colorOptions"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Số lượng</div>
+        <div class="qty-row">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <span class="qty-num" id="qtyNum">1</span>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Mô tả sản phẩm</div>
+        <div class="modal-desc" id="modalDesc"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-add" onclick="addToCartFromModal()">🛒 Thêm vào giỏ</button>
+        <button class="btn-buy" onclick="buyNow()">Mua ngay</button>
+      </div>
+      <div class="modal-delivery">
+        <b>🚚 Giao hàng miễn phí</b> cho đơn từ 300.000đ<br>
+        <b>🔄 Đổi trả trong 30 ngày</b> nếu hàng lỗi<br>
+        <b>✅ Hàng chính hãng 100%</b> – có tem và hóa đơn
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h2>🛒 Giỏ hàng của bạn</h2>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty"><div class="cart-empty-icon">🛍️</div>Giỏ hàng trống. Hãy thêm sản phẩm!</div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total"><span>Tổng cộng:</span><span id="cartTotal">0đ</span></div>
+    <button class="cart-go-btn" onclick="window.location.href='cart.html'">🛒 Xem giỏ hàng</button>
+    <button class="checkout-btn" onclick="goCheckout()">💳 Thanh toán ngay →</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <div class="footer-left">
+    <p>Website <strong>Gia Hân Cosmetics Review</strong> thuộc quyền quản lý và vận hành bởi <strong>KOL Gia Hân</strong>. Giấy chứng nhận đăng ký kinh doanh số <strong>0309802418</strong>, cấp ngày 23/01/2026 tại Sở Kế hoạch và Đầu tư TP. Hồ Chí Minh.</p>
+    <p>Gia Hân Cosmetics Review chuyên cung cấp mỹ phẩm chính hãng, được chọn lọc kỹ lưỡng từ các thương hiệu uy tín trong và ngoài nước.</p>
+    <p>Địa chỉ hoạt động: 613 Âu Cơ, Quận Tân Phú, TP. Hồ Chí Minh, Việt Nam.</p>
+    <p>Cam kết mang đến trải nghiệm mua sắm minh bạch, tiện lợi và đáng tin cậy cho khách hàng.</p>
+  </div>
+  <div class="footer-right">
+    <p>Phương thức thanh toán</p>
+    <div class="payment-methods">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/06414657-24ed-4da4-8a54-f207d45ab1be.webp" alt="payment">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/afebded0-f4e7-4c5f-aee3-aa01271174c3.webp" alt="payment">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/64102078-db30-4f18-a473-2582467505fd.webp" alt="payment">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/a19ac3f9-5d5e-43c3-aa84-49576cad1102.webp" alt="payment">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/3e4a7882-d755-4110-83b5-6496bf5e689c.webp" alt="payment">
+    </div>
+  </div>
+</footer>
+
+<script>
+// ===== PRODUCT DATA =====
+const products = [
+  { id:1, brand:"CLUB CLIO", name:"Kem Nền Che Khuyết Điểm Clio Kill Cover Founwear Foundation SPF30+ PA++", price:545000, oldPrice:699000, discount:22, rating:3.5, reviews:31, img:"images/td1.jpg", imgs:["images/td1-1.jpg","images/td1-2.jpg"], badges:["MỚI","-22%"], freeship:true, isNew:true, category:"kem-nen", colors:["#F5DEB3","#DEB887","#D2A67A"], desc:"Kem nền che phủ hoàn hảo, giữ nếp cả ngày. SPF30+ PA++ bảo vệ da khỏi tia UV. Phù hợp mọi loại da." },
+  { id:2, brand:"AMUSE", name:"Son Thạch Bóng Thuần Chay Amuse Jel-Fit Tint 3.8g", price:299000, oldPrice:399000, discount:25, rating:4, reviews:38, img:"images/td2.jpg", imgs:["images/td2-1.jpg","images/td2-2.jpg"], badges:["MỚI","-25%"], freeship:false, isNew:true, category:"son-moi", colors:["#FF6B6B","#FF9999","#CC4444","#FF3399"], desc:"Son thạch bóng thuần chay cho màu sắc tươi tắn và dưỡng môi căng mọng." },
+  { id:3, brand:"AMUSE", name:"Bảng Phấn Mắt 9 Ô Thuần Chay Amuse Eye Color Palette 11g", price:560150, oldPrice:659000, discount:15, rating:4, reviews:5, img:"images/td3.jpg", imgs:["images/td3-2.jpg"], badges:["MỚI","1+1"], freeship:true, isNew:true, category:"phan-mat", colors:[], desc:"Bảng phấn mắt 9 ô với tone màu đa dạng, pigment cao, dễ blend." },
+  { id:4, brand:"CLUB CLIO", name:"Mascara Làm Cong Mi Chống Trôi Clio Kill Lash Superproof Mascara 7g", price:275000, oldPrice:339000, discount:19, rating:4, reviews:684, img:"images/td4.jpg", imgs:["images/td4-2.jpg"], badges:["-19%"], freeship:true, isNew:false, category:"mascara", colors:[], desc:"Mascara chống nước cực tốt, giữ cong mi cả ngày. Lông mi dài và dày tự nhiên." },
+  { id:5, brand:"CLUB CLIO", name:"Phấn Phủ Nén Kiềm Dầu Clio Stay Perfect Finish Pact 8g", price:409000, oldPrice:549000, discount:26, rating:4, reviews:156, img:"images/td5.jpg", imgs:["images/td5-1.jpg"], badges:["-26%"], freeship:true, isNew:false, category:"che-khuyet-diem", colors:["#F5DEB3","#DEB887"], desc:"Phấn phủ nén kiểm soát dầu nhờn, cho lớp nền mượt mà suốt 12 tiếng." },
+  { id:6, brand:"CLUB CLIO", name:"Phấn Nước Clio Kill Cover Founwear Cushion 15g SPF50+ PA+++", price:565000, oldPrice:729000, discount:22, rating:4, reviews:57, img:"images/td6.jpg", imgs:["images/td6-1.jpg"], badges:["MỚI","-22%"], freeship:true, isNew:true, category:"phan-nuoc", colors:["#F5DEB3","#DEB887","#D2A67A"], desc:"Phấn nước che phủ cao, mỏng nhẹ SPF50+ PA+++. Giữ nếp cả ngày ngay cả trong thời tiết ẩm." },
+  { id:7, brand:"CLUB CLIO", name:"Bảng Phấn Mắt & Má Hồng Peripera All Take Mood Like Palette 13g", price:435000, oldPrice:529000, discount:18, rating:4.5, reviews:175, img:"images/td7.jpg", imgs:["images/td7-1.jpg"], badges:["-18%"], freeship:true, isNew:false, category:"phan-mat", colors:[], desc:"Bảng đa năng gồm phấn mắt và má hồng. Phù hợp nhiều phong cách trang điểm." },
+  { id:8, brand:"CLUB CLIO", name:"[Độc Quyền] Phấn Nước Mịn Li Clio Kill Cover Mesh Blur Cushion 15g", price:545000, oldPrice:679000, discount:20, rating:4.5, reviews:21, img:"images/td8.jpg", imgs:["images/td8-1.jpg"], badges:["ĐỘC QUYỀN","-20%"], freeship:true, isNew:false, category:"phan-nuoc", colors:["#F5DEB3","#DEB887"], desc:"Phấn nước che lỗ chân lông với công nghệ Mesh Blur. Finish mịn như lụa, tự nhiên suốt ngày." },
+  { id:9, brand:"CLUB CLIO", name:"[Phiên Bản Soda Cafe] Phấn Nước Peripera Mood Fit Cover Cushion SPF50 15g", price:279500, oldPrice:559000, discount:50, rating:3.5, reviews:19, img:"images/td9.jpg", imgs:["images/td9-1.jpg"], badges:["CLEARANCE","-50%"], freeship:true, isNew:false, category:"phan-nuoc", colors:["#F5DEB3","#DEB887","#D2A67A"], desc:"Phiên bản Soda Cafe giới hạn. Phấn nước dưỡng ẩm sâu SPF50, cho làn da căng mọng." },
+  { id:10, brand:"CLUB CLIO", name:"[Harry Potter] Phấn Nước Clio Kill Cover Cushion SPF50+ 15g", price:565000, oldPrice:729000, discount:22, rating:3, reviews:13, img:"images/td10.jpg", imgs:["images/td10-1.jpg"], badges:["MỚI","-22%"], freeship:true, isNew:true, category:"phan-nuoc", colors:["#F5DEB3","#DEB887","#D2A67A"], desc:"Phiên bản đặc biệt Harry Potter LUMOS! SPF50+ PA+++, phiên bản giới hạn siêu hot." },
+  { id:11, brand:"CLUB CLIO", name:"Son Nước Peripera Water Bare Tint (Ver. Mới Cherry)", price:249000, oldPrice:0, discount:0, rating:4.5, reviews:597, img:"images/td11.jpg", imgs:["images/td11-1.jpg"], badges:["1+1"], freeship:true, isNew:false, category:"son-moi", colors:["#FF3399","#FF6B6B","#CC0044"], desc:"Son nước bóng nhẹ với sắc màu tươi tắn, dưỡng ẩm giữ môi mềm mịn suốt ngày." },
+  { id:12, brand:"CLUB CLIO", name:"Son Dưỡng Môi Clio Crystal Glam Balm 3.2g", price:259000, oldPrice:369000, discount:30, rating:4, reviews:14, img:"images/td12.jpg", imgs:["images/td12-1"], badges:["-30%"], freeship:true, isNew:false, category:"duong-moi", colors:["#FFB6C1","#FF9EAF","#FF7096"], desc:"Son dưỡng có màu với hiệu ứng ánh kim tinh tế. Dưỡng môi căng mọng." },
+  { id:13, brand:"PERIPERA", name:"Peripera Over Blur Tint #06 Mauve-Treaming", price:219000, oldPrice:299000, discount:27, rating:4.5, reviews:241, img:"images/td13.jpg", imgs:["images/td13.jpg"], badges:["-27%"], freeship:false, isNew:false, category:"son-moi", colors:["#C45E7B","#A8344F","#D98FA0"], desc:"Son tint blur lỳ mịn, lâu trôi. Màu Mauve-Treaming hồng nâu lý tưởng cho makeup nhẹ nhàng." },
+  { id:14, brand:"BBIA", name:"Son Tint BBIA Last Velvet Lip Tint 5g", price:189000, oldPrice:259000, discount:27, rating:4.5, reviews:320, img:"images/td14.jpg", imgs:["images/td14-1.jpg"], badges:["-27%","HOT"], freeship:false, isNew:false, category:"son-moi", colors:["#CC0000","#993333","#CC6699","#990099"], desc:"Son tint nhung mịn lỳ siêu lâu trôi. Nhiều màu từ đỏ rực đến hồng tím tinh tế." },
+  { id:15, brand:"CODE GLOKOLOR", name:"Phấn Mắt Đơn Code Glokolor Eye Art Palette Single", price:320000, oldPrice:420000, discount:24, rating:4, reviews:88, img:"images/td15.jpg", imgs:["images/td15-1.jpg"], badges:["-24%"], freeship:false, isNew:false, category:"phan-mat", colors:[], desc:"Phấn mắt đơn pigment cao, đa dạng màu từ basic đến bold, phù hợp mọi style." },
+];
+
+// ===== STATE =====
+let currentSort = 'default';
+let currentProduct = null;
+let currentQty = 1;
+
+// ===== CART =====
+function getCart() { try { return JSON.parse(localStorage.getItem('cart') || '[]'); } catch(e) { return []; } }
+function saveCart(c) { localStorage.setItem('cart', JSON.stringify(c)); }
+function updateCartBadge() {
+  const cart = getCart();
+  const total = cart.reduce((s,c) => s + (c.quantity||0), 0);
+  const badge = document.getElementById('cartBadge');
+  badge.style.display = total ? 'flex' : 'none';
+  badge.textContent = total;
+}
+function addProductToCart(p, qty) {
+  const cart = getCart();
+  const ex = cart.find(c => c.name === p.name);
+  if (ex) ex.quantity += qty;
+  else cart.push({ name: p.name, brand: p.brand, price: fmt(p.price), image: p.img, img: p.img, quantity: qty });
+  saveCart(cart); updateCartBadge();
+}
+
+// ===== FORMAT =====
+function fmt(n) { return n.toLocaleString('vi-VN') + 'đ'; }
+function renderStars(rating) {
+  let s = '';
+  for (let i = 1; i <= 5; i++) { if (i <= Math.floor(rating)) s += '★'; else if (i - rating < 1) s += '½'; else s += '☆'; }
+  return `<span class="stars">${s}</span>`;
+}
+
+// ===== SEARCH DROPDOWN =====
+(function() {
+  const input = document.getElementById('searchInput');
+  const dropdown = document.getElementById('searchDropdown');
+  const clearBtn = document.getElementById('searchClear');
+  let timer;
+
+  function normalize(str) {
+    return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d');
+  }
+
+  function showDropdown(query) {
+    const q = normalize(query.trim());
+    if (!q) { dropdown.classList.remove('show'); return; }
+    const results = products.filter(p =>
+      normalize(p.name).includes(q) || normalize(p.brand).includes(q) || normalize(p.desc||'').includes(q)
+    ).slice(0, 8);
+    if (!results.length) {
+      dropdown.innerHTML = `<div class="search-no-result">😔 Không tìm thấy sản phẩm nào</div>`;
+    } else {
+      dropdown.innerHTML = results.map(p => `
+        <div class="search-result-item" onclick="selectSearchResult(${p.id})">
+          <img class="search-result-img" src="${p.img}" alt="" onerror="this.src='https://via.placeholder.com/44'">
+          <div class="search-result-info">
+            <div class="search-result-name">${p.name}</div>
+            <div class="search-result-brand">${p.brand}</div>
+          </div>
+          <div class="search-result-price">${fmt(p.price)}</div>
+        </div>`).join('');
+    }
+    dropdown.classList.add('show');
+  }
+
+  input.addEventListener('input', function() {
+    clearTimeout(timer);
+    clearBtn.classList.toggle('show', this.value.length > 0);
+    applyFilters(); // lọc grid khi gõ
+    timer = setTimeout(() => showDropdown(this.value), 200);
+  });
+  input.addEventListener('keydown', e => { if (e.key === 'Escape') { dropdown.classList.remove('show'); input.blur(); } });
+  clearBtn.addEventListener('click', () => { input.value = ''; clearBtn.classList.remove('show'); dropdown.classList.remove('show'); applyFilters(); input.focus(); });
+  document.addEventListener('click', e => { if (!e.target.closest('.search-box')) dropdown.classList.remove('show'); });
+})();
+
+function selectSearchResult(id) {
+  document.getElementById('searchDropdown').classList.remove('show');
+  openQuickView(id);
+}
+
+// ===== FILTERS =====
+function applyFilters() {
+  const priceChecks = [...document.querySelectorAll('#priceFilter input:checked')].map(e => e.value);
+  const catChecks = [...document.querySelectorAll('#catList input:checked')].map(e => e.value);
+  const brandChecks = [...document.querySelectorAll('#brandFilter input:checked')].map(e => e.value);
+  const searchQ = document.getElementById('searchInput').value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d');
+
+  let result = products.filter(p => {
+    if (priceChecks.length) {
+      const ok = priceChecks.some(r => { const [mn,mx] = r.split('-').map(Number); return p.price >= mn && p.price <= mx; });
+      if (!ok) return false;
+    }
+    if (catChecks.length && !catChecks.includes(p.category)) return false;
+    if (brandChecks.length && !brandChecks.includes(p.brand)) return false;
+    if (searchQ) {
+      const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d');
+      if (!norm(p.name).includes(searchQ) && !norm(p.brand).includes(searchQ)) return false;
+    }
+    return true;
+  });
+
+  if (currentSort === 'price-asc') result.sort((a,b) => a.price - b.price);
+  else if (currentSort === 'price-desc') result.sort((a,b) => b.price - a.price);
+  else if (currentSort === 'discount') result.sort((a,b) => b.discount - a.discount);
+  else if (currentSort === 'newest') result.sort((a,b) => b.isNew - a.isNew);
+
+  renderGrid(result);
+}
+
+function renderGrid(list) {
+  const grid = document.getElementById('productGrid');
+  document.getElementById('countDisplay').textContent = list.length;
+  if (!list.length) {
+    grid.innerHTML = `<div class="no-results"><div class="no-results-icon">🔍</div>Không tìm thấy sản phẩm phù hợp.<br>Hãy thử thay đổi bộ lọc.</div>`;
+    return;
+  }
+  grid.innerHTML = list.map(p => `
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="${p.img}" alt="${p.name}" loading="lazy">
+        <div class="badges">
+          ${p.badges.map(b => `<span class="badge badge-${b==='MỚI'?'new':'sale'}">${b}</span>`).join('')}
+          ${p.freeship ? '<span class="badge badge-freeship">FREESHIP</span>' : ''}
+        </div>
+        <button class="wishlist-btn" onclick="toggleWish(this)">♡</button>
+        <div class="quick-view-overlay" onclick="openQuickView(${p.id})">👁 Xem nhanh</div>
+      </div>
+      <div class="product-info">
+        <div class="brand-name">${p.brand}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="price-row">
+          <span class="price-now">${fmt(p.price)}</span>
+          ${p.oldPrice ? `<span class="price-old">${fmt(p.oldPrice)}</span><span class="discount-tag">-${p.discount}%</span>` : ''}
+        </div>
+        <div>${renderStars(p.rating)} <span class="review-count">(${p.reviews})</span></div>
+        <button class="add-cart-btn" onclick="addProductToCart(products.find(x=>x.id===${p.id}),1);showToast('✅ Đã thêm vào giỏ!')">🛒 Thêm vào giỏ</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function setSort(type, btn) {
+  currentSort = type;
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+function toggleFilter(el) { el.classList.toggle('collapsed'); el.nextElementSibling.classList.toggle('hidden'); }
+function filterCatSearch(input) {
+  const q = input.value.toLowerCase();
+  document.querySelectorAll('#catList .cat-item').forEach(item => { item.style.display = item.textContent.toLowerCase().includes(q) ? '' : 'none'; });
+}
+function toggleWish(btn) { btn.classList.toggle('active'); btn.textContent = btn.classList.contains('active') ? '♥' : '♡'; }
+function resetFilters() { document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false); document.getElementById('searchInput').value = ''; document.getElementById('searchClear').classList.remove('show'); applyFilters(); }
+
+// ===== QUICK VIEW MODAL =====
+function openQuickView(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  currentProduct = p; currentQty = 1;
+  document.getElementById('modalBrand').textContent = p.brand;
+  document.getElementById('modalTitle').textContent = p.name;
+  document.getElementById('modalStars').innerHTML = renderStars(p.rating) + ` <span style="color:#aaa;font-size:12px">(${p.reviews} đánh giá)</span>`;
+  document.getElementById('modalPrice').textContent = fmt(p.price);
+  document.getElementById('modalOldPrice').textContent = p.oldPrice ? fmt(p.oldPrice) : '';
+  document.getElementById('modalDiscount').textContent = p.discount ? `-${p.discount}%` : '';
+  document.getElementById('modalDiscount').style.display = p.discount ? 'block' : 'none';
+  document.getElementById('modalDesc').textContent = p.desc;
+  document.getElementById('qtyNum').textContent = 1;
+  document.getElementById('modalMainImg').src = p.img;
+  document.getElementById('modalThumbs').innerHTML = p.imgs.map((img,i) => `<img class="modal-thumb ${i===0?'active':''}" src="${img}" onclick="switchImg(this,'${img}')">`).join('');
+  const colorSec = document.getElementById('colorSection');
+  if (p.colors && p.colors.length) {
+    colorSec.style.display = 'block';
+    document.getElementById('colorOptions').innerHTML = p.colors.map((c,i) => `<button class="color-btn ${i===0?'active':''}" style="background:${c}" onclick="selectColor(this)"></button>`).join('');
+  } else { colorSec.style.display = 'none'; }
+  document.getElementById('modalOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function switchImg(el, src) { document.querySelectorAll('.modal-thumb').forEach(t => t.classList.remove('active')); el.classList.add('active'); document.getElementById('modalMainImg').src = src; }
+function selectColor(btn) { document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+function closeModal() { document.getElementById('modalOverlay').classList.remove('show'); document.body.style.overflow = ''; }
+function closeModalOnOverlay(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
+function changeQty(d) { currentQty = Math.max(1, currentQty + d); document.getElementById('qtyNum').textContent = currentQty; }
+
+function addToCartFromModal() {
+  if (!currentProduct) return;
+  addProductToCart(currentProduct, currentQty);
+  closeModal(); showToast(`✅ Đã thêm ${currentQty} sản phẩm vào giỏ!`);
+}
+function buyNow() { if (!currentProduct) return; addProductToCart(currentProduct, currentQty); closeModal(); window.location.href = 'checkout.html'; }
+
+// ===== CART DRAWER =====
+function openCart() { renderCartDrawer(); document.getElementById('cartDrawer').classList.add('open'); document.getElementById('cartOverlay').classList.add('show'); document.body.style.overflow = 'hidden'; }
+function closeCart() { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('show'); document.body.style.overflow = ''; }
+function goCheckout() { const cart = getCart(); if (!cart.length) { showToast('⚠️ Giỏ hàng trống!'); return; } window.location.href = 'checkout.html'; }
+
+function renderCartDrawer() {
+  const cart = getCart();
+  const el = document.getElementById('cartItems');
+  if (!cart.length) { el.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">🛍️</div>Giỏ hàng trống!</div>'; document.getElementById('cartTotal').textContent = '0đ'; return; }
+  el.innerHTML = cart.map((item, i) => `
+    <div class="cart-item">
+      <img src="${item.image || item.img}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/70'">
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name.slice(0,55)}${item.name.length>55?'...':''}</div>
+        <div class="cart-item-price">${item.price}</div>
+        <div class="cart-item-qty">
+          <button class="cart-qty-btn" onclick="cartQty(${i},-1)">−</button>
+          <span>${item.quantity}</span>
+          <button class="cart-qty-btn" onclick="cartQty(${i},1)">+</button>
+        </div>
+      </div>
+      <button class="cart-item-remove" onclick="cartRemove(${i})">✕</button>
+    </div>`).join('');
+  let total = 0;
+  cart.forEach(item => { const num = parseInt((item.price||'').replace(/[^\d]/g,'')); if (!isNaN(num)) total += num * item.quantity; });
+  document.getElementById('cartTotal').textContent = total ? total.toLocaleString('vi-VN') + 'đ' : '—';
+}
+
+function cartQty(i, d) { const cart = getCart(); cart[i].quantity = Math.max(1, cart[i].quantity + d); saveCart(cart); updateCartBadge(); renderCartDrawer(); }
+function cartRemove(i) { const cart = getCart(); cart.splice(i, 1); saveCart(cart); updateCartBadge(); renderCartDrawer(); }
+
+// ===== TOAST =====
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._timer); t._timer = setTimeout(() => t.classList.remove('show'), 2800); }
+
+// ===== LOGIN CHECK =====
+document.addEventListener('DOMContentLoaded', function() {
+  const loginPill = document.getElementById('loginPill');
+  const savedAvatar = localStorage.getItem('userAvatar');
+  if (savedAvatar) {
+    const img = document.createElement('img');
+    img.src = savedAvatar;
+    img.style.cssText = 'width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #FF1493;cursor:pointer;';
+    img.title = 'Đăng xuất';
+    img.onclick = () => { if (confirm('Bạn có muốn đăng xuất không?')) { localStorage.removeItem('userAvatar'); location.reload(); } };
+    loginPill.replaceWith(img);
+  }
+});
+
+// ===== INIT =====
+applyFilters();
+updateCartBadge();
+</script>
+</body>
+</html>

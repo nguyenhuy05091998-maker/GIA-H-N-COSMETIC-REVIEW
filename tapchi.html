@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tạp Chí Làm Đẹp - Gia Hân Cosmetics Review</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Arial, sans-serif; background: #fff; color: #222; }
+
+    .marquee-bar { background: #ede0f7; overflow: hidden; white-space: nowrap; padding: 9px 0; border-bottom: 1px solid #d8bfee; }
+    .marquee-track { display: inline-flex; gap: 60px; animation: marquee 60s linear infinite; }
+    .marquee-track span { font-size: 13px; color: #6a1b9a; font-weight: 600; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    .header {
+      background: #fff; border-bottom: 1px solid #eee;
+      padding: 10px 20px; display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 10px;
+      position: sticky; top: 0; z-index: 900;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .logo h1 { margin: 0; }
+    .logo h1 a { color: #FF1493; font-size: 26px; text-decoration: none; }
+    .logo p { color: #555; font-size: 13px; margin-top: 2px; }
+
+    .search-box { position: relative; }
+    .search-box input {
+      width: 360px; max-width: 100%; padding: 8px 36px 8px 12px;
+      border: 1.5px solid #FF1493; border-radius: 20px;
+      outline: none; font-size: 14px; font-family: inherit;
+    }
+    .search-box input:focus { box-shadow: 0 0 0 3px rgba(255,20,147,0.12); }
+    .search-clear {
+      position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; color: #bbb; font-size: 16px; display: none;
+    }
+    .search-clear.show { display: block; }
+    .search-results-dropdown {
+      position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+      background: #fff; border: 1.5px solid #ffd6e7; border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(255,20,147,0.12);
+      z-index: 9999; max-height: 380px; overflow-y: auto; display: none;
+    }
+    .search-results-dropdown.show { display: block; }
+    .search-result-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px; cursor: pointer; transition: background 0.15s;
+      border-bottom: 1px solid #fff5f8;
+    }
+    .search-result-item:last-child { border-bottom: none; }
+    .search-result-item:hover { background: #fff0f8; }
+    .search-result-img { width: 44px; height: 44px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+    .search-result-info { flex: 1; }
+    .search-result-name { font-size: 13px; font-weight: 500; color: #222; line-height: 1.3; }
+    .search-result-brand { font-size: 11px; color: #aaa; text-transform: uppercase; font-weight: 600; margin-top: 2px; }
+    .search-result-price { font-size: 13px; font-weight: 700; color: #FF1493; flex-shrink: 0; }
+    .search-no-result { padding: 20px; text-align: center; color: #bbb; font-size: 13px; }
+
+    .header-actions { display: flex; align-items: center; gap: 8px; }
+
+    .pill-bar { background: #fff; padding: 8px 16px; border-bottom: 1px solid #eee; }
+    .menu-pills { display: flex; justify-content: space-evenly; width: 100%; gap: 0; }
+    .pill {
+      flex: 1; text-align: center; justify-content: center;
+      padding: 8px 10px; border-radius: 999px;
+      font-size: 13px; font-weight: 500; color: #333; background: #f5f5f5;
+      white-space: nowrap; border: none; cursor: pointer;
+      transition: all 0.25s ease; text-decoration: none; display: inline-flex; align-items: center;
+    }
+    .pill:hover { background: #ffd6e7; color: #FF1493; transform: translateY(-1px); }
+    .pill.active { background: #ffecf3; color: #FF1493; font-weight: 700; }
+    .menu-pills .pill:nth-child(1) { background: #fce4ec; }
+    .menu-pills .pill:nth-child(2) { background: #e1f5fe; }
+    .menu-pills .pill:nth-child(3) { background: #ffe0b2; }
+    .menu-pills .pill:nth-child(4) { background: #fde2e4; }
+    .menu-pills .pill:nth-child(5) { background: #e8f5e9; }
+    .menu-pills .pill:nth-child(6) { background: #fce4ec; }
+    .menu-pills .pill:nth-child(7) { background: #f3e5f5; }
+    .menu-pills .pill:nth-child(8) { background: #e8eaf6; }
+    .menu-pills .pill.active { background: #ffd6e7 !important; color: #FF1493; font-weight: 700; }
+    .pill.cart-pill { background: #f3e5f5; color: #7b1fa2; flex: 0 0 auto; padding: 8px 16px; }
+    .pill.login-pill { background: #e8eaf6; color: #3949ab; flex: 0 0 auto; padding: 8px 16px; }
+    .cart-wrap { position: relative; display: inline-block; }
+    .cart-badge { position: absolute; top: -6px; right: -6px; background: #FF1493; color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; display: none; align-items: center; justify-content: center; font-weight: 700; }
+
+    /* ===== CART DRAWER ===== */
+    .cart-drawer { position: fixed; top: 0; right: 0; width: 380px; height: 100vh; background: #fff; box-shadow: -4px 0 24px rgba(0,0,0,0.15); z-index: 1500; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
+    .cart-drawer.open { transform: translateX(0); }
+    .cart-drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 1400; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .cart-drawer-overlay.show { opacity: 1; pointer-events: all; }
+    .cart-dheader { padding: 20px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; }
+    .cart-dheader h2 { font-size: 18px; font-weight: 700; }
+    .cart-dclose { background: none; border: none; font-size: 22px; cursor: pointer; color: #666; }
+    .cart-items-list { flex: 1; overflow-y: auto; padding: 16px; }
+    .cart-empty-state { text-align: center; padding: 40px 20px; color: #aaa; font-size: 14px; }
+    .cart-empty-icon { font-size: 48px; margin-bottom: 12px; }
+    .cart-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+    .cart-item img { width: 70px; height: 70px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+    .cart-item-info { flex: 1; }
+    .cart-item-name  { font-size: 12px; line-height: 1.4; font-weight: 500; margin-bottom: 4px; }
+    .cart-item-price { color: #FF1493; font-weight: 700; font-size: 14px; }
+    .cart-item-qty   { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+    .cart-qty-btn { width: 26px; height: 26px; border-radius: 6px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; font-family: inherit; }
+    .cart-qty-btn:hover { border-color: #FF1493; color: #FF1493; }
+    .cart-item-remove { color: #bbb; background: none; border: none; cursor: pointer; font-size: 18px; align-self: flex-start; margin-left: auto; }
+    .cart-item-remove:hover { color: #FF1493; }
+    .cart-dfooter { padding: 20px; border-top: 1px solid #eee; }
+    .cart-dtotal { display: flex; justify-content: space-between; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .cart-dtotal span:last-child { color: #FF1493; }
+    .cart-go-btn { width: 100%; padding: 12px; background: #fff; color: #FF1493; border: 2px solid #FF1493; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; margin-bottom: 8px; transition: background 0.2s; }
+    .cart-go-btn:hover { background: #fff0f5; }
+    .cart-checkout-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #FF1493, #ff6ec7); color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
+    .cart-checkout-btn:hover { opacity: 0.9; }
+
+    .hero-dark { background: #111; color: #fff; padding: 60px 40px 50px; }
+    .hero-title { font-size: 90px; font-weight: 900; line-height: 1; margin-bottom: 50px; letter-spacing: -2px; }
+    .hero-title span { font-weight: 300; font-style: italic; }
+    .featured-grid { display: grid; grid-template-columns: 1fr 420px; gap: 0; max-width: 1300px; }
+    .featured-main { position: relative; cursor: pointer; }
+    .featured-main img { width: 100%; height: 320px; object-fit: cover; display: block; border-radius: 8px 0 0 0; }
+    .featured-main .overlay-info { padding: 20px 24px 0 0; }
+    .featured-main .tag { font-size: 13px; color: #aaa; margin-bottom: 8px; display: block; }
+    .featured-main h2 { font-size: 26px; font-weight: 800; color: #fff; line-height: 1.3; margin-bottom: 10px; }
+    .featured-main p { font-size: 14px; color: #bbb; line-height: 1.6; }
+    .featured-side { display: flex; flex-direction: column; padding-left: 24px; border-left: 1px solid #333; }
+    .side-post { display: flex; gap: 16px; align-items: flex-start; padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid #2a2a2a; cursor: pointer; text-decoration: none; }
+    .side-post:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .side-post img { width: 130px; height: 90px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
+    .side-post-info { flex: 1; }
+    .side-post .tag { font-size: 12px; color: #aaa; display: block; margin-bottom: 6px; }
+    .side-post h3 { font-size: 15px; font-weight: 700; color: #fff; line-height: 1.4; }
+
+    .magazine { max-width: 1200px; margin: 0 auto; padding: 40px 20px; background: #fff; }
+    .magazine > h2 { font-size: 26px; font-weight: 700; color: #111; margin-bottom: 20px; }
+    .categories { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+    .categories button {
+      padding: 9px 20px; border-radius: 999px; border: 1.5px solid #ccc;
+      background: #fff; color: #333; font-size: 14px; font-weight: 500;
+      cursor: pointer; transition: all 0.2s ease; font-family: Arial, sans-serif;
+    }
+    .categories button:hover { border-color: #555; background: #f5f5f5; }
+    .categories button.active { background: #fff; color: #FF1493; border: 2px solid #FF1493; font-weight: 700; }
+
+    /* Thêm badge màu cho từng category */
+    .categories button[data-cat="news"]     { border-color: #7986CB; color: #3949AB; }
+    .categories button[data-cat="news"].active     { background: #E8EAF6; border-color: #3949AB; }
+    .categories button[data-cat="review"]   { border-color: #F06292; color: #C2185B; }
+    .categories button[data-cat="review"].active   { background: #FCE4EC; border-color: #C2185B; }
+    .categories button[data-cat="skincare"] { border-color: #81C784; color: #2E7D32; }
+    .categories button[data-cat="skincare"].active { background: #E8F5E9; border-color: #2E7D32; }
+    .categories button[data-cat="trend"]    { border-color: #FFB74D; color: #E65100; }
+    .categories button[data-cat="trend"].active    { background: #FFF3E0; border-color: #E65100; }
+    .categories button[data-cat="health"]   { border-color: #4DB6AC; color: #00695C; }
+    .categories button[data-cat="health"].active   { background: #E0F2F1; border-color: #00695C; }
+
+    .posts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .post {
+      background: #fff; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
+      display: flex; flex-direction: column;
+    }
+    .post:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.14); transform: translateY(-3px); }
+    .post img { width: 100%; height: 200px; object-fit: cover; display: block; }
+    .post-body { padding: 14px 16px 18px; display: flex; flex-direction: column; flex: 1; }
+    .post .tag { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px; display: inline-block; margin-bottom: 8px; width: fit-content; }
+    .post .tag.tag-news     { background: #E8EAF6; color: #3949AB; }
+    .post .tag.tag-review   { background: #FCE4EC; color: #C2185B; }
+    .post .tag.tag-skincare { background: #E8F5E9; color: #2E7D32; }
+    .post .tag.tag-trend    { background: #FFF3E0; color: #E65100; }
+    .post .tag.tag-health   { background: #E0F2F1; color: #00695C; }
+    .post h3 { font-size: 17px; font-weight: 700; color: #111; margin: 0 0 8px 0; line-height: 1.4; }
+    .post p { font-size: 14px; color: #555; line-height: 1.6; margin: 0 0 12px 0; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .post a.read-more { font-size: 14px; color: #111; font-weight: 600; text-decoration: none; }
+    .post a.read-more:hover { color: #FF1493; }
+
+    /* No-results state */
+    .no-posts-msg { grid-column: 1/-1; text-align: center; padding: 60px 20px; color: #bbb; font-size: 16px; }
+    .no-posts-msg span { font-size: 48px; display: block; margin-bottom: 12px; }
+
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .modal-overlay.show { opacity: 1; pointer-events: all; }
+    .modal-box { background: #fff; border-radius: 20px; max-width: 540px; width: 100%; padding: 30px; position: relative; transform: scale(0.92); transition: transform 0.25s; }
+    .modal-overlay.show .modal-box { transform: scale(1); }
+    .modal-close { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 50%; background: #f5f5f5; border: none; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .modal-close:hover { background: #ffd6e7; color: #FF1493; }
+    .modal-img { width: 100%; height: 220px; object-fit: cover; border-radius: 12px; margin-bottom: 16px; }
+    .modal-brand { font-size: 11px; font-weight: 700; color: #888; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+    .modal-title { font-size: 17px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; line-height: 1.4; }
+    .modal-price { font-size: 22px; font-weight: 700; color: #FF1493; margin-bottom: 10px; }
+    .modal-desc { font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 16px; }
+    .modal-actions { display: flex; gap: 10px; }
+    .btn-add-cart { flex: 1; padding: 12px; background: #fff; color: #FF1493; border: 2px solid #FF1493; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; }
+    .btn-add-cart:hover { background: #fff0f5; }
+    .btn-buy-now { flex: 1; padding: 12px; background: linear-gradient(135deg, #FF1493, #ff69b4); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; }
+    .btn-buy-now:hover { opacity: 0.9; }
+
+    .toast { position: fixed; bottom: 28px; right: 28px; background: #1a1a1a; color: #fff; padding: 13px 20px; border-radius: 12px; font-size: 14px; z-index: 2000; transform: translateY(16px); opacity: 0; transition: all 0.3s; pointer-events: none; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    footer { display: flex; justify-content: space-between; align-items: flex-start; padding: 20px; background-color: #FFB6C1; margin-top: 20px; flex-wrap: wrap; }
+    .footer-left { flex: 0 0 65%; }
+    .footer-left p { margin-bottom: 8px; font-size: 14px; color: #333; }
+    .footer-right { flex: 1; display: flex; flex-direction: column; align-items: flex-end; }
+    .footer-right p { margin-bottom: 10px; }
+    .payment-methods { display: flex; align-items: center; flex-wrap: wrap; }
+    .payment-methods img { width: 70px; height: 50px; object-fit: contain; margin: 0 5px; border: 1px solid #FF1493; border-radius: 5px; }
+
+    @media (max-width: 900px) {
+      .hero-title { font-size: 52px; }
+      .featured-grid { grid-template-columns: 1fr; }
+      .featured-side { border-left: none; padding-left: 0; border-top: 1px solid #333; padding-top: 24px; margin-top: 24px; }
+      .posts { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 580px) {
+      .hero-dark { padding: 40px 20px 36px; }
+      .hero-title { font-size: 38px; }
+      .posts { grid-template-columns: 1fr; }
+      .header { flex-direction: column; text-align: center; }
+      footer { flex-direction: column; }
+      .footer-left, .footer-right { flex: none; width: 100%; }
+      .menu-pills { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+      .menu-pills .pill { flex: 0 0 auto; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>🚚 FREESHIP 15K MỌI ĐƠN HÀNG</span>
+    <span>💥 NHẬP MÃ T01FREESHIP30K – GIẢM NGAY 30K CHO ĐƠN HÀNG 199K</span>
+    <span>🎁 HỖ TRỢ GÓI QUÀ + KHẮC SÔN MIỄN PHÍ</span>
+    <span>✨ MUA ONLINE – NHẬN TẠI CỬA HÀNG GẦN NHẤT</span>
+    <span>🛍️ MIFFY CHÍNH HÃNG – ĐỒ CHƠI NHỒI BÔNG CAO CẤP</span>
+    <span>🌸 MỸ PHẨM CHÍNH HÃNG – GIÁ TỐT NHẤT THỊ TRƯỜNG</span>
+    <span>🚚 FREESHIP 15K MỌI ĐƠN HÀNG</span>
+    <span>💥 NHẬP MÃ T01FREESHIP30K – GIẢM NGAY 30K CHO ĐƠN HÀNG 199K</span>
+    <span>🎁 HỖ TRỢ GÓI QUÀ + KHẮC SÔN MIỄN PHÍ</span>
+    <span>✨ MUA ONLINE – NHẬN TẠI CỬA HÀNG GẦN NHẤT</span>
+    <span>🛍️ MIFFY CHÍNH HÃNG – ĐỒ CHƠI NHỒI BÔNG CAO CẤP</span>
+    <span>🌸 MỸ PHẨM CHÍNH HÃNG – GIÁ TỐT NHẤT THỊ TRƯỜNG</span>
+  </div>
+</div>
+
+<header class="header">
+  <div class="logo">
+    <h1><a href="index.html">Gia Hân Cosmetics Review</a></h1>
+    <p>KOL cho các thương hiệu mỹ phẩm uy tín – chính hãng</p>
+  </div>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Tìm kiếm bài viết..." autocomplete="off">
+    <button class="search-clear" id="searchClear" title="Xóa">✕</button>
+    <div class="search-results-dropdown" id="searchDropdown"></div>
+  </div>
+  <div class="header-actions">
+    <div class="cart-wrap">
+      <button class="pill cart-pill" onclick="openCart()">🛒 Giỏ Hàng</button>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </div>
+    <a href="login.html" class="pill login-pill" id="loginPill">Đăng Nhập</a>
+  </div>
+</header>
+
+<nav class="pill-bar">
+  <div class="menu-pills">
+    <a href="brand.html" class="pill">Thương Hiệu</a>
+    <a href="tapchi.html" class="pill active">Tạp Chí Làm Đẹp</a>
+    <a href="km.html" class="pill">Khuyến Mãi</a>
+    <a href="miffy.html" class="pill">MIFFY Chính Hãng</a>
+    <a href="td.html" class="pill">Trang Điểm</a>
+    <a href="csd.html" class="pill">Chăm Sóc Da Mặt</a>
+    <a href="csct.html" class="pill">Chăm Sóc Cơ Thể</a>
+    <a href="spmoi.html" class="pill">Sản Phẩm Mới</a>
+  </div>
+</nav>
+
+<section class="hero-dark">
+  <div class="hero-title">Gia Hân <span>Magazine</span></div>
+  <div class="featured-grid">
+    <div class="featured-main">
+      <a href="post1.html"><img src="images/tết-KOL GIA HÂN.jpg" alt="Lịch nghỉ Tết"></a>
+      <div class="overlay-info">
+        <span class="tag">Tin tức</span>
+        <h2><a href="post1.html" style="color:#fff;text-decoration:none;">Gia Hân Cosmetics Review Thông Báo Lịch Nghỉ và Giao Nhận Hàng Tết Nguyên Đán 2026</a></h2>
+        <p>Gia Hân trân trọng thông báo lịch nghỉ Tết Nguyên Đán năm 2026 và các thông tin giao hàng trong dịp lễ này.</p>
+      </div>
+    </div>
+    <div class="featured-side">
+      <a href="post2.html" class="side-post">
+        <img src="images/mifit-kol.jpg" alt="Miffy chính hãng">
+        <div class="side-post-info">
+          <span class="tag">Tin tức</span>
+          <h3>MIFFY CHÍNH HÃNG ĐÃ CÓ MẶT TẠI GIA HÂN COSMETICS</h3>
+        </div>
+      </a>
+      <a href="post3.html" class="side-post">
+        <img src="images/skin barrier first.jpg" alt="Skin Barrier First">
+        <div class="side-post-info">
+          <span class="tag">Cách chăm sóc da</span>
+          <h3>"Skin Barrier First" - Xu Hướng Skincare 2026 Cho Làn Da Khỏe Đẹp Từ Gốc</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="magazine">
+  <h2>Danh mục bài viết</h2>
+  <div class="categories">
+    <button data-cat="all" class="active">🗂 Tất cả</button>
+    <button data-cat="news">📰 Tin tức</button>
+    <button data-cat="review">⭐ Góc review</button>
+    <button data-cat="skincare">🌿 Cách chăm sóc da</button>
+    <button data-cat="trend">💄 Xu hướng trang điểm</button>
+    <button data-cat="health">💚 Bí quyết khỏe đẹp</button>
+  </div>
+
+  <div class="posts" id="postsContainer">
+
+    <!-- ✅ TIN TỨC -->
+    <div class="post" data-cat="news">
+      <img src="images/tết-KOL GIA HÂN.jpg" alt="Lịch nghỉ Tết">
+      <div class="post-body">
+        <span class="tag tag-news">📰 Tin tức</span>
+        <h3>Gia Hân Thông Báo Lịch Nghỉ và Giao Nhận Hàng Tết Nguyên Đán 2026</h3>
+        <p>Gia Hân trân trọng thông báo lịch nghỉ Tết Nguyên Đán 2026 và các thông tin giao hàng trong dịp lễ này.</p>
+        <a href="post1.html" class="read-more">Xem thêm →</a>
+      </div>
+    </div>
+
+    <div class="post" data-cat="news">
+      <img src="images/mifit-kol.jpg" alt="Miffy">
+      <div class="post-body">
+        <span class="tag tag-news">📰 Tin tức</span>
+        <h3>MIFFY CHÍNH HÃNG ĐÃ CÓ MẶT TẠI GIA HÂN COSMETICS</h3>
+        <p>Gia Hân mong bạn kết nối cùng Miffy qua những sản phẩm đáng yêu, mang lại trải nghiệm ngọt ngào và gần gũi mỗi ngày.</p>
+        <a href="post2.html" class="read-more">Xem thêm →</a>
+      </div>
+    </div>
+
+    <div class="post" data-cat="news">
+      <img src="images/AEON.jpg" alt="AEON">
+      <div class="post-body">
+        <span class="tag tag-news">📰 Tin tức</span>
+        <h3>Beauty Box Aeon Mall Tân Phú Celadon Ra Mắt Diện Mạo Mới</h3>
+        <p>Không gian mua sắm mỹ phẩm hiện đại, trải nghiệm làm đẹp toàn diện cho khách hàng tại Aeon Mall Tân Phú Celadon.</p>
+        <a href="post8.html" class="read-more">Xem thêm →</a>
+      </div>
+    </div>
+
+    <div class="post" data-cat="news">
+      <img src="images/trang sức.jpg" alt="Glass Skin">
+      <div class="post-body">
+        <span class="tag tag-news">📰 Tin tức</span>
+        <h3>Glass Skin & Dewy Look Lên Ngôi Trong 2026</h3>
+        <p>Làn da căng bóng, tự nhiên và rạng rỡ đang là phong cách được ưa chuộng nhất trong năm nay.</p>
+        <a href="post5.html" class="read-more">Xem thêm →</a>
+      </div>
+    </div>
+
+    <!-- ✅ GÓC REVIEW -->
+    <div class="post" data-cat="review">
+      <img src="images/top10.jpg" alt="Top 10">
+      <div class="post-body">
+        <span class="tag tag-review">⭐ Góc review</span>
+        <h3>Top 10 Sản Phẩm Skincare "Đáng Đầu Tư" Nhất 2025</h3>
+        <p>Bảng xếp hạng giúp làn da bạn thăng hạng rõ rệt sau 30 ngày sử dụng đúng cách.</p>
+        <a href="post4.html" class="read-more">Xem thêm →</a>
+      </div>
+    </div>
+
+    <!-- ✅ CÁCH CHĂM SÓC DA -->
+    <div class="post" data-cat="skincare">
+      <img src="images/skin barrier first.jpg" alt="Skin Barrier First">
+      <div class="post-body">
+        <span class="tag tag-skincare">🌿 Cách chăm sóc da</span>
+        <h3>"Skin Barrier First" - Xu Hướng Skincare 2026 Cho Làn Da Khỏe Đẹp Từ Gốc</h3>
+        <p>Xu hướng mới ưu tiên chăm sóc hàng rào bảo vệ da từ gốc thay vì chỉ tập trung vào hiệu quả tức thì.</p>
+        <a href="post3.html" class="read-more">Xem thêm →</a>
+      </div>
+    </div>
+
+    <!-- ✅ XU HƯỚNG TRANG ĐIỂM -->
+    <div class="post" data-cat="trend">
+      <img src="images/20.jpg" alt="Makeup 20/10">
+      <div class="post-body">
+        <span class="tag tag-trend">💄 Xu hướng trang điểm</span>
+        <h3>3 Kiểu Makeup Xinh Như Hoa Cho Phái Đẹp Ngày 20/10</h3>
+        <p>Gợi ý 3 kiểu trang điểm nổi bật giúp phái đẹp tỏa sáng trong ngày đặc biệt 20/10.</p>
+        <a href="post7.html" class="read-more">Xem thêm →</a>
+      </div>
+    </div>
+
+    <!-- ✅ BÍ QUYẾT KHỎE ĐẸP -->
+    <div class="post" data-cat="health">
+      <img src="images/tt.jpg" alt="Thói quen nhỏ">
+      <div class="post-body">
+        <span class="tag tag-health">💚 Bí quyết khỏe đẹp</span>
+        <h3>5 Thói Quen Nhỏ Giúp Da Luôn Căng Mịn</h3>
+        <p>Áp dụng mỗi ngày để giữ da luôn khỏe, sáng và ít lão hóa hơn theo thời gian.</p>
+        <a href="post10.html" class="read-more">Xem thêm →</a>
+      </div>
+    </div>
+
+    <div class="post" data-cat="health">
+      <img src="images/detox.jpg" alt="Detox">
+      <div class="post-body">
+        <span class="tag tag-health">💚 Bí quyết khỏe đẹp</span>
+        <h3>Detox Da: Xu Hướng Thanh Lọc Làn Da Sau Dịp Lễ</h3>
+        <p>Giúp làn da phục hồi, sáng khỏe và giảm mụn sau thời gian makeup nhiều trong mùa lễ hội.</p>
+        <a href="post9.html" class="read-more">Xem thêm →</a>
+      </div>
+    </div>
+
+    <div class="post" data-cat="health">
+      <img src="images/7.jpg" alt="Thói quen buổi sáng">
+      <div class="post-body">
+        <span class="tag tag-health">💚 Bí quyết khỏe đẹp</span>
+        <h3>5 Thói Quen Buổi Sáng Giúp Da Luôn Tươi Sáng Và Khỏe Mạnh</h3>
+        <p>Bắt đầu ngày mới đúng cách để làn da luôn ở trạng thái tốt nhất suốt cả ngày dài.</p>
+        <a href="post6.html" class="read-more">Xem thêm →</a>
+      </div>
+    </div>
+
+  </div><!-- /posts -->
+</section>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <img class="modal-img" id="modalImg" src="" alt="">
+    <div class="modal-brand" id="modalBrand"></div>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-price" id="modalPrice"></div>
+    <div class="modal-desc" id="modalDesc"></div>
+    <div class="modal-actions">
+      <button class="btn-add-cart" onclick="addToCart()">🛒 Thêm vào giỏ</button>
+      <button class="btn-buy-now" onclick="buyNow()">Mua ngay</button>
+    </div>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-dheader">
+    <h2>🛒 Giỏ hàng của bạn</h2>
+    <button class="cart-dclose" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items-list" id="cartItemsList">
+    <div class="cart-empty-state"><div class="cart-empty-icon">🛍️</div>Giỏ hàng trống. Hãy thêm sản phẩm!</div>
+  </div>
+  <div class="cart-dfooter">
+    <div class="cart-dtotal"><span>Tổng cộng:</span><span id="cartTotal">0đ</span></div>
+    <button class="cart-go-btn" onclick="window.location.href='cart.html'">🛒 Xem giỏ hàng</button>
+    <button class="cart-checkout-btn" onclick="goCheckout()">💳 Thanh toán ngay →</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <div class="footer-left">
+    <p>Website <strong>Gia Hân Cosmetics Review</strong> thuộc quyền quản lý và vận hành bởi <strong>KOL Gia Hân</strong>. Giấy chứng nhận đăng ký kinh doanh số <strong>0309802418</strong>, cấp ngày 23/01/2026 tại Sở Kế hoạch và Đầu tư TP. Hồ Chí Minh.</p>
+    <p>Gia Hân Cosmetics Review chuyên cung cấp mỹ phẩm chính hãng, được chọn lọc kỹ lưỡng từ các thương hiệu uy tín trong và ngoài nước.</p>
+    <p>Địa chỉ hoạt động: 613 Âu Cơ, Quận Tân Phú, TP. Hồ Chí Minh, Việt Nam.</p>
+    <p>Gia Hân Cosmetics Review cam kết mang đến trải nghiệm mua sắm minh bạch, tiện lợi và đáng tin cậy cho khách hàng.</p>
+  </div>
+  <div class="footer-right">
+    <p>Phương thức thanh toán</p>
+    <div class="payment-methods">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/06414657-24ed-4da4-8a54-f207d45ab1be.webp">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/afebded0-f4e7-4c5f-aee3-aa01271174c3.webp">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/64102078-db30-4f18-a473-2582467505fd.webp">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/a19ac3f9-5d5e-43c3-aa84-49576cad1102.webp">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/3e4a7882-d755-4110-83b5-6496bf5e689c.webp">
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ===== DỮ LIỆU BÀI VIẾT ===== */
+const SEARCH_DATA = [
+  { name:"Gia Hân Thông Báo Lịch Nghỉ và Giao Nhận Hàng Tết Nguyên Đán 2026", cat:"news",     brand:"Tin tức",              img:"images/tết-KOL GIA HÂN.jpg", desc:"Thông báo lịch nghỉ và giao hàng dịp Tết 2026.", href:"post1.html" },
+  { name:"MIFFY CHÍNH HÃNG ĐÃ CÓ MẶT TẠI GIA HÂN COSMETICS",                  cat:"news",     brand:"Tin tức",              img:"images/mifit-kol.jpg",        desc:"Sản phẩm Miffy chính hãng đã có mặt tại Gia Hân.", href:"post2.html" },
+  { name:"Beauty Box Aeon Mall Tân Phú Celadon Ra Mắt Diện Mạo Mới",            cat:"news",     brand:"Tin tức",              img:"images/AEON.jpg",             desc:"Không gian mua sắm mỹ phẩm hiện đại mới ra mắt.", href:"post8.html" },
+  { name:"Glass Skin & Dewy Look Lên Ngôi Trong 2026",                          cat:"news",     brand:"Tin tức",              img:"images/trang sức.jpg",        desc:"Làn da căng bóng, tự nhiên đang là xu hướng hot.", href:"post5.html" },
+  { name:"Top 10 Sản Phẩm Skincare Đáng Đầu Tư Nhất 2025",                     cat:"review",   brand:"Góc review",           img:"images/top10.jpg",            desc:"Bảng xếp hạng sản phẩm skincare tốt nhất.", href:"post4.html" },
+  { name:"Skin Barrier First – Xu Hướng Skincare 2026",                         cat:"skincare", brand:"Cách chăm sóc da",    img:"images/skin barrier first.jpg",desc:"Chăm sóc hàng rào bảo vệ da từ gốc.", href:"post3.html" },
+  { name:"3 Kiểu Makeup Xinh Như Hoa Cho Phái Đẹp Ngày 20/10",                 cat:"trend",    brand:"Xu hướng trang điểm", img:"images/20.jpg",               desc:"Gợi ý makeup cho ngày đặc biệt 20/10.", href:"post7.html" },
+  { name:"5 Thói Quen Nhỏ Giúp Da Luôn Căng Mịn",                              cat:"health",   brand:"Bí quyết khỏe đẹp",  img:"images/tt.jpg",               desc:"Áp dụng mỗi ngày để da khỏe đẹp.", href:"post10.html" },
+  { name:"Detox Da: Xu Hướng Thanh Lọc Làn Da Sau Dịp Lễ",                     cat:"health",   brand:"Bí quyết khỏe đẹp",  img:"images/detox.jpg",            desc:"Phục hồi da sau mùa lễ hội.", href:"post9.html" },
+  { name:"5 Thói Quen Buổi Sáng Giúp Da Luôn Tươi Sáng Và Khỏe Mạnh",         cat:"health",   brand:"Bí quyết khỏe đẹp",  img:"images/7.jpg",                desc:"Thói quen chăm sóc da mỗi sáng đúng cách.", href:"post6.html" },
+];
+
+let currentProduct = null;
+
+/* ===== SEARCH ===== */
+(function() {
+  const input    = document.getElementById('searchInput');
+  const dropdown = document.getElementById('searchDropdown');
+  const clearBtn = document.getElementById('searchClear');
+  let timer;
+
+  function normalize(str) {
+    return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d');
+  }
+
+  function doSearch(query) {
+    const q = normalize(query.trim());
+    if (!q) { dropdown.classList.remove('show'); filterPosts('all'); return; }
+
+    // Lọc luôn card bài viết theo từ khóa
+    filterByText(q);
+
+    const results = SEARCH_DATA.filter(p =>
+      normalize(p.name).includes(q) || normalize(p.brand).includes(q) || normalize(p.desc).includes(q)
+    ).slice(0, 8);
+
+    if (!results.length) {
+      dropdown.innerHTML = `<div class="search-no-result">😔 Không tìm thấy kết quả cho "<b>${query}</b>"</div>`;
+    } else {
+      dropdown.innerHTML = results.map(p => `
+        <a class="search-result-item" href="${p.href}">
+          <img class="search-result-img" src="${p.img}" alt="" onerror="this.src='https://placehold.co/44x44/ffd6e7/FF1493?text=🌸'">
+          <div class="search-result-info">
+            <div class="search-result-name">${p.name}</div>
+            <div class="search-result-brand">${p.brand}</div>
+          </div>
+        </a>`).join('');
+    }
+    dropdown.classList.add('show');
+  }
+
+  input.addEventListener('input', function() {
+    clearTimeout(timer);
+    clearBtn.classList.toggle('show', this.value.length > 0);
+    timer = setTimeout(() => doSearch(this.value), 180);
+  });
+
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { dropdown.classList.remove('show'); input.blur(); }
+  });
+
+  clearBtn.addEventListener('click', () => {
+    input.value = '';
+    clearBtn.classList.remove('show');
+    dropdown.classList.remove('show');
+    filterPosts('all');
+    input.focus();
+  });
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.search-box')) dropdown.classList.remove('show');
+  });
+})();
+
+/* ===== FILTER – LỌC THEO DANH MỤC ===== */
+function filterPosts(cat) {
+  const posts = document.querySelectorAll('.posts .post');
+  let visible = 0;
+  posts.forEach(post => {
+    const show = (cat === 'all' || post.dataset.cat === cat);
+    post.style.display = show ? 'flex' : 'none';
+    if (show) visible++;
+  });
+  showNoResult(visible === 0);
+}
+
+/* ===== FILTER – LỌC THEO TỪ KHÓA TÌM KIẾM ===== */
+function filterByText(q) {
+  // Reset active category button về 'all' khi tìm kiếm
+  document.querySelectorAll('.categories button').forEach(b => b.classList.remove('active'));
+  document.querySelector('.categories button[data-cat="all"]').classList.add('active');
+
+  const posts = document.querySelectorAll('.posts .post');
+  let visible = 0;
+  posts.forEach(post => {
+    const text = post.innerText.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d');
+    const show = text.includes(q);
+    post.style.display = show ? 'flex' : 'none';
+    if (show) visible++;
+  });
+  showNoResult(visible === 0);
+}
+
+function showNoResult(show) {
+  let msg = document.getElementById('noPostsMsg');
+  if (show && !msg) {
+    msg = document.createElement('div');
+    msg.id = 'noPostsMsg';
+    msg.className = 'no-posts-msg';
+    msg.innerHTML = '<span>🔍</span>Không tìm thấy bài viết phù hợp.';
+    document.getElementById('postsContainer').appendChild(msg);
+  } else if (!show && msg) {
+    msg.remove();
+  }
+}
+
+/* ===== MODAL ===== */
+function openModal(p) {
+  currentProduct = p;
+  document.getElementById('modalImg').src    = p.img || '';
+  document.getElementById('modalBrand').textContent = p.brand || '';
+  document.getElementById('modalTitle').textContent = p.name  || '';
+  document.getElementById('modalPrice').textContent = '';
+  document.getElementById('modalDesc').textContent  = p.desc  || '';
+  document.getElementById('modalOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() { document.getElementById('modalOverlay').classList.remove('show'); document.body.style.overflow = ''; }
+function closeModalOutside(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
+
+function addToCart() {
+  if (!currentProduct) return;
+  try {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const ex = cart.find(c => c.name === currentProduct.name);
+    if (ex) ex.quantity = (ex.quantity || 1) + 1;
+    else cart.push({ name: currentProduct.name, brand: currentProduct.brand, price: '0đ', image: currentProduct.img, quantity: 1 });
+    localStorage.setItem('cart', JSON.stringify(cart));
+  } catch(e) {}
+  closeModal();
+  showToast('✅ Đã thêm vào giỏ!');
+}
+function buyNow() { addToCart(); setTimeout(() => window.location.href = 'checkout.html', 300); }
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+/* ===== CART HELPERS ===== */
+function getCart()   { try { return JSON.parse(localStorage.getItem('cart') || '[]'); } catch(e) { return []; } }
+function saveCart(c) { localStorage.setItem('cart', JSON.stringify(c)); }
+
+function updateCartBadge() {
+  const total = getCart().reduce((s, i) => s + (i.quantity || 0), 0);
+  const badge = document.getElementById('cartBadge');
+  badge.style.display = total ? 'flex' : 'none';
+  badge.textContent = total;
+}
+
+function openCart() {
+  renderCartDrawer();
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('cartOverlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeCart() {
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+function goCheckout() {
+  if (!getCart().length) { showToast('⚠️ Giỏ hàng trống!'); return; }
+  window.location.href = 'checkout.html';
+}
+function renderCartDrawer() {
+  const cart = getCart();
+  const el   = document.getElementById('cartItemsList');
+  if (!cart.length) {
+    el.innerHTML = '<div class="cart-empty-state"><div class="cart-empty-icon">🛍️</div>Giỏ hàng trống!</div>';
+    document.getElementById('cartTotal').textContent = '0đ';
+    return;
+  }
+  el.innerHTML = cart.map((item, i) => `
+    <div class="cart-item">
+      <img src="${item.image || item.img || ''}" alt="${item.name}"
+           onerror="this.src='https://placehold.co/70x70/fce4ec/FF1493?text=SP'">
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name.slice(0,55)}${item.name.length>55?'...':''}</div>
+        <div class="cart-item-price">${item.price}</div>
+        <div class="cart-item-qty">
+          <button class="cart-qty-btn" onclick="cartQty(${i},-1)">−</button>
+          <span>${item.quantity}</span>
+          <button class="cart-qty-btn" onclick="cartQty(${i},1)">+</button>
+        </div>
+      </div>
+      <button class="cart-item-remove" onclick="cartRemove(${i})">✕</button>
+    </div>`).join('');
+  let total = 0;
+  cart.forEach(item => {
+    const num = parseInt((item.price||'').replace(/[^\d]/g,''));
+    if (!isNaN(num)) total += num * item.quantity;
+  });
+  document.getElementById('cartTotal').textContent = total ? total.toLocaleString('vi-VN') + 'đ' : '—';
+}
+function cartQty(i, d) {
+  const cart = getCart(); cart[i].quantity = Math.max(1, cart[i].quantity + d);
+  saveCart(cart); updateCartBadge(); renderCartDrawer();
+}
+function cartRemove(i) {
+  const cart = getCart(); cart.splice(i, 1);
+  saveCart(cart); updateCartBadge(); renderCartDrawer();
+}
+
+/* ===== INIT ===== */
+document.addEventListener('DOMContentLoaded', function() {
+  // Login avatar — đồng bộ td.html (dùng userAvatar)
+  const loginPill   = document.getElementById('loginPill');
+  const savedAvatar = localStorage.getItem('userAvatar');
+  if (loginPill && savedAvatar) {
+    const img = document.createElement('img');
+    img.src = savedAvatar;
+    img.style.cssText = 'width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #FF1493;cursor:pointer;';
+    img.title  = 'Đăng xuất';
+    img.onclick = () => { if (confirm('Bạn có muốn đăng xuất không?')) { localStorage.removeItem('userAvatar'); location.reload(); } };
+    loginPill.replaceWith(img);
+  }
+
+  updateCartBadge();
+  document.querySelectorAll('.categories button').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.categories button').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      // Xóa tìm kiếm khi chọn filter
+      const input = document.getElementById('searchInput');
+      if (input.value) {
+        input.value = '';
+        document.getElementById('searchClear').classList.remove('show');
+        document.getElementById('searchDropdown').classList.remove('show');
+      }
+      filterPosts(this.dataset.cat);
+    });
+  });
+});
+</script>
+</body>
+</html>

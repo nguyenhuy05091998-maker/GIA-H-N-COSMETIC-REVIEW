@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AHC - Gia Hân Cosmetics Review</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      background-color: #ffffff;
+      color: #333;
+    }
+
+    /* ===== MARQUEE BAR ===== */
+    .marquee-bar {
+      background: #e8d5f5;
+      padding: 8px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      gap: 60px;
+      animation: marquee 35s linear infinite;
+    }
+
+    .marquee-track span {
+      font-size: 13px;
+      font-weight: 500;
+      color: #6b21a8;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      background: #fff;
+      border-bottom: 1px solid #f0f0f0;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo a {
+      text-decoration: none;
+    }
+
+    .logo h1 {
+      color: #FF1493;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .logo p {
+      color: #888;
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    /* ===== SEARCH BOX ===== */
+    .search-box {
+      flex: 1;
+      max-width: 420px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 9px 40px 9px 14px;
+      border: 1.5px solid #FFB6C1;
+      border-radius: 25px;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: #FF1493;
+    }
+
+    .search-box button {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #FF1493;
+      font-size: 16px;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .search-results {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      background: #fff;
+      border: 1px solid #f0d0e0;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(255,20,147,0.1);
+      z-index: 999;
+      max-height: 300px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .search-results.visible { display: block; }
+
+    .search-result-item {
+      padding: 10px 14px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.15s;
+      color: #333;
+      text-decoration: none;
+    }
+
+    .search-result-item:hover {
+      background: #fff0f7;
+      color: #FF1493;
+    }
+
+    .search-no-result {
+      padding: 14px;
+      text-align: center;
+      color: #999;
+      font-size: 13px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ===== PILL BAR — dàn đều ===== */
+    .pill-bar {
+      background: #fff;
+      padding: 10px 24px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .menu-pills {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .menu-pills::-webkit-scrollbar { display: none; }
+
+    .pill {
+      flex: 1;
+      min-width: 0;
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: #444;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      font-family: 'Be Vietnam Pro', sans-serif;
+    }
+
+    .pill:hover { filter: brightness(0.93); color: #FF1493; }
+    .pill.active { color: #FF1493; font-weight: 600; }
+
+    .pill.brand    { background: #fce4ec; }
+    .pill.tapchi   { background: #e8f5e9; }
+    .pill.km       { background: #fff3e0; }
+    .pill.miffy    { background: #ffe0b2; }
+    .pill.td       { background: #e8f5e9; }
+    .pill.csd      { background: #e3f2fd; }
+    .pill.csct     { background: #e0f7fa; }
+    .pill.spmoi    { background: #fce4ec; }
+    .pill.cart     { background: #f3e5f5; }
+    .pill.login    { background: #e8eaf6; }
+
+    .header-actions .pill {
+      flex: none;
+      padding: 8px 16px;
+    }
+
+    /* ===== BANNER ===== */
+    .thefaceshop-banner-section {
+      width: 100%;
+      background: #fff;
+      padding: 16px 0;
+    }
+
+    .banner-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      overflow: visible;
+      margin-bottom: 55px;
+      padding: 0 24px;
+    }
+
+    .main-banner-img {
+      width: 100%;
+      display: block;
+      border-radius: 10px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .floating-logo-box {
+      position: absolute;
+      bottom: -42px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ffffff;
+      padding: 12px 28px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      width: 200px;
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .floating-logo-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    /* ===== BRAND INFO ===== */
+    .miffy-info {
+      background: #fff;
+      padding: 24px 24px 30px;
+      border-radius: 10px;
+      max-width: 1000px;
+      margin: 60px auto 20px;
+    }
+
+    .miffy-info h2 {
+      color: #222;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .miffy-meta {
+      margin-bottom: 18px;
+      color: #888;
+      font-size: 13.5px;
+      text-align: center;
+    }
+
+    .miffy-meta span { margin-right: 14px; }
+
+    .miffy-text {
+      line-height: 1.75;
+      color: #444;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+      font-size: 14.5px;
+    }
+
+    .miffy-text.collapsed {
+      max-height: 150px;
+      position: relative;
+    }
+
+    .miffy-text.collapsed::after {
+      content: "";
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 50px;
+      background: linear-gradient(transparent, #fff);
+    }
+
+    .miffy-text h3 {
+      color: #FF1493;
+      font-size: 17px;
+      font-weight: 600;
+      margin-top: 18px;
+      margin-bottom: 6px;
+    }
+
+    .miffy-text ul {
+      padding-left: 20px;
+    }
+
+    .miffy-text ul li { margin-bottom: 5px; }
+
+    .toggle-btn {
+      background: none;
+      border: 1.5px solid #FF1493;
+      color: #FF1493;
+      padding: 8px 22px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto 0;
+      font-weight: 600;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .toggle-btn:hover {
+      background: #FF1493;
+      color: #fff;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 24px;
+      background-color: #FFB6C1;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-left { flex: 0 0 62%; }
+
+    .footer-left p {
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    .footer-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .footer-right > p {
+      font-size: 13.5px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .payment-methods {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .payment-methods img {
+      width: 70px;
+      height: 48px;
+      object-fit: contain;
+      border: 1px solid #FF1493;
+      border-radius: 5px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .header { flex-direction: column; text-align: center; }
+      .search-box { max-width: 100%; }
+      .menu-pills { flex-wrap: wrap; justify-content: center; }
+      .pill { flex: none; }
+      footer { flex-direction: column; }
+      .footer-left, .footer-right { flex: none; width: 100%; }
+      .footer-right { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MARQUEE BAR -->
+  <div class="marquee-bar">
+    <div class="marquee-track">
+      <span>🚚 FREESHIP 15K MỌI ĐƠN HÀNG</span>
+      <span>💥 NHẬP MÃ T01FREESHIP30K – GIẢM NGAY 30K CHO ĐƠN HÀNG 199K</span>
+      <span>🎁 HỖ TRỢ GÓI QUÀ + KHẮC SÔN MIỄN PHÍ</span>
+      <span>✨ MUA ONLINE – NHẬN TẠI CỬA HÀNG GẦN NHẤT</span>
+      <span>🛍️ MIFFY CHÍNH HÃNG – ĐỒ CHƠI NHỒI BÔNG CAO CẤP</span>
+      <span>🌸 MỸ PHẨM CHÍNH HÃNG – GIÁ TỐT NHẤT THỊ TRƯỜNG</span>
+      <span>🚚 FREESHIP 15K MỌI ĐƠN HÀNG</span>
+      <span>💥 NHẬP MÃ T01FREESHIP30K – GIẢM NGAY 30K CHO ĐƠN HÀNG 199K</span>
+      <span>🎁 HỖ TRỢ GÓI QUÀ + KHẮC SÔN MIỄN PHÍ</span>
+      <span>✨ MUA ONLINE – NHẬN TẠI CỬA HÀNG GẦN NHẤT</span>
+      <span>🛍️ MIFFY CHÍNH HÃNG – ĐỒ CHƠI NHỒI BÔNG CAO CẤP</span>
+      <span>🌸 MỸ PHẨM CHÍNH HÃNG – GIÁ TỐT NHẤT THỊ TRƯỜNG</span>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">
+      <h1><a href="index.html" style="text-decoration:none;color:inherit;">Gia Hân Cosmetics Review</a></h1>
+      <p>KOL cho các thương hiệu mỹ phẩm uy tín – chính hãng</p>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm, thương hiệu..." autocomplete="off">
+      <button onclick="doSearch()">🔍</button>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+
+    <div class="header-actions">
+      <a href="cart.html" class="pill cart">🛒 Giỏ hàng</a>
+      <a href="login.html" class="pill login">Đăng Nhập</a>
+    </div>
+  </header>
+
+  <!-- PILL BAR -->
+  <nav class="pill-bar">
+    <div class="menu-pills">
+      <a href="brand.html"  class="pill brand">Thương Hiệu</a>
+      <a href="tapchi.html" class="pill tapchi">Tạp Chí Làm Đẹp</a>
+      <a href="km.html"     class="pill km">Khuyến Mãi</a>
+      <a href="miffy.html"  class="pill miffy">MIFFY Chính Hãng</a>
+      <a href="td.html"     class="pill td">Trang Điểm</a>
+      <a href="csd.html"    class="pill csd">Chăm Sóc Da Mặt</a>
+      <a href="csct.html"   class="pill csct">Chăm Sóc Cơ Thể</a>
+      <a href="spmoi.html"  class="pill spmoi">Sản Phẩm Mới</a>
+    </div>
+  </nav>
+
+  <!-- AHC BANNER -->
+  <section class="thefaceshop-banner-section">
+    <div class="banner-wrapper">
+      <img src="images/nn.jpg" alt="AHC Banner" class="main-banner-img">
+      <div class="floating-logo-box">
+        <img src="images/ahcc.jpg" alt="Logo AHC">
+      </div>
+    </div>
+  </section>
+
+  <!-- BRAND INFO -->
+  <section class="miffy-info">
+    <h2>AHC</h2>
+
+    <div class="miffy-meta">
+      <span>16 sản phẩm</span>
+      <span>1.8K lượt mua</span>
+    </div>
+
+    <div class="miffy-text collapsed" id="miffyText">
+      <p><b>AHC - Nỗ lực chinh phục cái đẹp</b></p>
+      <p>
+        <b>AHC</b> là thương hiệu mỹ phẩm thẩm mỹ nổi tiếng hàng đầu Hàn Quốc với hơn 20 năm kinh nghiệm trong lĩnh vực làm đẹp.
+        Ra đời từ năm 1999, AHC nhanh chóng khẳng định vị thế của mình nhờ những sản phẩm chất lượng cao, hiệu quả vượt trội và giá thành hợp lý.
+      </p>
+
+      <h3>Lịch sử phát triển</h3>
+      <ul>
+        <li><b>1999:</b> AHC ra mắt thị trường Hàn Quốc, được ưa chuộng bởi các thẩm mỹ viện và trung tâm chăm sóc sắc đẹp cao cấp.</li>
+        <li><b>2017:</b> AHC gia nhập tập đoàn Unilever, trở thành thương hiệu làm đẹp toàn cầu, nâng tầm chất lượng và giá trị sản phẩm.</li>
+        <li><b>2021:</b> AHC có mặt tại nhiều quốc gia trên thế giới, khẳng định vị thế thương hiệu quốc tế.</li>
+      </ul>
+
+      <h3>Sứ mệnh và Cam kết</h3>
+      <p>AHC mang sứ mệnh nâng tầm vẻ đẹp cho mọi người, là người bạn đồng hành tin cậy trên con đường tìm kiếm vẻ đẹp đích thực của mỗi phụ nữ.</p>
+      <ul>
+        <li>Cung cấp sản phẩm chất lượng tốt nhất với giá thành hợp lí.</li>
+        <li>"Nỗ lực chinh phục cái đẹp" thông qua giá trị về chất lượng sản phẩm thực tế.</li>
+      </ul>
+
+      <h3>Điểm nổi bật của thương hiệu</h3>
+      <p>
+        • <b>Nguyên liệu chọn lọc:</b> Sử dụng các nguyên liệu cao cấp, an toàn cho da, nhập khẩu từ các quốc gia uy tín.<br>
+        • <b>Công nghệ tiên tiến:</b> Áp dụng quy trình sản xuất nghiêm ngặt để đảm bảo chất lượng sản phẩm tối ưu.<br>
+        • <b>Thử nghiệm kỹ càng:</b> Luôn kiểm tra độ an toàn tuyệt đối trước khi đưa ra thị trường.
+      </p>
+
+      <h3>Sản phẩm tiêu biểu</h3>
+      <ul>
+        <li><b>Kem mắt AHC:</b> Chăm sóc da mắt hiệu quả, giảm nếp nhăn, quầng thâm và bọng mắt.</li>
+        <li><b>Kem dưỡng AHC:</b> Dưỡng ẩm sâu, cải thiện độ đàn hồi, giúp da sáng mịn và trẻ trung.</li>
+        <li><b>Kem chống nắng AHC:</b> Bảo vệ da khỏi tác hại của tia UV, ngăn ngừa lão hóa da.</li>
+        <li><b>Sữa rửa mặt AHC:</b> Làm sạch da dịu nhẹ, loại bỏ bụi bẩn và dầu thừa.</li>
+        <li><b>Mặt nạ AHC:</b> Cung cấp dưỡng chất dồi dào, giúp da sáng khỏe và mịn màng.</li>
+      </ul>
+
+      <h3>Mua AHC chính hãng tại Gia Hân Cosmetics Review</h3>
+      <p>
+        <b>Gia Hân Cosmetics Review</b> là nhà phân phối độc quyền hơn 50 thương hiệu mỹ phẩm Hàn Quốc uy tín tại Việt Nam, trong đó có AHC.
+        Chúng tôi cam kết cung cấp sản phẩm AHC chính hãng 100%, với giá cả cạnh tranh và dịch vụ khách hàng chuyên nghiệp nhất.
+      </p>
+    </div>
+
+    <button class="toggle-btn" onclick="toggleMiffy()" id="btnToggle">Xem thêm nội dung</button>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      <p>
+        Website <strong>Gia Hân Cosmetics Review</strong> thuộc quyền quản lý và vận hành bởi
+        <strong>KOL Gia Hân</strong>. Giấy chứng nhận đăng ký kinh doanh số
+        <strong>0309802418</strong>, cấp ngày 23/01/2026 tại Sở Kế hoạch và Đầu tư TP. Hồ Chí Minh.
+      </p>
+      <p>Gia Hân Cosmetics Review chuyên cung cấp mỹ phẩm chính hãng, được chọn lọc kỹ lưỡng từ các thương hiệu uy tín trong và ngoài nước.</p>
+      <p>Địa chỉ hoạt động: 613 Âu Cơ, Quận Tân Phú, TP. Hồ Chí Minh, Việt Nam.</p>
+      <p>Gia Hân Cosmetics Review cam kết mang đến trải nghiệm mua sắm minh bạch, tiện lợi và đáng tin cậy cho khách hàng.</p>
+    </div>
+    <div class="footer-right">
+      <p>Phương thức thanh toán</p>
+      <div class="payment-methods">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/06414657-24ed-4da4-8a54-f207d45ab1be.webp" alt="">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/afebded0-f4e7-4c5f-aee3-aa01271174c3.webp" alt="">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/64102078-db30-4f18-a473-2582467505fd.webp" alt="">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/a19ac3f9-5d5e-43c3-aa84-49576cad1102.webp" alt="">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/3e4a7882-d755-4110-83b5-6496bf5e689c.webp" alt="">
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ===== TOGGLE ===== */
+    function toggleMiffy() {
+      const text = document.getElementById('miffyText');
+      const btn = document.getElementById('btnToggle');
+      if (text.classList.contains('collapsed')) {
+        text.classList.remove('collapsed');
+        text.style.maxHeight = '2000px';
+        btn.textContent = 'Thu gọn nội dung';
+      } else {
+        text.classList.add('collapsed');
+        text.style.maxHeight = '150px';
+        btn.textContent = 'Xem thêm nội dung';
+      }
+    }
+
+    /* ===== SEARCH ===== */
+    const searchData = [
+      { name: 'MIFFY Chính Hãng', url: 'miffy.html', icon: '🐰' },
+      { name: 'AHC', url: 'ahc.html', icon: '✨' },
+      { name: 'THE FACE SHOP', url: 'thefaceshop.html', icon: '🌿' },
+      { name: 'Thương Hiệu', url: 'brand.html', icon: '🏷️' },
+      { name: 'Tạp Chí Làm Đẹp', url: 'tapchi.html', icon: '📖' },
+      { name: 'Khuyến Mãi', url: 'km.html', icon: '💥' },
+      { name: 'Trang Điểm', url: 'td.html', icon: '💄' },
+      { name: 'Chăm Sóc Da Mặt', url: 'csd.html', icon: '✨' },
+      { name: 'Chăm Sóc Cơ Thể', url: 'csct.html', icon: '🧴' },
+      { name: 'Sản Phẩm Mới', url: 'spmoi.html', icon: '🆕' },
+      { name: 'Kem mắt AHC', url: 'ahc.html', icon: '👁️' },
+      { name: 'Kem dưỡng AHC', url: 'ahc.html', icon: '💧' },
+      { name: 'Kem chống nắng AHC', url: 'ahc.html', icon: '☀️' },
+      { name: 'Sữa rửa mặt AHC', url: 'ahc.html', icon: '🫧' },
+      { name: 'Mặt nạ AHC', url: 'ahc.html', icon: '🌸' },
+    ];
+
+    const input = document.getElementById('searchInput');
+    const resultsBox = document.getElementById('searchResults');
+
+    input.addEventListener('input', function () {
+      const query = this.value.trim().toLowerCase();
+      resultsBox.innerHTML = '';
+      if (!query) { resultsBox.classList.remove('visible'); return; }
+
+      const matches = searchData.filter(item => item.name.toLowerCase().includes(query));
+
+      if (matches.length === 0) {
+        resultsBox.innerHTML = '<div class="search-no-result">Không tìm thấy kết quả cho "<b>' + query + '</b>"</div>';
+      } else {
+        matches.forEach(item => {
+          const el = document.createElement('a');
+          el.href = item.url;
+          el.className = 'search-result-item';
+          el.innerHTML = '<span>' + item.icon + '</span>' + item.name;
+          resultsBox.appendChild(el);
+        });
+      }
+      resultsBox.classList.add('visible');
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.search-box')) resultsBox.classList.remove('visible');
+    });
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') doSearch();
+    });
+
+    function doSearch() {
+      const q = input.value.trim().toLowerCase();
+      if (!q) return;
+      const match = searchData.find(i => i.name.toLowerCase().includes(q));
+      if (match) window.location.href = match.url;
+    }
+
+    /* ===== LOGIN CHECK ===== */
+    document.addEventListener('DOMContentLoaded', function () {
+      const loginPill = document.querySelector('.pill.login');
+      if (loginPill && localStorage.getItem('loggedIn') === 'true') {
+        const currentUser = localStorage.getItem('currentUser') || 'User';
+        const avatar = document.createElement('div');
+        avatar.style.cssText = 'width:38px;height:38px;border-radius:50%;background:#FF1493;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;cursor:pointer;font-size:16px;';
+        avatar.textContent = currentUser.charAt(0).toUpperCase();
+        avatar.title = 'Click để đăng xuất';
+        avatar.addEventListener('click', function () {
+          localStorage.removeItem('loggedIn');
+          localStorage.removeItem('currentUser');
+          location.reload();
+        });
+        loginPill.parentNode.replaceChild(avatar, loginPill);
+      }
+    });
+  </script>
+</body>
+</html>

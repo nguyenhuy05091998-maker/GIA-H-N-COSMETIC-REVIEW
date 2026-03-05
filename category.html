@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giới thiệu Uy tín - Beauty KOL Store - KOL Gia Hân</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <style>
+    /* Style bổ sung cho trang giới thiệu uy tín, với gradient hồng-đen thống nhất */
+    body {
+      background: linear-gradient(135deg, var(--pink-light), var(--dark));
+      font-family: Arial, sans-serif;
+      color: #333;
+      min-height: 100vh;
+    }
+    .header {
+      background: linear-gradient(90deg, var(--pink-light), var(--dark));
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .logo h1 {
+      color: var(--pink-dark);
+      font-size: 24px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    .logo p {
+      color: #777;
+      font-size: 14px;
+    }
+    .search-box input {
+      width: 100%;
+      max-width: 400px;
+      padding: 8px;
+      border: 1px solid var(--pink-dark);
+      border-radius: 5px;
+    }
+    .menu a {
+      color: var(--pink-dark);
+      font-size: 18px;
+      padding: 8px 12px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .menu a:hover {
+      background-color: var(--pink-dark);
+      color: white;
+    }
+    .section {
+      padding: 40px;
+      background: white;
+      margin: 20px auto;
+      max-width: 1200px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+    .intro-text h2 {
+      color: var(--pink-dark);
+      font-size: 32px;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    .intro-text p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    .intro-image img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .stats {
+      display: flex;
+      justify-content: space-around;
+      margin: 30px 0;
+      text-align: center;
+    }
+    .stat-item {
+      background: linear-gradient(45deg, var(--pink-light), var(--pink-dark));
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .stat-item h3 {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+    .reviews {
+      margin-top: 40px;
+    }
+    .review-item {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .cta {
+      text-align: center;
+      margin-top: 40px;
+    }
+    .cta a {
+      display: inline-block;
+      padding: 15px 30px;
+      background: linear-gradient(45deg, var(--pink-dark), var(--dark));
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 18px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+    .cta a:hover {
+      transform: scale(1.05);
+    }
+    /* Responsive cho mobile */
+    @media (max-width: 768px) {
+      .header {
+        padding: 10px 20px;
+        flex-direction: column;
+      }
+      .logo h1 {
+        font-size: 20px;
+      }
+      .menu a {
+        font-size: 16px;
+        margin: 5px 0;
+      }
+      .section {
+        padding: 20px;
+      }
+      .intro-grid {
+        grid-template-columns: 1fr;
+      }
+      .stats {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .stat-item {
+        padding: 15px;
+      }
+    }
+    <link rel="stylesheet" href="theme.css">
+  </style>
+</head>
+<body>
+  <!-- Nút quay lại -->
+  <button class="back-btn" onclick="window.location.href='index.html'">← Quay lại</button>
+
+  <!-- HEADER (giống index.html) -->
+  <header class="header">
+    <div class="logo">
+      <h1>KOL Gia Hân</h1>
+      <p>KOL cho các thương hiệu mỹ phẩm uy tín – chính hãng</p>
+    </div>
+    <div class="search-box">
+      <input type="text" placeholder="Tìm kiếm sản phẩm, thương hiệu...">
+    </div>
+    <nav class="menu">
+      <a href="index.html">Trang chủ</a>
+      <a href="category.html">Giới thiệu Uy tín</a> <!-- Đổi tên link -->
+      <a href="brand.html">Thương hiệu</a>
+      <a href="cart.html">🛒 Yêu thích</a>
+      <a href="login.html">Đăng nhập</a>
+    </nav>
+  </header>
+
+  <!-- SECTION GIỚI THIỆU UY TÍN -->
+  <section class="section">
+    <div class="intro-grid">
+      <div class="intro-text">
+        <h2>Giới thiệu về Sự Uy tín của KOL Gia Hân</h2>
+        <p>Gia Hân là một Key Opinion Leader (KOL) hàng đầu trong lĩnh vực mỹ phẩm tại Việt Nam. Với hơn 5 năm kinh nghiệm, Gia Hân đã hợp tác với các thương hiệu uy tín như MAC, CeraVe, và La Roche-Posay để mang đến những sản phẩm chất lượng cao cho người dùng.</p>
+        <p>Sự uy tín của Gia Hân được xây dựng từ lòng tin của hàng triệu người theo dõi trên TikTok và các nền tảng xã hội. Gia Hân luôn cam kết cung cấp thông tin chính xác, review trung thực, và hướng dẫn sử dụng sản phẩm an toàn.</p>
+      </div>
+      <div class="intro-image">
+        <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500&h=400&fit=crop" alt="KOL Gia Hân">
+      </div>
+    </div>
+
+    <!-- Thống kê uy tín -->
+    <div class="stats">
+      <div class="stat-item">
+        <h3>2M+</h3>
+        <p>Người theo dõi trên TikTok</p>
+      </div>
+      <div class="stat-item">
+        <h3>500+</h3>
+        <p>Sản phẩm đã review</p>
+      </div>
+      <div class="stat-item">
+        <h3>50+</h3>
+        <p>Thương hiệu hợp tác</p>
+      </div>
+      <div class="stat-item">
+        <h3>98%</h3>
+        <p>Đánh giá tích cực từ khách hàng</p>
+      </div>
+    </div>
+
+    <!-- Reviews từ khách hàng -->
+    <div class="reviews">
+      <h2>Ý kiến từ Khách hàng</h2>
+      <div class="review-item">
+        <p>"Gia Hân luôn review sản phẩm rất chân thực, giúp tôi chọn được mỹ phẩm phù hợp. Uy tín 100%!" - Nguyễn Thị A</p>
+      </div>
+      <div class="review-item">
+        <p>"Theo dõi Gia Hân lâu rồi, các link affiliate luôn dẫn đến sản phẩm chính hãng. Rất tin tưởng!" - Trần Văn B</p>
+      </div>
+      <div class="review-item">
+        <p>"Gia Hân là KOL uy tín nhất mà tôi biết. Sản phẩm skincare của cô ấy gợi ý rất tốt!" - Lê Thị C</p>
+      </div>
+    </div>
+
+    <!-- Call-to-action -->
+    <div class="cta">
+      <p>Hãy theo dõi Gia Hân để cập nhật những sản phẩm mới nhất!</p>
+      <a href="https://www.tiktok.com/@kolgiahan" target="_blank">Theo dõi trên TikTok</a>
+      <a href="index.html">Xem sản phẩm nổi bật</a>
+    </div>
+  </section>
+
+  <!-- Không cần script render sản phẩm nữa -->
+</body>
+</html>

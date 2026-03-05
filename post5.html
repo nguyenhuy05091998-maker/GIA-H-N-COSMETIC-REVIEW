@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tỏa Sáng Rực Rỡ Với Trang Sức Đẳng Cấp Từ Cashion - Gia Hân Cosmetics Review</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #222;
+    }
+
+    /* ===== BACK BAR ===== */
+    .back-bar {
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      padding: 12px 20px;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #FF1493;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: #fff0f5;
+      border: 1.5px solid #ffb6d9;
+      transition: all 0.2s ease;
+    }
+    .back-btn:hover {
+      background: #ffd6e7;
+      color: #cc0077;
+    }
+    .back-btn .arrow {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    /* ===== ARTICLE ===== */
+    .article-wrapper {
+      max-width: 780px; margin: 40px auto; background: #fff;
+      padding: 40px 48px 60px; border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    }
+    .article-wrapper h1 {
+      font-size: 32px; font-weight: 800; line-height: 1.35; color: #111; margin-bottom: 12px;
+    }
+    .meta { font-size: 14px; color: #888; margin-bottom: 28px; display: block; }
+    .banner-img { width: 100%; border-radius: 10px; margin-bottom: 30px; display: block; }
+
+    .article-body { font-size: 15.5px; line-height: 1.85; color: #333; }
+    .article-body p { margin-bottom: 16px; }
+
+    .article-body h2 {
+      font-size: 18px; font-weight: 800; color: #111;
+      margin: 36px 0 12px; padding-bottom: 8px;
+      border-bottom: 2px solid #FF1493;
+    }
+    .article-body h3 {
+      font-size: 16px; font-weight: 700; color: #FF1493; margin: 24px 0 10px;
+    }
+    .article-body h4 {
+      font-size: 15px; font-weight: 700; color: #333; margin: 16px 0 8px;
+    }
+
+    .article-body ul { list-style: none; padding: 0; margin-bottom: 16px; }
+    .article-body ul li { padding: 5px 0 5px 20px; position: relative; font-size: 15px; }
+    .article-body ul li::before { content: "–"; position: absolute; left: 0; color: #FF1493; font-weight: bold; }
+
+    .highlight-box {
+      background: #fff5f9; border-left: 4px solid #FF1493;
+      border-radius: 8px; padding: 18px 20px; margin: 20px 0;
+      font-size: 15px; line-height: 1.8; color: #444;
+    }
+
+    .product-box {
+      background: #f9f9f9; border: 1px solid #eee; border-radius: 10px;
+      padding: 14px 18px; margin: 16px 0;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .product-box img {
+      width: 80px; height: 80px; object-fit: contain;
+      border-radius: 8px; border: 1px solid #eee; flex-shrink: 0;
+    }
+    .product-box-info { font-size: 14px; color: #555; line-height: 1.6; }
+    .product-box-info strong { color: #111; font-size: 15px; display: block; margin-bottom: 4px; }
+
+    .audience-box {
+      border: 1.5px solid #FF1493; border-radius: 12px;
+      padding: 20px 22px; margin: 20px 0;
+    }
+    .audience-box .audience-title {
+      font-size: 16px; font-weight: 800; color: #FF1493; margin-bottom: 12px;
+    }
+
+    .budget-box {
+      border-radius: 10px; padding: 18px 20px; margin: 16px 0;
+    }
+    .budget-under { background: #f0fff4; border-left: 4px solid #22c55e; }
+    .budget-mid { background: #fff8f0; border-left: 4px solid #f97316; }
+    .budget-high { background: #fdf4ff; border-left: 4px solid #a855f7; }
+    .budget-box .budget-title { font-size: 16px; font-weight: 800; margin-bottom: 10px; }
+    .budget-under .budget-title { color: #16a34a; }
+    .budget-mid .budget-title { color: #ea580c; }
+    .budget-high .budget-title { color: #9333ea; }
+    .budget-box .strength {
+      margin-top: 12px; font-size: 14px; font-style: italic; color: #555;
+      padding: 8px 12px; background: rgba(255,255,255,0.7);
+      border-radius: 6px;
+    }
+
+    .combo-box {
+      background: #fff5f9; border-radius: 12px;
+      padding: 20px 22px; margin: 20px 0;
+      border: 1px dashed #FF1493;
+    }
+    .combo-box .combo-title {
+      font-size: 16px; font-weight: 800; color: #FF1493; margin-bottom: 8px;
+    }
+    .combo-box .combo-note {
+      font-size: 14px; color: #888; margin-bottom: 12px;
+    }
+    .combo-result {
+      margin-top: 12px; padding: 10px 14px;
+      background: #fff; border-radius: 8px;
+      font-size: 14px; color: #444;
+    }
+    .combo-result strong { color: #FF1493; }
+
+    .closing {
+      margin-top: 36px; padding: 28px 24px;
+      background: #fff5f9; border-radius: 12px;
+      font-size: 15px; color: #444; line-height: 1.9; text-align: center;
+    }
+    .closing .wish {
+      font-size: 18px; font-weight: 800; color: #FF1493;
+      margin-bottom: 12px; display: block;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 20px; background-color: #FFB6C1; margin-top: 20px; flex-wrap: wrap;
+    }
+    .footer-left { flex: 0 0 65%; text-align: left; }
+    .footer-left p { margin-bottom: 8px; font-size: 14px; color: #333; }
+    .footer-right { flex: 1; display: flex; flex-direction: column; align-items: flex-end; }
+    .footer-right p { text-align: left; margin-bottom: 10px; }
+    .payment-methods { display: flex; align-items: center; flex-wrap: wrap; }
+    .payment-methods img {
+      width: 70px; height: 50px; object-fit: contain;
+      margin: 0 5px; border: 1px solid #FF1493; border-radius: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .article-wrapper { padding: 24px 18px 40px; }
+      .article-wrapper h1 { font-size: 23px; }
+      footer { flex-direction: column; text-align: center; }
+      .footer-left, .footer-right { flex: none; width: 100%; }
+      .footer-right { align-items: center; }
+      .product-box { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NÚT BACK -->
+  <div class="back-bar">
+    <a href="tapchi.html" class="back-btn">
+      <span class="arrow">←</span> Tạp Chí Làm Đẹp
+    </a>
+  </div>
+
+  <!-- NỘI DUNG BÀI VIẾT -->
+  <div class="article-wrapper">
+
+    <h1>Tỏa Sáng Rực Rỡ Với Trang Sức Đẳng Cấp Từ Cashion</h1>
+    <span class="meta">December 1, 2025 &nbsp;•&nbsp; Thương hiệu</span>
+
+    <img class="banner-img" src="https://image.hsv-tech.io/bbx/common/c0edeb0e-b690-458f-8fd6-b0bf8f6d0a28.webp" alt="Cashion Trang Sức Đẳng Cấp">
+
+    <div class="article-body">
+
+      <h2>1. Cashion – Đẳng Cấp Trong Tầm Tay</h2>
+
+      <p>Trong thế giới nơi cái đẹp được định nghĩa bằng phong thái và dấu ấn cá nhân, Cashion xuất hiện như một lựa chọn tinh tế dành cho những ai yêu phong cách sống đẳng cấp nhưng vẫn thực tế, gần gũi. Với việc đồng hành cùng Beauty Box, Cashion mang đến một góc nhìn mới về kim cương và trang sức, nơi mọi phụ nữ đều có thể tỏa sáng theo cách của riêng mình.</p>
+
+      <div class="highlight-box">
+        Với triết lý <strong>"Đẳng cấp trong tầm tay"</strong>, Cashion mong muốn mang đến những thiết kế tinh tế, hiện đại, sở hữu mức giá hợp lý đến gần với khách hàng hơn.
+      </div>
+
+      <p>Sự kết hợp giữa Cashion và Beauty Box hứa hẹn mở ra lựa chọn mới cho những tín đồ yêu cái đẹp, thời trang và phong cách cá nhân.</p>
+
+      <h2>2. Ngôn Ngữ Trang Sức Định Hình Phong Cách</h2>
+
+      <p>Cashion luôn hướng đến những thiết kế tinh gọn và hiện đại, thể hiện rõ nhất qua các bộ sưu tập truyền cảm hứng, được tạo ra từ những đôi tay dày dặn kinh nghiệm của đội ngũ nghệ nhân lành nghề, để mang đến nhiều sự lựa chọn đa dạng, phù hợp với các phong cách khác nhau của khách hàng.</p>
+
+      <div class="audience-box">
+        <div class="audience-title">💎 Your First Diamond – Viên Kim Cương Đầu Tiên</div>
+        <p>Bộ sưu tập dành cho những ai bắt đầu hành trình sở hữu kim cương và yêu thích sự tinh giản, thanh lịch nhưng không kém phần sắc nét. Mỗi thiết kế gói trọn dấu ấn của sự trưởng thành, là một bước ngoặt để tôn vinh chính mình hoặc là món quà ý nghĩa cho người bạn trân trọng.</p>
+      </div>
+
+      <div class="audience-box">
+        <div class="audience-title">✨ Charm It Your Way – Tỏa Sáng Với Dấu Ấn Riêng Độc Bản</div>
+        <p>Mỗi charm là một biểu tượng, một góc ký ức, một lời nhắc nhở, một mong ước được mang bên mình. Khi ghép lại, chúng tạo thành chiếc vòng ghi dấu riêng của bạn. Bộ sưu tập dành cho những ai yêu sự tự do, sáng tạo, yêu cảm giác được thể hiện mình qua những chi tiết nhỏ nhưng đầy cá tính.</p>
+        <div class="product-box">
+          <img src="https://image.hsv-tech.io/bbx/common/72e7234a-b886-49ef-8e67-f87f4a48ef13.webp" alt="Charm It Your Way">
+          <div class="product-box-info">
+            <strong>Bộ Sưu Tập Charm It Your Way – Cashion</strong>
+            Ghép charm theo phong cách riêng, tạo nên chiếc vòng độc bản mang đậm dấu ấn cá nhân.
+          </div>
+        </div>
+      </div>
+
+      <div class="audience-box">
+        <div class="audience-title">🌈 Muse of Color – Tôn Vinh Khí Chất Qua Từng Gam Màu</div>
+        <p>Có những ngày bạn muốn dịu dàng, có những ngày bạn muốn rực rỡ và màu sắc luôn là cách nhanh nhất để bộc lộ trái tim mình. Muse of Color kết hợp kim cương thiên nhiên cùng những sắc đá đầy cảm xúc từ ấm áp, thanh khiết, mạnh mẽ đến bí ẩn và lãng mạn. Mỗi thiết kế giống như một giai điệu nhỏ, chạm vào cảm xúc và tôn vinh khí chất riêng của từng người phụ nữ.</p>
+        <div class="product-box">
+          <img src="https://image.hsv-tech.io/bbx/common/8f3a3d22-caaf-4dad-8bc7-c05f0db30337.webp" alt="Muse of Color">
+          <div class="product-box-info">
+            <strong>Bộ Sưu Tập Muse of Color – Cashion</strong>
+            Kim cương thiên nhiên kết hợp đá màu đa sắc, tôn vinh cá tính và khí chất riêng của từng người.
+          </div>
+        </div>
+      </div>
+
+      <div class="audience-box">
+        <div class="audience-title">💍 Shape Of You – Kiểu Dáng Tạo Nên Phong Cách</div>
+        <p>Hình dáng là ngôn ngữ đầu tiên mà trang sức nói thay bạn. Dù bạn là Heart dịu dàng, Pear cá tính, Round mềm mại hay Marquise sang trọng, những thiết kế trong bộ sưu tập Shape Of You đều tôn vinh tính cá nhân của mỗi người thông qua chính kiểu dáng họ chọn. Không chạy theo xu hướng, không phải để gây ấn tượng mà để bạn nhìn vào gương và mỉm cười khi thấy mình ở trong đó.</p>
+        <div class="product-box">
+          <img src="https://image.hsv-tech.io/bbx/common/50a64309-5ec1-4a82-9e82-8c5594855926.webp" alt="Shape Of You">
+          <div class="product-box-info">
+            <strong>Bộ Sưu Tập Shape Of You – Cashion</strong>
+            Heart, Pear, Round, Marquise – mỗi kiểu dáng là một ngôn ngữ phong cách riêng, tôn vinh cá tính của bạn.
+          </div>
+        </div>
+      </div>
+
+      <h2>3. Cashion Care – Sự Tận Tâm Trong Từng Chi Tiết</h2>
+
+      <p>Bên cạnh các thiết kế trang sức, Cashion mang đến hệ thống dịch vụ chăm sóc toàn diện giúp khách hàng yên tâm trong suốt quá trình sử dụng.</p>
+
+      <div class="combo-box">
+        <div class="combo-title">🛠️ Dịch Vụ Cashion Care</div>
+        <div class="combo-note">Đồng hành cùng khách hàng trong suốt hành trình trải nghiệm trang sức và hàng hiệu đẳng cấp.</div>
+        <ul>
+          <li><strong>Vệ sinh trang sức</strong> – Phục hồi vẻ sáng bóng ban đầu cho từng món trang sức</li>
+          <li><strong>Xi trang sức</strong> – Bảo vệ và làm mới bề mặt kim loại</li>
+          <li><strong>Spa hàng hiệu</strong> – Chăm sóc chuyên sâu cho các sản phẩm cao cấp</li>
+          <li><strong>Sửa chữa túi hiệu</strong> – Hồi sinh vẻ đẹp cho các món đồ hiệu yêu quý</li>
+        </ul>
+        <div class="combo-result"><strong>Cam kết:</strong> Mỗi dịch vụ đều giúp sản phẩm của bạn hồi sinh lại vẻ đẹp ban đầu, mang lại trải nghiệm trọn vẹn và yên tâm.</div>
+      </div>
+
+      <div class="product-box">
+        <img src="https://image.hsv-tech.io/bbx/common/063389cc-20d7-47eb-b75d-a377a28a796b.webp" alt="Cashion Care">
+        <div class="product-box-info">
+          <strong>Cashion Care – Dịch Vụ Chăm Sóc Toàn Diện</strong>
+          Hệ thống dịch vụ chuyên nghiệp giúp trang sức và hàng hiệu của bạn luôn hoàn hảo như ngày đầu.
+        </div>
+      </div>
+
+      <h2>4. Trải Nghiệm Hệ Thống Cửa Hàng Sang Trọng Của Cashion</h2>
+
+      <p>Hệ thống cửa hàng Cashion được thiết kế như những không gian trải nghiệm trang sức hiện đại, nơi khách hàng có thể trực tiếp cảm nhận vẻ đẹp và độ tinh xảo của từng sản phẩm. Hiện nay, Cashion đã có mặt ở rất nhiều khu vực, thuận tiện cho khách hàng có thể đến trải nghiệm và bắt đầu hành trình nâng cấp phong cách sống đẳng cấp.</p>
+
+      <div class="product-box">
+        <img src="https://image.hsv-tech.io/bbx/common/02dbbab9-8485-4d49-9181-0f119a080a20.webp" alt="Cashion Store">
+        <div class="product-box-info">
+          <strong>Hệ Thống Cửa Hàng Cashion</strong>
+          Không gian trải nghiệm trang sức hiện đại, sang trọng. <a href="https://cashion.vn/he-thong-cua-hang/" target="_blank" style="color:#FF1493;">Tìm cửa hàng gần nhất →</a>
+        </div>
+      </div>
+
+      <h2>5. Ưu Đãi Độc Quyền Dành Riêng Cho Bạn Tại Cashion x Beauty Box</h2>
+
+      <p>Nhằm mang đến trải nghiệm đặc quyền cho cộng đồng Beauty Box, Cashion mở ra những ưu đãi đặc biệt hấp dẫn.</p>
+
+      <div class="budget-box budget-high">
+        <div class="budget-title">🎁 Top 03 Hóa Đơn Cao Nhất – Hộp Quà Trị Giá 3.000.000Đ</div>
+        <p style="margin-bottom:12px; font-size:14px; color:#555;">Dành cho 3 khách hàng có hóa đơn mua sắm cao nhất tại Beauty Box chi nhánh Nguyễn Gia Trí trong thời gian diễn ra chương trình.</p>
+        <ul>
+          <li>01 Lắc Charm Hồng Duyên Cashion</li>
+          <li>01 Bảng màu mắt 12 ô Clio</li>
+          <li>01 Sáp tẩy trang 100ml Banila Co</li>
+          <li>01 Phấn má Klavuu</li>
+          <li>01 Màu mắt dạng nhũ Dear Dahlia</li>
+        </ul>
+        <div class="strength">✅ Hộp quà sang xịn, giá trị cao – phần thưởng xứng đáng cho những tín đồ làm đẹp!</div>
+      </div>
+
+      <div class="budget-box budget-mid">
+        <div class="budget-title">🎀 Hóa Đơn Từ 1.000.000Đ – Nhận Ngay Quà Tặng Cực Xinh</div>
+        <p style="margin-bottom:12px; font-size:14px; color:#555;">Dành cho khách hàng mua sắm với hóa đơn từ 1.000.000Đ tại Beauty Box chi nhánh Nguyễn Gia Trí.</p>
+        <div class="strength">✅ Quà tặng bất ngờ, xinh xắn – không thể bỏ lỡ!</div>
+      </div>
+
+      <div class="budget-box budget-under">
+        <div class="budget-title">🏷️ Voucher Mua Sắm 10% Độc Quyền Từ Cashion</div>
+        <p style="margin-bottom:12px; font-size:14px; color:#555;">Hàng ngàn voucher giảm giá 10% độc quyền dành riêng cho thành viên Beauty Box.</p>
+        <div class="strength">✅ Chương trình diễn ra từ 20.11 – 31.12.2025. Ghé Beauty Box Nguyễn Gia Trí ngay hôm nay!</div>
+      </div>
+
+      <div class="product-box">
+        <img src="https://image.hsv-tech.io/bbx/common/3ebb942e-3450-4538-bae9-9836fae73565.webp" alt="Cashion x Beauty Box Ưu đãi">
+        <div class="product-box-info">
+          <strong>Cashion x Beauty Box – Ưu Đãi Độc Quyền</strong>
+          Chương trình diễn ra từ 20.11 – 31.12.2025 tại Beauty Box chi nhánh Nguyễn Gia Trí.
+        </div>
+      </div>
+
+      <div class="closing">
+        <span class="wish">💎 Tỏa Sáng Rực Rỡ Cùng Cashion!</span>
+        <p>Ghé ngay Beauty Box Nguyễn Gia Trí để rinh đồ xịn và nhận quà slay từ Cashion. Mọi thiết kế trang sức đều được chế tác tỉ mỉ, xứng đáng với vẻ đẹp và phong cách của bạn.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      <p>Website <strong>Gia Hân Cosmetics Review</strong> thuộc quyền quản lý và vận hành bởi <strong>KOL Gia Hân</strong>. Giấy chứng nhận đăng ký kinh doanh số <strong>0309802418</strong>, cấp ngày 23/01/2026 tại Sở Kế hoạch và Đầu tư TP. Hồ Chí Minh.</p>
+      <p>Gia Hân Cosmetics Review chuyên cung cấp mỹ phẩm chính hãng, được chọn lọc kỹ lưỡng từ các thương hiệu uy tín trong và ngoài nước.</p>
+      <p>Địa chỉ hoạt động: 613 Âu Cơ, Quận Tân Phú, TP. Hồ Chí Minh, Việt Nam.</p>
+      <p>Gia Hân Cosmetics Review cam kết mang đến trải nghiệm mua sắm minh bạch, tiện lợi và đáng tin cậy cho khách hàng.</p>
+    </div>
+    <div class="footer-right">
+      <p>Phương thức thanh toán</p>
+      <div class="payment-methods">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/06414657-24ed-4da4-8a54-f207d45ab1be.webp">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/afebded0-f4e7-4c5f-aee3-aa01271174c3.webp">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/64102078-db30-4f18-a473-2582467505fd.webp">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/a19ac3f9-5d5e-43c3-aa84-49576cad1102.webp">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/3e4a7882-d755-4110-83b5-6496bf5e689c.webp">
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/render.js"></script>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beauty Box Aeon Mall Tân Phú Celadon Chính Thức Ra Mắt Diện Mạo Mới - Gia Hân Cosmetics Review</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #222;
+    }
+
+    /* ===== BACK BAR ===== */
+    .back-bar {
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      padding: 12px 20px;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #FF1493;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: #fff0f5;
+      border: 1.5px solid #ffb6d9;
+      transition: all 0.2s ease;
+    }
+    .back-btn:hover {
+      background: #ffd6e7;
+      color: #cc0077;
+    }
+    .back-btn .arrow {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    /* ===== ARTICLE ===== */
+    .article-wrapper {
+      max-width: 780px; margin: 40px auto; background: #fff;
+      padding: 40px 48px 60px; border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    }
+    .article-wrapper h1 {
+      font-size: 32px; font-weight: 800; line-height: 1.35; color: #111; margin-bottom: 12px;
+    }
+    .meta { font-size: 14px; color: #888; margin-bottom: 28px; display: block; }
+    .banner-img { width: 100%; border-radius: 10px; margin-bottom: 30px; display: block; }
+
+    .article-body { font-size: 15.5px; line-height: 1.85; color: #333; }
+    .article-body p { margin-bottom: 16px; }
+
+    .article-body h2 {
+      font-size: 18px; font-weight: 800; color: #111;
+      margin: 36px 0 12px; padding-bottom: 8px;
+      border-bottom: 2px solid #FF1493;
+    }
+
+    .article-body ul { list-style: none; padding: 0; margin-bottom: 16px; }
+    .article-body ul li { padding: 5px 0 5px 20px; position: relative; font-size: 15px; }
+    .article-body ul li::before { content: "–"; position: absolute; left: 0; color: #FF1493; font-weight: bold; }
+
+    .highlight-box {
+      background: #fff5f9; border-left: 4px solid #FF1493;
+      border-radius: 8px; padding: 18px 20px; margin: 20px 0;
+      font-size: 15px; line-height: 1.8; color: #444;
+    }
+
+    .promo-card {
+      border-radius: 14px; padding: 22px 24px; margin: 20px 0;
+    }
+    .promo-pink   { background: #fff0f6; border: 1.5px solid #FF1493; }
+    .promo-orange { background: #fff8f0; border: 1.5px solid #f97316; }
+    .promo-purple { background: #fdf4ff; border: 1.5px solid #a855f7; }
+    .promo-green  { background: #f0fff4; border: 1.5px solid #22c55e; }
+
+    .promo-card .promo-title {
+      font-size: 17px; font-weight: 800; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .promo-pink   .promo-title { color: #FF1493; }
+    .promo-orange .promo-title { color: #ea580c; }
+    .promo-purple .promo-title { color: #9333ea; }
+    .promo-green  .promo-title { color: #16a34a; }
+
+    .promo-card ul { margin-bottom: 0; }
+    .promo-card ul li { font-size: 15px; }
+
+    .deal-row {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 12px 0; border-bottom: 1px dashed #f0c0d0;
+    }
+    .deal-row:last-child { border-bottom: none; }
+    .deal-badge {
+      min-width: 80px; text-align: center;
+      background: #FF1493; color: #fff;
+      border-radius: 8px; padding: 6px 10px;
+      font-weight: 800; font-size: 20px; line-height: 1.2;
+    }
+    .deal-badge span { display: block; font-size: 12px; font-weight: 600; }
+    .deal-desc { font-size: 15px; color: #333; line-height: 1.7; }
+    .deal-desc strong { color: #111; }
+
+    .date-tag {
+      display: inline-block; background: #ffecf3; color: #FF1493;
+      border-radius: 6px; padding: 3px 10px; font-size: 13px; font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .location-box {
+      background: linear-gradient(135deg, #fff0f6 0%, #fdf4ff 100%);
+      border: 2px solid #FF1493; border-radius: 14px;
+      padding: 22px 24px; margin: 28px 0; text-align: center;
+    }
+    .location-box .loc-icon { font-size: 32px; margin-bottom: 8px; display: block; }
+    .location-box .loc-title {
+      font-size: 17px; font-weight: 800; color: #FF1493; margin-bottom: 6px;
+    }
+    .location-box .loc-address { font-size: 15px; color: #444; line-height: 1.7; }
+
+    .closing {
+      margin-top: 36px; padding: 28px 24px;
+      background: #fff5f9; border-radius: 12px;
+      font-size: 15px; color: #444; line-height: 1.9; text-align: center;
+    }
+    .closing .wish {
+      font-size: 18px; font-weight: 800; color: #FF1493;
+      margin-bottom: 12px; display: block;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 20px; background-color: #FFB6C1; margin-top: 20px; flex-wrap: wrap;
+    }
+    .footer-left { flex: 0 0 65%; text-align: left; }
+    .footer-left p { margin-bottom: 8px; font-size: 14px; color: #333; }
+    .footer-right { flex: 1; display: flex; flex-direction: column; align-items: flex-end; }
+    .footer-right p { text-align: left; margin-bottom: 10px; }
+    .payment-methods { display: flex; align-items: center; flex-wrap: wrap; }
+    .payment-methods img {
+      width: 70px; height: 50px; object-fit: contain;
+      margin: 0 5px; border: 1px solid #FF1493; border-radius: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .article-wrapper { padding: 24px 18px 40px; }
+      .article-wrapper h1 { font-size: 23px; }
+      footer { flex-direction: column; text-align: center; }
+      .footer-left, .footer-right { flex: none; width: 100%; }
+      .footer-right { align-items: center; }
+      .deal-row { flex-direction: column; gap: 8px; }
+      .deal-badge { min-width: unset; width: fit-content; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NÚT BACK -->
+  <div class="back-bar">
+    <a href="tapchi.html" class="back-btn">
+      <span class="arrow">←</span> Tạp Chí Làm Đẹp
+    </a>
+  </div>
+
+  <!-- NỘI DUNG BÀI VIẾT -->
+  <div class="article-wrapper">
+
+    <h1>Beauty Box Aeon Mall Tân Phú Celadon Chính Thức Ra Mắt Diện Mạo Mới – Đẹp Chất Chơi</h1>
+    <span class="meta">August 29, 2025 &nbsp;•&nbsp; Khuyến Mãi</span>
+
+    <img src="images/AEON.jpg" class="banner-img" alt="Beauty Box Aeon Mall Tân Phú Celadon Ra Mắt Diện Mạo Mới">
+
+    <div class="article-body">
+
+      <div class="highlight-box">
+        Từ <strong>29.08</strong>, Beauty Box Aeon Mall Tân Phú Celadon trở lại trong diện mạo hoàn toàn mới: <strong>Trendy – Hiện đại – Trẻ trung</strong> hơn bao giờ hết!
+      </div>
+
+      <ul>
+        <li>Không gian mua sắm "lột xác" với thiết kế cực phong cách, thoải mái để bạn tha hồ khám phá thế giới mỹ phẩm và check-in cháy máy.</li>
+        <li>Đội ngũ tư vấn tận tâm luôn sẵn sàng đồng hành, giúp bạn tìm ra sản phẩm phù hợp nhất.</li>
+        <li>Mỹ phẩm chính hãng, đa dạng với mức giá cực cạnh tranh – đủ từ skincare, makeup đến chăm sóc body.</li>
+      </ul>
+
+      <h2>1. Check-in Nhận Ngay Quà Xịn</h2>
+
+      <div class="promo-card promo-pink">
+        <div class="promo-title">📸 Quà Check-in Siêu Hấp Dẫn</div>
+
+        <div class="deal-row">
+          <div class="deal-badge">29–31<span>tháng 8</span></div>
+          <div class="deal-desc">
+            Nhận ngay <strong>01 Blind Bag trị giá đến 679k</strong><br>
+            <em style="color:#888; font-size:13px;">Chỉ dành cho 50 bạn sớm nhất mỗi ngày – nhanh tay kẻo hết!</em>
+          </div>
+        </div>
+
+        <div class="deal-row">
+          <div class="deal-badge">01–14<span>tháng 9</span></div>
+          <div class="deal-desc">
+            Nhận ngay <strong>Combo 03 mặt nạ BIAEffect</strong><br>
+            <em style="color:#888; font-size:13px;">Số lượng có hạn – nhanh tay kẻo lỡ!</em>
+          </div>
+        </div>
+      </div>
+
+      <h2>2. Đừng Bỏ Lỡ Deal Siêu Hot</h2>
+
+      <div class="date-tag">29/08 – 29/09</div>
+
+      <div class="promo-card promo-orange">
+        <div class="promo-title">🔥 Deal Siêu Hời Không Thể Bỏ Qua</div>
+
+        <div class="deal-row">
+          <div class="deal-badge" style="background:#f97316;">50%<span>OFF</span></div>
+          <div class="deal-desc">
+            <strong>Flash Sale Chớp Nhoáng</strong> – Chỉ trong Thứ 6, 7, CN<br>
+            Hai khung giờ vàng: <strong>11h–13h</strong> &amp; <strong>18h–20h</strong>
+          </div>
+        </div>
+
+        <div class="deal-row">
+          <div class="deal-badge" style="background:#f97316;">30%<span>OFF</span></div>
+          <div class="deal-desc">
+            Các combo <strong>Làm Sạch / Tẩy Trang / Chống Nắng + Mặt Nạ</strong>
+          </div>
+        </div>
+
+        <div class="deal-row">
+          <div class="deal-badge" style="background:#f97316; font-size:14px;">QUÀ<span>TẶNG</span></div>
+          <div class="deal-desc">
+            Hóa đơn từ <strong>799k</strong> → Tặng thêm quà trị giá đến <strong>679k</strong>
+          </div>
+        </div>
+      </div>
+
+      <h2>3. Ưu Đãi Dành Riêng Cho Thành Viên Mới</h2>
+
+      <div class="promo-card promo-purple">
+        <div class="promo-title">🎁 Chào Mừng Thành Viên Mới</div>
+        <ul>
+          <li>Mỗi hóa đơn đầu tiên từ <strong>199k</strong> → Nhận thêm <strong>02 mặt nạ BIAEffect</strong></li>
+          <li>Áp dụng từ <strong>29/08</strong> đến khi hết quà</li>
+        </ul>
+      </div>
+
+      <h2>4. Đặc Quyền Thành Viên</h2>
+
+      <div class="date-tag">29/08 – 02/09</div>
+
+      <div class="promo-card promo-green">
+        <div class="promo-title">👑 Đặc Quyền Thành Viên Thân Thiết</div>
+
+        <div class="deal-row">
+          <div class="deal-badge" style="background:#22c55e; font-size:18px;">-5%<span>HĐ 799k</span></div>
+          <div class="deal-desc">
+            Hóa đơn từ <strong>799k</strong> → Giảm thêm <strong>5%</strong> trên tổng hóa đơn
+          </div>
+        </div>
+
+        <div class="deal-row">
+          <div class="deal-badge" style="background:#22c55e; font-size:18px;">-10%<span>HĐ 999k</span></div>
+          <div class="deal-desc">
+            Hóa đơn từ <strong>999k</strong> → Giảm thêm <strong>10%</strong> trên tổng hóa đơn
+          </div>
+        </div>
+      </div>
+
+      <p>Không gian mới – vibe mới – deal vừa hời, vừa xịn đang chờ bạn khám phá!</p>
+
+      <div class="location-box">
+        <span class="loc-icon">📍</span>
+        <div class="loc-title">Beauty Box Aeon Mall Tân Phú Celadon</div>
+        <div class="loc-address">
+          Gian hàng <strong>G16</strong>, Tầng Trệt<br>
+          Aeon Mall Tân Phú Celadon, TP. Hồ Chí Minh
+        </div>
+      </div>
+
+      <div class="closing">
+        <span class="wish">✨ Ghé Ngay – Trải Nghiệm Không Gian Mua Sắm Đẹp Chất Chơi!</span>
+        <p>Hãy ghé Beauty Box Aeon Mall Tân Phú Celadon và trải nghiệm không gian mua sắm mới theo phong cách thật riêng của bạn nhé!</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      <p>Website <strong>Gia Hân Cosmetics Review</strong> thuộc quyền quản lý và vận hành bởi <strong>KOL Gia Hân</strong>. Giấy chứng nhận đăng ký kinh doanh số <strong>0309802418</strong>, cấp ngày 23/01/2026 tại Sở Kế hoạch và Đầu tư TP. Hồ Chí Minh.</p>
+      <p>Gia Hân Cosmetics Review chuyên cung cấp mỹ phẩm chính hãng, được chọn lọc kỹ lưỡng từ các thương hiệu uy tín trong và ngoài nước.</p>
+      <p>Địa chỉ hoạt động: 613 Âu Cơ, Quận Tân Phú, TP. Hồ Chí Minh, Việt Nam.</p>
+      <p>Gia Hân Cosmetics Review cam kết mang đến trải nghiệm mua sắm minh bạch, tiện lợi và đáng tin cậy cho khách hàng.</p>
+    </div>
+    <div class="footer-right">
+      <p>Phương thức thanh toán</p>
+      <div class="payment-methods">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/06414657-24ed-4da4-8a54-f207d45ab1be.webp">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/afebded0-f4e7-4c5f-aee3-aa01271174c3.webp">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/64102078-db30-4f18-a473-2582467505fd.webp">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/a19ac3f9-5d5e-43c3-aa84-49576cad1102.webp">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/3e4a7882-d755-4110-83b5-6496bf5e689c.webp">
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/render.js"></script>
+</body>
+</html>

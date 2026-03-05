@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chăm Sóc Da Mặt – Gia Hân Cosmetics Review</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --lavender: #7c6fe0; --lavender-dark: #5b4fcf; --lavender-light: #f0eeff;
+      --lavender-pale: #f7f5ff; --pink: #FF1493; --dark: #1e1a2e; --gray: #666;
+    }
+    body { font-family: 'Be Vietnam Pro', sans-serif; background: #f8f6ff; color: #333; }
+
+    .marquee-bar { background: #ede0f7; overflow: hidden; white-space: nowrap; padding: 8px 0; border-bottom: 1px solid #d8bfee; }
+    .marquee-track { display: inline-flex; gap: 60px; animation: marquee 45s linear infinite; }
+    .marquee-track span { font-size: 13px; color: #6a1b9a; font-weight: 500; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    .header { background: #fff; border-bottom: 1px solid #e8e4f8; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; position: sticky; top: 0; z-index: 900; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .logo h1 { color: var(--pink); font-size: 26px; }
+    .logo h1 a { text-decoration: none; color: inherit; }
+    .logo p { color: #666; font-size: 12px; }
+    .header-actions { display: flex; gap: 8px; align-items: center; }
+    .pill { padding: 8px 18px; border-radius: 999px; font-size: 14px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: all 0.2s; cursor: pointer; border: none; font-family: inherit; }
+    .pill.cart { background: #ede9ff; color: var(--lavender-dark); }
+    .pill.login { background: #e8eaf6; color: #3949ab; }
+    .pill:hover { transform: translateY(-1px); box-shadow: 0 3px 8px rgba(0,0,0,0.12); }
+    .cart-wrap { position: relative; display: inline-block; }
+    .cart-badge { position: absolute; top: -6px; right: -6px; background: var(--pink); color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; display: none; align-items: center; justify-content: center; font-weight: 700; }
+
+    .search-box { position: relative; flex: 1; max-width: 400px; min-width: 180px; }
+    .search-box input { width: 100%; padding: 9px 40px 9px 14px; border: 1.5px solid var(--lavender); border-radius: 999px; outline: none; font-family: inherit; font-size: 14px; transition: box-shadow 0.2s; }
+    .search-box input:focus { box-shadow: 0 0 0 3px rgba(124,111,224,0.2); }
+    .search-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--lavender-dark); font-size: 15px; }
+    .search-results { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #fff; border: 1px solid #dcd6f8; border-radius: 12px; box-shadow: 0 8px 24px rgba(124,111,224,0.15); z-index: 999; display: none; max-height: 320px; overflow-y: auto; }
+    .search-results.show { display: block; }
+    .search-result-item { display: flex; align-items: center; gap: 12px; padding: 10px 14px; cursor: pointer; border-bottom: 1px solid #f0ecff; text-decoration: none; color: #333; transition: background 0.15s; }
+    .search-result-item:last-child { border-bottom: none; }
+    .search-result-item:hover { background: var(--lavender-pale); }
+    .result-icon { font-size: 20px; }
+    .result-name { font-weight: 600; font-size: 13px; }
+    .result-cat { font-size: 11px; color: #999; }
+    .search-no-result { padding: 16px; text-align: center; color: #bbb; font-size: 13px; }
+
+    .pill-bar { background: #fff; padding: 10px 20px; border-bottom: 1px solid #e8e4f8; }
+    .menu-pills { display: flex; justify-content: space-evenly; align-items: center; max-width: 1400px; margin: 0 auto; }
+    .menu-pills .pill { flex: 1; text-align: center; margin: 0 3px; font-size: 13px; padding: 8px 6px; min-width: 0; transition: filter 0.18s, transform 0.15s; white-space: nowrap; font-weight: 500; }
+    .menu-pills .pill:hover { filter: brightness(0.91); transform: translateY(-1px); }
+    .menu-pills .pill[href="brand.html"]  { background: #f5f5f5;  color: #555; }
+    .menu-pills .pill[href="tapchi.html"] { background: #ffb6c1;  color: #c0396b; }
+    .menu-pills .pill[href="km.html"]     { background: #ffe0b2;  color: #e65100; }
+    .menu-pills .pill[href="miffy.html"]  { background: #e1f5fe;  color: #0277bd; }
+    .menu-pills .pill[href="td.html"]     { background: #e8f5e9;  color: #2e7d32; }
+    .menu-pills .pill[href="csd.html"]    { background: #e0f2f1;  color: #00695c; }
+    .menu-pills .pill[href="csct.html"]   { background: #f3e5f5;  color: #6a1b9a; }
+    .menu-pills .pill[href="spmoi.html"]  { background: #ede7f6;  color: #4527a0; }
+    .menu-pills .pill.active { filter: brightness(0.85); font-weight: 700; }
+    @media (max-width: 900px) {
+      .menu-pills { justify-content: flex-start; overflow-x: auto; scrollbar-width: none; }
+      .menu-pills::-webkit-scrollbar { display: none; }
+      .menu-pills .pill { flex: 0 0 auto; min-width: 110px; }
+    }
+
+    .page-title-bar { background: linear-gradient(135deg, #f0eeff 0%, #e4dfff 100%); padding: 22px 30px; border-bottom: 1px solid #d4ccf8; display: flex; align-items: center; justify-content: space-between; }
+    .page-title-bar h1 { font-size: 28px; font-weight: 700; color: var(--dark); letter-spacing: 0.03em; }
+    .page-title-bar h1 span { color: var(--lavender-dark); }
+    .result-count { color: var(--gray); font-size: 14px; }
+    .result-count span { color: var(--lavender-dark); font-weight: 700; }
+
+    .main-layout { display: flex; max-width: 1400px; margin: 0 auto; padding: 20px 16px; gap: 24px; }
+    .sidebar { width: 260px; flex-shrink: 0; }
+    .filter-card { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); border: 1px solid #ece9ff; }
+    .filter-title { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; }
+    .filter-title .arrow { transition: transform 0.2s; font-size: 12px; }
+    .filter-title.collapsed .arrow { transform: rotate(-90deg); }
+    .filter-body.hidden { display: none; }
+    .price-options { display: flex; flex-direction: column; gap: 8px; }
+    .price-option { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; padding: 6px 8px; border-radius: 8px; transition: background 0.15s; }
+    .price-option:hover { background: var(--lavender-pale); }
+    .price-option input { width: 15px; height: 15px; accent-color: var(--lavender-dark); cursor: pointer; }
+    .search-filter { width: 100%; padding: 7px 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; margin-bottom: 10px; outline: none; font-family: inherit; }
+    .search-filter:focus { border-color: var(--lavender); }
+    .category-list { max-height: 220px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
+    .category-list::-webkit-scrollbar { width: 4px; }
+    .category-list::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+    .cat-item { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; padding: 5px 8px; border-radius: 8px; transition: background 0.15s; }
+    .cat-item:hover { background: var(--lavender-pale); }
+    .cat-item input { accent-color: var(--lavender-dark); cursor: pointer; }
+    .cat-count { color: #aaa; font-size: 12px; margin-left: auto; }
+    .brand-list { display: flex; flex-direction: column; gap: 6px; }
+    .brand-item { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; padding: 5px 8px; border-radius: 8px; transition: background 0.15s; }
+    .brand-item:hover { background: var(--lavender-pale); }
+    .brand-item input { accent-color: var(--lavender-dark); cursor: pointer; }
+    .skin-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skin-tag { padding: 6px 14px; border-radius: 999px; border: 1.5px solid #d8d0f8; font-size: 12px; cursor: pointer; transition: all 0.2s; background: #f8f6ff; user-select: none; }
+    .skin-tag.selected { background: var(--lavender-light); border-color: var(--lavender-dark); color: var(--lavender-dark); font-weight: 600; }
+    .skin-tag:hover { border-color: var(--lavender); }
+
+    .sort-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+    .sort-label { font-size: 13px; color: var(--gray); }
+    .sort-btn { padding: 7px 16px; border-radius: 999px; border: 1.5px solid #ddd; background: #fff; font-size: 13px; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+    .sort-btn.active, .sort-btn:hover { border-color: var(--lavender-dark); color: var(--lavender-dark); background: var(--lavender-pale); }
+
+    .content-area { flex: 1; min-width: 0; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
+    .product-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 5px rgba(0,0,0,0.07); transition: box-shadow 0.25s, transform 0.25s; position: relative; border: 1px solid #ece9ff; }
+    .product-card:hover { box-shadow: 0 8px 28px rgba(124,111,224,0.2); transform: translateY(-3px); }
+    .product-img-wrap { position: relative; overflow: hidden; background: #faf8ff; height: 220px; }
+    .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .product-card:hover .product-img-wrap img { transform: scale(1.07); }
+    .badges { position: absolute; top: 10px; left: 10px; display: flex; flex-direction: column; gap: 5px; z-index: 2; }
+    .badge { padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+    .badge-new { background: #222; color: #fff; }
+    .badge-sale { background: var(--lavender-dark); color: #fff; }
+    .badge-hot { background: #e74c3c; color: #fff; }
+    .badge-natural { background: #8bc34a; color: #fff; }
+    .badge-freeship { background: linear-gradient(90deg, #7c6fe0, #a594f9); color: #fff; font-size: 10px; padding: 3px 8px; }
+    .wishlist-btn { position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.9); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; z-index: 2; transition: background 0.2s, transform 0.2s; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+    .wishlist-btn:hover { background: var(--lavender); color: #fff; transform: scale(1.1); }
+    .wishlist-btn.active { background: var(--lavender); color: #fff; }
+    .quick-view-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(91,79,207,0.92); color: #fff; text-align: center; padding: 12px; font-size: 13px; font-weight: 600; cursor: pointer; transform: translateY(100%); transition: transform 0.25s ease; z-index: 3; }
+    .product-card:hover .quick-view-overlay { transform: translateY(0); }
+    .product-info { padding: 14px; }
+    .brand-name { font-size: 11px; font-weight: 700; color: var(--gray); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+    .product-name { font-size: 13px; font-weight: 500; color: #222; line-height: 1.4; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .skin-mini { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+    .skin-mini span { padding: 2px 8px; border-radius: 999px; font-size: 10px; background: var(--lavender-light); color: var(--lavender-dark); font-weight: 600; }
+    .price-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+    .price-now { color: var(--lavender-dark); font-weight: 700; font-size: 16px; }
+    .price-old { color: #bbb; font-size: 12px; text-decoration: line-through; }
+    .discount-tag { background: var(--lavender-dark); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+    .stars { color: #f59e0b; font-size: 12px; }
+    .review-count { color: #aaa; font-size: 11px; margin-left: 4px; }
+    .add-cart-btn { width: 100%; padding: 9px; background: var(--lavender-dark); color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.15s; font-family: inherit; margin-top: 10px; }
+    .add-cart-btn:hover { background: #4a3db8; transform: scale(1.02); }
+
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .modal-overlay.show { opacity: 1; pointer-events: all; }
+    .modal-box { background: #fff; border-radius: 20px; max-width: 920px; width: 100%; max-height: 90vh; overflow-y: auto; display: flex; transform: scale(0.92); transition: transform 0.25s; position: relative; }
+    .modal-overlay.show .modal-box { transform: scale(1); }
+    .modal-close { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 50%; background: #f5f5f5; border: none; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.2s; }
+    .modal-close:hover { background: var(--lavender-light); color: var(--lavender-dark); }
+    .modal-images { width: 420px; flex-shrink: 0; background: #f8f6ff; border-radius: 20px 0 0 20px; overflow: hidden; display: flex; flex-direction: column; }
+    .modal-main-img { flex: 1; display: flex; align-items: center; justify-content: center; padding: 24px; min-height: 320px; }
+    .modal-main-img img { max-width: 100%; max-height: 320px; object-fit: contain; }
+    .modal-thumbs { display: flex; gap: 8px; padding: 12px; background: #ece9ff; overflow-x: auto; }
+    .modal-thumb { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; flex-shrink: 0; }
+    .modal-thumb.active, .modal-thumb:hover { border-color: var(--lavender-dark); }
+    .modal-info { flex: 1; padding: 30px 30px 30px 28px; overflow-y: auto; }
+    .modal-brand { font-size: 12px; font-weight: 700; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+    .modal-title { font-size: 18px; font-weight: 700; line-height: 1.4; color: var(--dark); margin-bottom: 12px; }
+    .modal-stars { margin-bottom: 12px; font-size: 13px; }
+    .modal-skin-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .modal-skin-tag { padding: 4px 12px; border-radius: 999px; background: var(--lavender-light); color: var(--lavender-dark); font-size: 12px; font-weight: 600; }
+    .modal-price-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .modal-price { font-size: 26px; font-weight: 700; color: var(--lavender-dark); }
+    .modal-price-old { font-size: 15px; color: #bbb; text-decoration: line-through; }
+    .modal-discount { background: var(--lavender-dark); color: #fff; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 5px; }
+    .modal-section { margin-bottom: 18px; }
+    .modal-section-title { font-size: 13px; font-weight: 700; color: #444; margin-bottom: 8px; }
+    .volume-options { display: flex; gap: 8px; flex-wrap: wrap; }
+    .vol-btn { padding: 7px 16px; border-radius: 8px; border: 1.5px solid #ddd; background: #fff; font-size: 13px; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+    .vol-btn.active, .vol-btn:hover { border-color: var(--lavender-dark); color: var(--lavender-dark); background: var(--lavender-pale); }
+    .qty-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .qty-btn { width: 34px; height: 34px; border-radius: 8px; border: 1.5px solid #ddd; background: #fff; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s; }
+    .qty-btn:hover { border-color: var(--lavender-dark); color: var(--lavender-dark); }
+    .qty-num { font-size: 16px; font-weight: 600; min-width: 30px; text-align: center; }
+    .modal-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-add { flex: 1; padding: 14px; background: #fff; color: var(--lavender-dark); border: 2px solid var(--lavender-dark); border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+    .btn-add:hover { background: var(--lavender-pale); }
+    .btn-buy { flex: 1; padding: 14px; background: linear-gradient(135deg, var(--lavender-dark), var(--lavender)); color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.15s; font-family: inherit; }
+    .btn-buy:hover { opacity: 0.9; transform: translateY(-1px); }
+    .modal-delivery { margin-top: 18px; padding: 14px; background: #f8f6ff; border-radius: 10px; font-size: 12px; color: var(--gray); line-height: 1.8; border: 1px solid #dcd6f8; }
+    .modal-delivery b { color: #333; }
+    .modal-desc { font-size: 13px; color: #555; line-height: 1.7; }
+    .modal-ingredients { font-size: 12px; color: #888; line-height: 1.7; background: #f8f6ff; border-radius: 8px; padding: 10px; margin-top: 6px; border: 1px solid #dcd6f8; }
+
+    .toast { position: fixed; bottom: 30px; right: 30px; background: #1e1a2e; color: #fff; padding: 14px 22px; border-radius: 12px; font-size: 14px; z-index: 2000; transform: translateY(20px); opacity: 0; transition: all 0.3s; pointer-events: none; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    .cart-drawer { position: fixed; top: 0; right: 0; width: 380px; height: 100vh; background: #fff; box-shadow: -4px 0 24px rgba(0,0,0,0.15); z-index: 1500; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
+    .cart-drawer.open { transform: translateX(0); }
+    .cart-drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 1400; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .cart-drawer-overlay.show { opacity: 1; pointer-events: all; }
+    .cart-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, #f0eeff, #e4dfff); }
+    .cart-header h2 { font-size: 18px; font-weight: 700; color: var(--dark); }
+    .cart-close { background: none; border: none; font-size: 22px; cursor: pointer; color: #666; }
+    .cart-items { flex: 1; overflow-y: auto; padding: 16px; }
+    .cart-empty { text-align: center; padding: 40px 20px; color: #aaa; font-size: 14px; }
+    .cart-empty-icon { font-size: 48px; margin-bottom: 12px; }
+    .cart-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+    .cart-item img { width: 70px; height: 70px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+    .cart-item-info { flex: 1; }
+    .cart-item-name { font-size: 12px; line-height: 1.4; font-weight: 500; margin-bottom: 4px; }
+    .cart-item-price { color: var(--lavender-dark); font-weight: 700; font-size: 14px; }
+    .cart-item-qty { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+    .cart-qty-btn { width: 26px; height: 26px; border-radius: 6px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+    .cart-qty-btn:hover { border-color: var(--lavender-dark); color: var(--lavender-dark); }
+    .cart-item-remove { color: #bbb; background: none; border: none; cursor: pointer; font-size: 18px; align-self: flex-start; margin-left: auto; }
+    .cart-item-remove:hover { color: #e74c3c; }
+    .cart-footer { padding: 20px; border-top: 1px solid #eee; }
+    .cart-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .cart-total span:last-child { color: var(--lavender-dark); }
+    .cart-go-btn { width: 100%; padding: 12px; background: #fff; color: var(--lavender-dark); border: 2px solid var(--lavender-dark); border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; margin-bottom: 8px; transition: all 0.2s; }
+    .cart-go-btn:hover { background: var(--lavender-pale); }
+    .checkout-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--lavender-dark), var(--lavender)); color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit; transition: opacity 0.2s; }
+    .checkout-btn:hover { opacity: 0.9; }
+    .no-results { text-align: center; padding: 60px 20px; color: #aaa; grid-column: 1/-1; }
+    .no-results-icon { font-size: 52px; margin-bottom: 16px; }
+
+    footer { display: flex; justify-content: space-between; align-items: flex-start; padding: 24px 30px; background: #FFB6C1; margin-top: 30px; flex-wrap: wrap; gap: 16px; }
+    .footer-left { flex: 0 0 62%; }
+    .footer-left p { font-size: 13px; color: #333; margin-bottom: 8px; line-height: 1.6; }
+    .footer-right { flex: 1; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+    .footer-right p { font-size: 13px; font-weight: 600; }
+    .payment-methods { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+    .payment-methods img { width: 65px; height: 44px; object-fit: contain; border: 1px solid #FF1493; border-radius: 5px; background: #fff; }
+
+    @media (max-width: 900px) { .sidebar { display: none; } .modal-images { width: 260px; } }
+    @media (max-width: 640px) { .modal-box { flex-direction: column; } .modal-images { width: 100%; border-radius: 20px 20px 0 0; } .cart-drawer { width: 100%; } }
+  </style>
+</head>
+<body>
+
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>🚚 FREESHIP 15K MỌI ĐƠN HÀNG</span>
+    <span>💥 NHẬP MÃ T01FREESHIP30K – GIẢM NGAY 30K CHO ĐƠN HÀNG 199K</span>
+    <span>🎁 HỖ TRỢ GÓI QUÀ + KHẮC SÔN MIỄN PHÍ</span>
+    <span>✨ MUA ONLINE – NHẬN TẠI CỬA HÀNG GẦN NHẤT</span>
+    <span>🛍️ MIFFY CHÍNH HÃNG – ĐỒ CHƠI NHỒI BÔNG CAO CẤP</span>
+    <span>🌸 MỸ PHẨM CHÍNH HÃNG – GIÁ TỐT NHẤT THỊ TRƯỜNG</span>
+    <span>🚚 FREESHIP 15K MỌI ĐƠN HÀNG</span>
+    <span>💥 NHẬP MÃ T01FREESHIP30K – GIẢM NGAY 30K CHO ĐƠN HÀNG 199K</span>
+    <span>🎁 HỖ TRỢ GÓI QUÀ + KHẮC SÔN MIỄN PHÍ</span>
+    <span>✨ MUA ONLINE – NHẬN TẠI CỬA HÀNG GẦN NHẤT</span>
+    <span>🛍️ MIFFY CHÍNH HÃNG – ĐỒ CHƠI NHỒI BÔNG CAO CẤP</span>
+    <span>🌸 MỸ PHẨM CHÍNH HÃNG – GIÁ TỐT NHẤT THỊ TRƯỜNG</span>
+  </div>
+</div>
+
+<header class="header">
+  <div class="logo">
+    <h1><a href="index.html">Gia Hân Cosmetics Review</a></h1>
+    <p>KOL cho các thương hiệu mỹ phẩm uy tín – chính hãng</p>
+  </div>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm, thương hiệu..." autocomplete="off">
+    <button class="search-btn">🔍</button>
+    <div class="search-results" id="searchDropdown"></div>
+  </div>
+  <div class="header-actions">
+    <div class="cart-wrap">
+      <a href="cart.html" class="pill cart">🛒 Giỏ Hàng</a>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </div>
+    <a href="login.html" class="pill login" id="loginPill">Đăng Nhập</a>
+  </div>
+</header>
+
+<nav class="pill-bar">
+  <div class="menu-pills">
+    <a href="brand.html"  class="pill">Thương Hiệu</a>
+    <a href="tapchi.html" class="pill">Tạp Chí Làm Đẹp</a>
+    <a href="km.html"     class="pill">Khuyến Mãi</a>
+    <a href="miffy.html"  class="pill">MIFFY Chính Hãng</a>
+    <a href="td.html"     class="pill">Trang Điểm</a>
+    <a href="csd.html"    class="pill active">Chăm Sóc Da Mặt</a>
+    <a href="csct.html"   class="pill">Chăm Sóc Cơ Thể</a>
+    <a href="spmoi.html"  class="pill">Sản Phẩm Mới</a>
+  </div>
+</nav>
+
+<div class="page-title-bar">
+  <h1>CHĂM SÓC <span>DA MẶT</span></h1>
+  <div class="result-count">Hiển thị <span id="countDisplay">0</span> kết quả</div>
+</div>
+
+<div class="main-layout">
+  <aside class="sidebar">
+    <div class="filter-card">
+      <div class="filter-title" onclick="toggleFilter(this)">Giá sản phẩm <span class="arrow">▾</span></div>
+      <div class="filter-body price-options" id="priceFilter">
+        <label class="price-option"><input type="checkbox" value="0-150000" onchange="applyFilters()"> Dưới 150.000đ</label>
+        <label class="price-option"><input type="checkbox" value="150000-350000" onchange="applyFilters()"> 150.000đ – 350.000đ</label>
+        <label class="price-option"><input type="checkbox" value="350000-600000" onchange="applyFilters()"> 350.000đ – 600.000đ</label>
+        <label class="price-option"><input type="checkbox" value="600000-1000000" onchange="applyFilters()"> 600.000đ – 1.000.000đ</label>
+        <label class="price-option"><input type="checkbox" value="1000000-999999999" onchange="applyFilters()"> Trên 1.000.000đ</label>
+      </div>
+    </div>
+    <div class="filter-card">
+      <div class="filter-title" onclick="toggleFilter(this)">Loại sản phẩm <span class="arrow">▾</span></div>
+      <div class="filter-body" id="catFilter">
+        <input type="text" class="search-filter" placeholder="Tìm..." oninput="filterCatSearch(this)">
+        <div class="category-list" id="catList">
+          <label class="cat-item"><input type="checkbox" value="sua-rua-mat" onchange="applyFilters()"> Sữa rửa mặt <span class="cat-count">(38)</span></label>
+          <label class="cat-item"><input type="checkbox" value="nuoc-tay-trang" onchange="applyFilters()"> Nước tẩy trang <span class="cat-count">(27)</span></label>
+          <label class="cat-item"><input type="checkbox" value="toner" onchange="applyFilters()"> Toner / Nước hoa hồng <span class="cat-count">(44)</span></label>
+          <label class="cat-item"><input type="checkbox" value="serum" onchange="applyFilters()"> Serum / Tinh chất <span class="cat-count">(56)</span></label>
+          <label class="cat-item"><input type="checkbox" value="kem-duong-am" onchange="applyFilters()"> Kem dưỡng ẩm <span class="cat-count">(49)</span></label>
+          <label class="cat-item"><input type="checkbox" value="kem-chong-nang" onchange="applyFilters()"> Kem chống nắng <span class="cat-count">(33)</span></label>
+          <label class="cat-item"><input type="checkbox" value="mat-na" onchange="applyFilters()"> Mặt nạ <span class="cat-count">(41)</span></label>
+          <label class="cat-item"><input type="checkbox" value="tay-te-bao-chet" onchange="applyFilters()"> Tẩy tế bào chết mặt <span class="cat-count">(22)</span></label>
+          <label class="cat-item"><input type="checkbox" value="kem-mat" onchange="applyFilters()"> Kem mắt <span class="cat-count">(18)</span></label>
+        </div>
+      </div>
+    </div>
+    <div class="filter-card">
+      <div class="filter-title" onclick="toggleFilter(this)">Loại da <span class="arrow">▾</span></div>
+      <div class="filter-body">
+        <div class="skin-list" id="skinFilter">
+          <span class="skin-tag" onclick="toggleSkin(this,'da-dau')">💧 Da dầu</span>
+          <span class="skin-tag" onclick="toggleSkin(this,'da-kho')">🌵 Da khô</span>
+          <span class="skin-tag" onclick="toggleSkin(this,'da-hon-hop')">✨ Da hỗn hợp</span>
+          <span class="skin-tag" onclick="toggleSkin(this,'da-nhay-cam')">🌸 Da nhạy cảm</span>
+          <span class="skin-tag" onclick="toggleSkin(this,'moi-loai-da')">🌟 Mọi loại da</span>
+        </div>
+      </div>
+    </div>
+    <div class="filter-card">
+      <div class="filter-title" onclick="toggleFilter(this)">Thương hiệu <span class="arrow">▾</span></div>
+      <div class="filter-body brand-list" id="brandFilter">
+        <label class="brand-item"><input type="checkbox" value="INNISFREE" onchange="applyFilters()"> INNISFREE (47)</label>
+        <label class="brand-item"><input type="checkbox" value="CETAPHIL" onchange="applyFilters()"> CETAPHIL (34)</label>
+        <label class="brand-item"><input type="checkbox" value="THE ORDINARY" onchange="applyFilters()"> THE ORDINARY (29)</label>
+        <label class="brand-item"><input type="checkbox" value="LANEIGE" onchange="applyFilters()"> LANEIGE (38)</label>
+        <label class="brand-item"><input type="checkbox" value="SOME BY MI" onchange="applyFilters()"> SOME BY MI (31)</label>
+        <label class="brand-item"><input type="checkbox" value="KLAIRS" onchange="applyFilters()"> KLAIRS (26)</label>
+        <label class="brand-item"><input type="checkbox" value="LA ROCHE-POSAY" onchange="applyFilters()"> LA ROCHE-POSAY (22)</label>
+        <label class="brand-item"><input type="checkbox" value="COSRX" onchange="applyFilters()"> COSRX (35)</label>
+      </div>
+    </div>
+    <button class="pill" onclick="resetFilters()" style="width:100%;justify-content:center;background:#f0eeff;color:var(--lavender-dark);border:1.5px solid var(--lavender-dark);font-weight:600;">✕ Xóa bộ lọc</button>
+  </aside>
+
+  <div class="content-area">
+    <div class="sort-bar">
+      <span class="sort-label">Sắp xếp:</span>
+      <button class="sort-btn active" onclick="setSort('default',this)">Phổ biến</button>
+      <button class="sort-btn" onclick="setSort('price-asc',this)">Giá thấp → cao</button>
+      <button class="sort-btn" onclick="setSort('price-desc',this)">Giá cao → thấp</button>
+      <button class="sort-btn" onclick="setSort('discount',this)">Giảm giá nhiều</button>
+      <button class="sort-btn" onclick="setSort('newest',this)">Mới nhất</button>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-images">
+      <div class="modal-main-img"><img id="modalMainImg" src="" alt=""></div>
+      <div class="modal-thumbs" id="modalThumbs"></div>
+    </div>
+    <div class="modal-info">
+      <div class="modal-brand" id="modalBrand"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-stars" id="modalStars"></div>
+      <div class="modal-skin-tags" id="modalSkinTags"></div>
+      <div class="modal-price-row">
+        <div class="modal-price" id="modalPrice"></div>
+        <div class="modal-price-old" id="modalOldPrice"></div>
+        <div class="modal-discount" id="modalDiscount"></div>
+      </div>
+      <div class="modal-section" id="volSection" style="display:none">
+        <div class="modal-section-title">Dung tích / Khối lượng</div>
+        <div class="volume-options" id="volOptions"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Số lượng</div>
+        <div class="qty-row">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <span class="qty-num" id="qtyNum">1</span>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Mô tả sản phẩm</div>
+        <div class="modal-desc" id="modalDesc"></div>
+      </div>
+      <div class="modal-section" id="ingredSection" style="display:none">
+        <div class="modal-section-title">Thành phần nổi bật</div>
+        <div class="modal-ingredients" id="modalIngred"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-add" onclick="addToCartFromModal()">🛒 Thêm vào giỏ</button>
+        <button class="btn-buy" onclick="buyNow()">Mua ngay</button>
+      </div>
+      <div class="modal-delivery">
+        <b>🚚 Giao hàng miễn phí</b> cho đơn từ 300.000đ<br>
+        <b>💜 Hàng chính hãng 100%</b> – có tem và hóa đơn<br>
+        <b>🔄 Đổi trả trong 30 ngày</b> nếu hàng lỗi<br>
+        <b>📦 Đóng gói cẩn thận</b> – giao nhanh 2-3 ngày
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h2>💜 Giỏ hàng của bạn</h2>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty"><div class="cart-empty-icon">🧴</div>Giỏ hàng trống. Hãy thêm sản phẩm!</div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total"><span>Tổng cộng:</span><span id="cartTotal">0đ</span></div>
+    <button class="cart-go-btn" onclick="window.location.href='cart.html'">🛒 Xem giỏ hàng</button>
+    <button class="checkout-btn" onclick="goCheckout()">💳 Thanh toán ngay →</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <div class="footer-left">
+    <p>Website <strong>Gia Hân Cosmetics Review</strong> thuộc quyền quản lý và vận hành bởi <strong>KOL Gia Hân</strong>. Giấy chứng nhận đăng ký kinh doanh số <strong>0309802418</strong>, cấp ngày 23/01/2026 tại Sở Kế hoạch và Đầu tư TP. Hồ Chí Minh.</p>
+    <p>Gia Hân Cosmetics Review chuyên cung cấp mỹ phẩm chính hãng, được chọn lọc kỹ lưỡng từ các thương hiệu uy tín trong và ngoài nước.</p>
+    <p>Địa chỉ hoạt động: 613 Âu Cơ, Quận Tân Phú, TP. Hồ Chí Minh, Việt Nam.</p>
+    <p>Cam kết mang đến trải nghiệm mua sắm minh bạch, tiện lợi và đáng tin cậy cho khách hàng.</p>
+  </div>
+  <div class="footer-right">
+    <p>Phương thức thanh toán</p>
+    <div class="payment-methods">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/06414657-24ed-4da4-8a54-f207d45ab1be.webp" alt="payment">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/afebded0-f4e7-4c5f-aee3-aa01271174c3.webp" alt="payment">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/64102078-db30-4f18-a473-2582467505fd.webp" alt="payment">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/a19ac3f9-5d5e-43c3-aa84-49576cad1102.webp" alt="payment">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/3e4a7882-d755-4110-83b5-6496bf5e689c.webp" alt="payment">
+    </div>
+  </div>
+</footer>
+
+<script>
+// ===== DỮ LIỆU SẢN PHẨM – ẢNH THỰC TẾ =====
+const products = [
+  {
+    id:1, brand:"INNISFREE", name:"Sữa Rửa Mặt Trà Xanh Innisfree Green Tea Foam Cleanser 150ml",
+    price:198000, oldPrice:265000, discount:25, rating:4.8, reviews:3421,
+    img:"images/d1-2.jpg",
+    imgs:[
+      "images/d1.jpg",
+      "images/d1-1.jpg"
+    ],
+    badges:["BESTSELLER"], freeship:true, isNew:false, category:"sua-rua-mat",
+    skinTypes:["da-dau","da-hon-hop","moi-loai-da"], volumes:["150ml","300ml"],
+    desc:"Sữa rửa mặt dạng bọt mịn với chiết xuất trà xanh Jeju thuần khiết. Làm sạch sâu bã nhờn, bụi bẩn và tế bào chết. Da sạch mướt, không khô căng sau khi rửa.",
+    ingredients:"Green Tea Extract, Amino Acid, Glycerin, Aloe Vera, Panthenol"
+  },
+  {
+    id:2, brand:"CETAPHIL", name:"Sữa Rửa Mặt Cetaphil Gentle Skin Cleanser Da Nhạy Cảm 250ml",
+    price:245000, oldPrice:320000, discount:23, rating:4.9, reviews:5678,
+    img:"images/d2.jpg",
+    imgs:[
+      "images/d2-1.jpg",
+      "images/d2-2.jpg"
+    ],
+    badges:["BESTSELLER","NATURAL"], freeship:true, isNew:false, category:"sua-rua-mat",
+    skinTypes:["da-nhay-cam","da-kho","moi-loai-da"], volumes:["250ml","500ml"],
+    desc:"Sữa rửa mặt không xà phòng, không gây kích ứng, được bác sĩ da liễu khuyên dùng. Làm sạch dịu nhẹ, giữ ẩm tự nhiên cho da.",
+    ingredients:"Glycerin, Cetyl Alcohol, Propylene Glycol, Niacinamide, Allantoin"
+  },
+  {
+    id:3, brand:"SOME BY MI", name:"Toner AHA BHA PHA 30 Days Miracle Some By Mi 150ml",
+    price:315000, oldPrice:420000, discount:25, rating:4.7, reviews:2891,
+    img:"images/d3.jpg",
+    imgs:[
+      "images/d3-1.jpg",
+      "images/d3-2.jpg"
+    ],
+    badges:["HOT","-25%"], freeship:false, isNew:false, category:"toner",
+    skinTypes:["da-dau","da-hon-hop"], volumes:["150ml"],
+    desc:"Toner kỳ diệu với AHA, BHA, PHA giúp tẩy tế bào chết, thu nhỏ lỗ chân lông, làm sáng và mịn da chỉ trong 30 ngày.",
+    ingredients:"AHA, BHA (Salicylic Acid), PHA, Niacinamide, Tea Tree Extract"
+  },
+  {
+    id:4, brand:"KLAIRS", name:"Toner Dưỡng Ẩm Klairs Supple Preparation Facial Toner 180ml",
+    price:395000, oldPrice:520000, discount:24, rating:4.8, reviews:1987,
+    img:"images/d4.jpg",
+    imgs:[
+      "images/d4-1.jpg",
+      "images/d4-2.jpg"
+    ],
+    badges:["BESTSELLER","MỚI"], freeship:true, isNew:true, category:"toner",
+    skinTypes:["da-nhay-cam","da-kho","moi-loai-da"], volumes:["180ml","250ml"],
+    desc:"Toner dưỡng ẩm sâu không cồn, cân bằng pH, chuẩn bị da hấp thụ dưỡng chất tốt nhất. An toàn cho da nhạy cảm.",
+    ingredients:"Witch Hazel, Hyaluronic Acid, Centella Asiatica, Glycerin, Allantoin"
+  },
+  {
+    id:5, brand:"THE ORDINARY", name:"Serum Vitamin C 23% + HA Spheres The Ordinary 30ml",
+    price:285000, oldPrice:380000, discount:25, rating:4.6, reviews:4312,
+    img:"images/d5.jpg",
+    imgs:[
+      "images/d5-1.jpg",
+      "images/d5-2.jpg"
+    ],
+    badges:["-25%"], freeship:false, isNew:false, category:"serum",
+    skinTypes:["da-dau","da-hon-hop","moi-loai-da"], volumes:["30ml"],
+    desc:"Serum Vitamin C 23% làm sáng da mạnh mẽ, mờ thâm nám và chống oxy hóa. Kết hợp Hyaluronic Acid dưỡng ẩm sâu.",
+    ingredients:"Ascorbic Acid 23%, Hyaluronic Acid, Propanediol, Tocopherol"
+  },
+  {
+    id:6, brand:"COSRX", name:"Serum Ốc Sên COSRX Advanced Snail 96 Mucin Power Essence 100ml",
+    price:425000, oldPrice:560000, discount:24, rating:4.9, reviews:6234,
+    img:"images/d6.jpg",
+    imgs:[
+      "images/d6-1.jpg",
+      "images/d6-2.jpg"
+    ],
+    badges:["BESTSELLER","HOT"], freeship:true, isNew:false, category:"serum",
+    skinTypes:["da-kho","da-nhay-cam","moi-loai-da"], volumes:["100ml"],
+    desc:"Tinh chất 96% chất nhầy ốc sên phục hồi da hư tổn, cấp ẩm tức thì. Làm mờ sẹo mụn và cải thiện kết cấu da.",
+    ingredients:"Snail Secretion Filtrate 96%, Sodium Hyaluronate, Allantoin, Betaine"
+  },
+  {
+    id:7, brand:"LANEIGE", name:"Kem Dưỡng Ẩm Laneige Water Bank Blue Hyaluronic Cream 50ml",
+    price:695000, oldPrice:920000, discount:24, rating:4.8, reviews:2765,
+    img:"images/d7.jpg",
+    imgs:[
+      "images/d7-1.jpg",
+      "images/d7-2.jpg"
+    ],
+    badges:["MỚI","-24%"], freeship:true, isNew:true, category:"kem-duong-am",
+    skinTypes:["moi-loai-da","da-kho","da-hon-hop"], volumes:["50ml"],
+    desc:"Kem dưỡng ẩm Blue Hyaluronic Acid thế hệ mới, dưỡng ẩm 72 giờ liên tục. Kết cấu gel nhẹ, thấm nhanh, không nhờn.",
+    ingredients:"Blue Hyaluronic Acid, Sodium Hyaluronate, Squalane, Ceramide, Niacinamide"
+  },
+  {
+    id:8, brand:"CETAPHIL", name:"Kem Dưỡng Ẩm Cetaphil Moisturising Cream Da Khô & Nhạy Cảm 250g",
+    price:298000, oldPrice:395000, discount:25, rating:4.9, reviews:8901,
+    img:"images/d8.jpg",
+    imgs:[
+      "images/d8-1.jpg",
+      "images/d8-2.jpg"
+    ],
+    badges:["BESTSELLER"], freeship:true, isNew:false, category:"kem-duong-am",
+    skinTypes:["da-kho","da-nhay-cam"], volumes:["250g","500g"],
+    desc:"Kem dưỡng ẩm đậm đặc cho da khô và nhạy cảm, cấp ẩm 24 giờ. Không paraben, không hương liệu – được bác sĩ khuyên dùng.",
+    ingredients:"Glycerin, Squalane, Vitamin B3, Panthenol, Macadamia Oil"
+  },
+  {
+    id:9, brand:"LA ROCHE-POSAY", name:"Kem Chống Nắng La Roche-Posay Anthelios SPF50+ 50ml",
+    price:589000, oldPrice:780000, discount:24, rating:4.8, reviews:3456,
+    img:"images/d9.jpg",
+    imgs:[
+      "images/d9-1.jpg",
+      "images/d9-2.jpg"
+    ],
+    badges:["HOT","-24%"], freeship:true, isNew:false, category:"kem-chong-nang",
+    skinTypes:["da-nhay-cam","moi-loai-da"], volumes:["50ml"],
+    desc:"Kem chống nắng SPF50+ phổ rộng UVA/UVB, được bác sĩ da liễu số 1 thế giới khuyên dùng. Kết cấu nhẹ, không bóng nhờn.",
+    ingredients:"Avobenzone, Titanium Dioxide, Cell-Ox Shield Technology, Antioxidants"
+  },
+  {
+    id:10, brand:"INNISFREE", name:"Kem Chống Nắng Innisfree Daily UV Defense SPF50+ PA++++ 50ml",
+    price:325000, oldPrice:430000, discount:24, rating:4.7, reviews:2109,
+    img:"images/d10.jpg",
+    imgs:[
+      "images/d10-1.jpg",
+      "images/d10-2.jpg"
+    ],
+    badges:["MỚI"], freeship:false, isNew:true, category:"kem-chong-nang",
+    skinTypes:["da-dau","da-hon-hop","moi-loai-da"], volumes:["50ml"],
+    desc:"Kem chống nắng SPF50+ PA++++ nhẹ không nhờn với chiết xuất trà xanh Jeju. Bảo vệ da khỏi UVA & UVB suốt cả ngày.",
+    ingredients:"Green Tea Extract, SPF50+ Filters, Niacinamide, Glycerin, Centella"
+  },
+  {
+    id:11, brand:"LANEIGE", name:"Mặt Nạ Ngủ Môi Laneige Lip Sleeping Mask Berry 20g",
+    price:375000, oldPrice:490000, discount:23, rating:4.9, reviews:7823,
+    img:"images/d11.jpg",
+    imgs:[
+      "images/d11-1.jpg",
+      "images/d11-2.jpg"
+    ],
+    badges:["BESTSELLER","HOT"], freeship:true, isNew:false, category:"mat-na",
+    skinTypes:["moi-loai-da"], volumes:["20g"],
+    desc:"Mặt nạ ngủ dưỡng môi đình đám với Berry Mix Complex, phục hồi môi khô nứt nẻ qua đêm. Môi mềm mịn và căng bóng khi thức dậy.",
+    ingredients:"Berry Mix Complex, Hyaluronic Acid, Murumuru Butter, Vitamin C"
+  },
+  {
+    id:12, brand:"COSRX", name:"Mặt Nạ Ngủ COSRX Ultimate Nourishing Rice Overnight Spa Mask 60ml",
+    price:265000, oldPrice:350000, discount:24, rating:4.7, reviews:1654,
+    img:"images/d12.jpg",
+    imgs:[
+      "images/d12-1.jpg",
+      "images/d12-2.jpg"
+    ],
+    badges:["-24%","MỚI"], freeship:false, isNew:true, category:"mat-na",
+    skinTypes:["da-kho","da-nhay-cam","moi-loai-da"], volumes:["60ml"],
+    desc:"Mặt nạ ngủ dưỡng ẩm và làm sáng da với gạo Hàn Quốc. Da mềm mịn, sáng đều màu khi thức dậy.",
+    ingredients:"Rice Extract, Ceramide, Glycerin, Niacinamide, Panthenol"
+  },
+  {
+    id:13, brand:"SOME BY MI", name:"Tẩy Tế Bào Chết Mặt Some By Mi Galactomyces Pure Vitamin C Glow Toner 200ml",
+    price:289000, oldPrice:385000, discount:25, rating:4.6, reviews:987,
+    img:"images/d13.jpg",
+    imgs:[
+      "images/d13-1.jpg",
+      "images/d13-2.jpg"
+    ],
+    badges:["-25%"], freeship:false, isNew:false, category:"tay-te-bao-chet",
+    skinTypes:["da-dau","da-hon-hop"], volumes:["200ml"],
+    desc:"Tẩy tế bào chết dạng toner với Galactomyces và Vitamin C làm sáng da, thu nhỏ lỗ chân lông. Da mịn và sáng đều sau mỗi lần dùng.",
+    ingredients:"Galactomyces Ferment Filtrate, Vitamin C, Niacinamide, AHA, BHA"
+  },
+  {
+    id:14, brand:"THE ORDINARY", name:"Serum Niacinamide 10% + Zinc 1% The Ordinary 30ml",
+    price:198000, oldPrice:260000, discount:24, rating:4.7, reviews:9876,
+    img:"images/d14.jpg",
+    imgs:[
+      "images/d14-1.jpg",
+      "images/d14-2.jpg"
+    ],
+    badges:["BESTSELLER","-24%"], freeship:false, isNew:false, category:"serum",
+    skinTypes:["da-dau","da-hon-hop"], volumes:["30ml","60ml"],
+    desc:"Serum Niacinamide 10% + Zinc kiểm soát dầu nhờn, thu nhỏ lỗ chân lông và mờ thâm mụn hiệu quả sau 4 tuần.",
+    ingredients:"Niacinamide 10%, Zinc PCA 1%, Propanediol, Glycerin, Aqua"
+  },
+  {
+    id:15, brand:"KLAIRS", name:"Kem Mắt Klairs Fundamental Nourishing Eye Butter 20ml",
+    price:465000, oldPrice:615000, discount:24, rating:4.8, reviews:876,
+    img:"images/d15.jpg",
+    imgs:[
+      "images/d15-1.jpg",
+      "images/d15-2.jpg"
+    ],
+    badges:["MỚI","-24%"], freeship:true, isNew:true, category:"kem-mat",
+    skinTypes:["da-kho","moi-loai-da"], volumes:["20ml"],
+    desc:"Kem mắt kết cấu bơ mịn màng, giảm quầng thâm, bọng mắt và nếp nhăn vùng mắt. Dưỡng ẩm chuyên sâu 24 giờ.",
+    ingredients:"Shea Butter, Squalane, Peptide Complex, Caffeine, Vitamin K"
+  }
+];
+
+// ===== STATE =====
+let currentSort = 'default', currentProduct = null, currentQty = 1, selectedSkins = [];
+const skinLabels = { 'da-dau':'💧 Da dầu','da-kho':'🌵 Da khô','da-hon-hop':'✨ Da hỗn hợp','da-nhay-cam':'🌸 Da nhạy cảm','moi-loai-da':'🌟 Mọi loại da' };
+
+// ===== GIỎ HÀNG =====
+function getCart()   { try { return JSON.parse(localStorage.getItem('cart') || '[]'); } catch(e) { return []; } }
+function saveCart(c) { localStorage.setItem('cart', JSON.stringify(c)); }
+function updateCartBadge() {
+  const total = getCart().reduce((s,c) => s + (c.quantity||0), 0);
+  const badge = document.getElementById('cartBadge');
+  badge.style.display = total ? 'flex' : 'none';
+  badge.textContent = total;
+}
+function addProductToCart(p, qty) {
+  const cart = getCart();
+  const ex = cart.find(c => c.name === p.name);
+  if (ex) ex.quantity += qty;
+  else cart.push({ name:p.name, brand:p.brand, price:fmt(p.price), image:p.img, img:p.img, quantity:qty });
+  saveCart(cart); updateCartBadge();
+}
+
+function fmt(n) { return n.toLocaleString('vi-VN') + 'đ'; }
+function renderStars(r) { let s=''; for(let i=1;i<=5;i++) s+=i<=Math.floor(r)?'★':i-r<1?'½':'☆'; return `<span class="stars">${s}</span>`; }
+
+// ===== HEADER SEARCH =====
+const navLinks = [
+  { name:"Thương Hiệu", cat:"Điều hướng", icon:"🏪", url:"brand.html" },
+  { name:"Tạp Chí Làm Đẹp", cat:"Điều hướng", icon:"📖", url:"tapchi.html" },
+  { name:"Khuyến Mãi", cat:"Ưu đãi", icon:"🎁", url:"km.html" },
+  { name:"MIFFY Chính Hãng", cat:"Đồ chơi", icon:"🐰", url:"miffy.html" },
+  { name:"Trang Điểm", cat:"Danh mục", icon:"💄", url:"td.html" },
+  { name:"Chăm Sóc Da Mặt", cat:"Danh mục", icon:"🧴", url:"csd.html" },
+  { name:"Chăm Sóc Cơ Thể", cat:"Danh mục", icon:"🛁", url:"csct.html" },
+  { name:"Sản Phẩm Mới", cat:"Danh mục", icon:"✨", url:"spmoi.html" },
+];
+
+const searchInput    = document.getElementById('searchInput');
+const searchDropdown = document.getElementById('searchDropdown');
+
+searchInput.addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  applyFilters();
+  if (!q) { searchDropdown.classList.remove('show'); return; }
+  const prodMatches = products.filter(p => p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q)).slice(0,5);
+  const navMatches  = navLinks.filter(n => n.name.toLowerCase().includes(q)).slice(0,3);
+  if (!prodMatches.length && !navMatches.length) {
+    searchDropdown.innerHTML = `<div class="search-no-result">Không tìm thấy "<strong>${q}</strong>"</div>`;
+  } else {
+    searchDropdown.innerHTML = [
+      ...prodMatches.map(p => `<div class="search-result-item" onclick="searchOpenProduct(${p.id})"><span class="result-icon">🧴</span><div><div class="result-name">${p.name}</div><div class="result-cat">${p.brand}</div></div></div>`),
+      ...navMatches.map(n => `<a class="search-result-item" href="${n.url}"><span class="result-icon">${n.icon}</span><div><div class="result-name">${n.name}</div><div class="result-cat">${n.cat}</div></div></a>`)
+    ].join('');
+  }
+  searchDropdown.classList.add('show');
+});
+searchInput.addEventListener('keydown', e => { if(e.key==='Escape') searchDropdown.classList.remove('show'); });
+document.addEventListener('click', e => { if(!e.target.closest('.search-box')) searchDropdown.classList.remove('show'); });
+function searchOpenProduct(id) { searchDropdown.classList.remove('show'); openQuickView(id); }
+
+// ===== FILTERS =====
+function applyFilters() {
+  const priceChecks = [...document.querySelectorAll('#priceFilter input:checked')].map(e => e.value);
+  const catChecks   = [...document.querySelectorAll('#catList input:checked')].map(e => e.value);
+  const brandChecks = [...document.querySelectorAll('#brandFilter input:checked')].map(e => e.value);
+  const q = searchInput.value.toLowerCase();
+
+  let result = products.filter(p => {
+    if (priceChecks.length) { const ok = priceChecks.some(r => { const [mn,mx]=r.split('-').map(Number); return p.price>=mn&&p.price<=mx; }); if(!ok) return false; }
+    if (catChecks.length && !catChecks.includes(p.category)) return false;
+    if (brandChecks.length && !brandChecks.includes(p.brand)) return false;
+    if (selectedSkins.length && !selectedSkins.some(s => p.skinTypes.includes(s))) return false;
+    if (q && !p.name.toLowerCase().includes(q) && !p.brand.toLowerCase().includes(q)) return false;
+    return true;
+  });
+
+  if (currentSort==='price-asc')  result.sort((a,b) => a.price-b.price);
+  else if (currentSort==='price-desc') result.sort((a,b) => b.price-a.price);
+  else if (currentSort==='discount')   result.sort((a,b) => b.discount-a.discount);
+  else if (currentSort==='newest')     result.sort((a,b) => b.isNew-a.isNew);
+  renderGrid(result);
+}
+
+function renderGrid(list) {
+  const grid = document.getElementById('productGrid');
+  document.getElementById('countDisplay').textContent = list.length;
+  if (!list.length) { grid.innerHTML = `<div class="no-results"><div class="no-results-icon">🧴</div>Không tìm thấy sản phẩm phù hợp.<br>Hãy thử thay đổi bộ lọc.</div>`; return; }
+  grid.innerHTML = list.map(p => `
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/400x400/f0eeff/5b4fcf?text=${encodeURIComponent(p.brand)}'">
+        <div class="badges">
+          ${p.badges.map(b=>`<span class="badge ${b==='MỚI'?'badge-new':b==='HOT'?'badge-hot':b==='NATURAL'?'badge-natural':'badge-sale'}">${b}</span>`).join('')}
+          ${p.freeship?'<span class="badge badge-freeship">FREESHIP</span>':''}
+        </div>
+        <button class="wishlist-btn" onclick="toggleWish(this)">♡</button>
+        <div class="quick-view-overlay" onclick="openQuickView(${p.id})">👁 Xem nhanh</div>
+      </div>
+      <div class="product-info">
+        <div class="brand-name">${p.brand}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="skin-mini">${p.skinTypes.slice(0,2).map(s=>`<span>${skinLabels[s]||s}</span>`).join('')}</div>
+        <div class="price-row">
+          <span class="price-now">${fmt(p.price)}</span>
+          ${p.oldPrice?`<span class="price-old">${fmt(p.oldPrice)}</span><span class="discount-tag">-${p.discount}%</span>`:''}
+        </div>
+        <div>${renderStars(p.rating)} <span class="review-count">(${p.reviews})</span></div>
+        <button class="add-cart-btn" onclick="addProductToCart(products.find(x=>x.id===${p.id}),1);showToast('✅ Đã thêm vào giỏ!')">🛒 Thêm vào giỏ</button>
+      </div>
+    </div>`).join('');
+}
+
+function setSort(type,btn) { currentSort=type; document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); applyFilters(); }
+function toggleFilter(el) { el.classList.toggle('collapsed'); el.nextElementSibling.classList.toggle('hidden'); }
+function filterCatSearch(inp) { const q=inp.value.toLowerCase(); document.querySelectorAll('#catList .cat-item').forEach(item=>{ item.style.display=item.textContent.toLowerCase().includes(q)?'':'none'; }); }
+function toggleSkin(el,val) { el.classList.toggle('selected'); el.classList.contains('selected')?selectedSkins.push(val):selectedSkins=selectedSkins.filter(s=>s!==val); applyFilters(); }
+function toggleWish(btn) { btn.classList.toggle('active'); btn.textContent=btn.classList.contains('active')?'♥':'♡'; }
+function resetFilters() { document.querySelectorAll('input[type="checkbox"]').forEach(c=>c.checked=false); document.querySelectorAll('.skin-tag').forEach(t=>t.classList.remove('selected')); searchInput.value=''; selectedSkins=[]; applyFilters(); }
+
+// ===== MODAL =====
+function openQuickView(id) {
+  const p = products.find(x=>x.id===id); if(!p) return;
+  currentProduct=p; currentQty=1;
+  document.getElementById('modalBrand').textContent=p.brand;
+  document.getElementById('modalTitle').textContent=p.name;
+  document.getElementById('modalStars').innerHTML=renderStars(p.rating)+` <span style="color:#aaa;font-size:12px">(${p.reviews} đánh giá)</span>`;
+  document.getElementById('modalPrice').textContent=fmt(p.price);
+  document.getElementById('modalOldPrice').textContent=p.oldPrice?fmt(p.oldPrice):'';
+  const disc=document.getElementById('modalDiscount'); disc.textContent=p.discount?`-${p.discount}%`:''; disc.style.display=p.discount?'block':'none';
+  document.getElementById('modalDesc').textContent=p.desc;
+  document.getElementById('qtyNum').textContent=1;
+  document.getElementById('modalMainImg').src=p.img;
+  document.getElementById('modalSkinTags').innerHTML=p.skinTypes.map(s=>`<span class="modal-skin-tag">${skinLabels[s]||s}</span>`).join('');
+  document.getElementById('modalThumbs').innerHTML=p.imgs.map((img,i)=>`<img class="modal-thumb ${i===0?'active':''}" src="${img}" onclick="switchImg(this,'${img}')" onerror="this.style.display='none'">`).join('');
+  const volSec=document.getElementById('volSection');
+  if(p.volumes&&p.volumes.length>1){volSec.style.display='block';document.getElementById('volOptions').innerHTML=p.volumes.map((v,i)=>`<button class="vol-btn ${i===0?'active':''}" onclick="selectVol(this)">${v}</button>`).join('');}
+  else volSec.style.display='none';
+  const ingredSec=document.getElementById('ingredSection');
+  if(p.ingredients){ingredSec.style.display='block';document.getElementById('modalIngred').textContent=p.ingredients;}
+  else ingredSec.style.display='none';
+  document.getElementById('modalOverlay').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function switchImg(el,src){document.querySelectorAll('.modal-thumb').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.getElementById('modalMainImg').src=src;}
+function selectVol(btn){document.querySelectorAll('.vol-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('show');document.body.style.overflow='';}
+function closeModalOnOverlay(e){if(e.target===document.getElementById('modalOverlay'))closeModal();}
+function changeQty(d){currentQty=Math.max(1,currentQty+d);document.getElementById('qtyNum').textContent=currentQty;}
+function addToCartFromModal(){if(!currentProduct)return;addProductToCart(currentProduct,currentQty);closeModal();showToast(`✅ Đã thêm ${currentQty} sản phẩm vào giỏ!`);}
+function buyNow(){if(!currentProduct)return;addProductToCart(currentProduct,currentQty);closeModal();window.location.href='checkout.html';}
+
+// ===== CART DRAWER =====
+function closeCart(){document.getElementById('cartDrawer').classList.remove('open');document.getElementById('cartOverlay').classList.remove('show');document.body.style.overflow='';}
+function goCheckout(){const cart=getCart();if(!cart.length){showToast('⚠️ Giỏ hàng trống!');return;}window.location.href='checkout.html';}
+function renderCartDrawer(){
+  const cart=getCart(); const el=document.getElementById('cartItems');
+  if(!cart.length){el.innerHTML='<div class="cart-empty"><div class="cart-empty-icon">🧴</div>Giỏ hàng trống. Hãy thêm sản phẩm!</div>';document.getElementById('cartTotal').textContent='0đ';return;}
+  el.innerHTML=cart.map((item,i)=>`<div class="cart-item"><img src="${item.image||item.img}" alt="${item.name}" onerror="this.src='https://placehold.co/70x70/f0eeff/5b4fcf?text=SP'"><div class="cart-item-info"><div class="cart-item-name">${item.name.slice(0,55)}${item.name.length>55?'...':''}</div><div class="cart-item-price">${item.price}</div><div class="cart-item-qty"><button class="cart-qty-btn" onclick="cartQty(${i},-1)">−</button><span>${item.quantity}</span><button class="cart-qty-btn" onclick="cartQty(${i},1)">+</button></div></div><button class="cart-item-remove" onclick="cartRemove(${i})">✕</button></div>`).join('');
+  let total=0;cart.forEach(item=>{const num=parseInt((item.price||'').replace(/[^\d]/g,''));if(!isNaN(num))total+=num*item.quantity;});
+  document.getElementById('cartTotal').textContent=total?total.toLocaleString('vi-VN')+'đ':'—';
+}
+function cartQty(i,d){const cart=getCart();cart[i].quantity=Math.max(1,cart[i].quantity+d);saveCart(cart);updateCartBadge();renderCartDrawer();}
+function cartRemove(i){const cart=getCart();cart.splice(i,1);saveCart(cart);updateCartBadge();renderCartDrawer();}
+
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._timer);t._timer=setTimeout(()=>t.classList.remove('show'),2800);}
+
+document.addEventListener('DOMContentLoaded',function(){
+  const loginPill=document.getElementById('loginPill');
+  const savedAvatar=localStorage.getItem('userAvatar');
+  if(savedAvatar){const img=document.createElement('img');img.src=savedAvatar;img.style.cssText='width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #FF1493;cursor:pointer;';img.title='Đăng xuất';img.onclick=()=>{if(confirm('Bạn có muốn đăng xuất không?')){localStorage.removeItem('userAvatar');location.reload();}};loginPill.replaceWith(img);}
+});
+
+applyFilters();
+updateCartBadge();
+</script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beauty KOL Store - KOL Gia Hân</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/product.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <style>
+    /* Thay đổi font chữ toàn bộ trang thành Arial */
+    body {
+      font-family: Arial, sans-serif;
+      background: #00BFFF; /* Thay đổi background thành màu xanh nước biển */
+    }
+/* Header nền trắng */
+.header {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.logo h1 {
+  color: #FF1493;
+  font-size: 30px; /* Tăng từ 24px lên 30px để bự hơn và bắt mắt */
+  margin: 0;
+}
+.logo p {
+  color: #333;
+  font-size: 14px;
+  margin: 0;
+}
+.search-box input {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px;
+  border: 1px solid #FF1493;
+  border-radius: 5px;
+  outline: none;
+}
+.search-box input:focus {
+  border-color: #ffb6c1;
+}
+/* ===== PILL BAR (GIỐNG BEAUTY BOX) ===== */
+.pill-bar {
+background: #fff;
+padding: 12px 20px;
+border-bottom: 1px solid #eee;
+overflow-x: auto;
+}
+
+
+/* Container pills */
+.menu-pills {
+display: flex;
+gap: 12px;
+scrollbar-width: none;
+}
+
+
+.menu-pills::-webkit-scrollbar {
+display: none;
+}
+
+
+/* Pill cơ bản - Thêm min-width để đều nhau /
+.pill {
+min-width: 100px; / Đảm bảo chiều rộng tối thiểu đều nhau /
+padding: 10px 15px; / Điều chỉnh padding để cân đối /
+border-radius: 999px;
+font-size: 15px;
+font-weight: 500;
+color: #333;
+background: #f5f5f5;
+white-space: nowrap;
+border: none;
+cursor: pointer;
+transition: all 0.25s ease;
+text-decoration: none;
+display: inline-block;
+text-align: center; / Căn giữa văn bản */
+}
+
+
+/* Hover */
+.pill:hover {
+background: #ffd6e7;
+color: #ff1493;
+}
+
+
+/* Active */
+.pill.active {
+background: #ffecf3;
+color: #ff1493;
+font-weight: 600;
+}
+
+
+/* Màu pastel khác nhau cho từng pill */
+.pill.home { background: #f5f5f5; }
+.pill.makeup { background: #e1f5fe; }
+.pill.skincare { background: #e8f5e9; }
+.pill.hot { background: #ffe0b2; }
+.pill.new { background: #fce4ec; }
+.pill.brand { background: #fde2e4; }
+.pill.cart { background: #f3e5f5; }
+.pill.login { background: #e8eaf6; }
+
+
+/* Avatar /
+.avatar {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: #FF1493;
+color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 18px;
+font-weight: bold;
+cursor: pointer;
+transition: background 0.3s;
+margin-left: 12px; / Khoảng cách với pill trước */
+}
+.avatar:hover {
+background: #ff69b4;
+}
+
+
+.banner {
+background-color: #FFB6C1;
+text-align: center;
+padding: 20px;
+color: #fff;
+}
+.banner h2 {
+color: #FF1493;
+margin: 0;
+}
+.banner p {
+margin: 10px 0;
+}
+.section {
+padding: 20px;
+max-width: 1200px;
+margin: 0 auto;
+}
+.section h2 {
+text-align: center;
+color: #FF1493;
+margin-bottom: 20px;
+}
+
+
+/* Slideshow styling */
+.slideshow {
+position: relative;
+width: 100%;
+height: 500px;
+overflow: hidden;
+margin-bottom: 20px;
+}
+.slideshow img {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: contain;
+opacity: 0;
+transition: opacity 1s ease;
+}
+.slideshow img.active {
+opacity: 1;
+}
+.slideshow .prev, .slideshow .next {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+background-color: rgba(255, 182, 193, 0.8);
+border: none;
+border-radius: 50%;
+width: 50px;
+height: 50px;
+font-size: 24px;
+color: #FF1493;
+cursor: pointer;
+z-index: 10;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: background 0.3s;
+}
+.slideshow .prev {
+left: 10px;
+}
+.slideshow .next {
+right: 10px;
+}
+.slideshow .prev:hover, .slideshow .next:hover {
+background-color: rgba(255, 20, 147, 0.8);
+}
+.indicators {
+position: absolute;
+bottom: 10px;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+gap: 10px;
+z-index: 10;
+}
+.indicator {
+width: 12px;
+height: 12px;
+border-radius: 50%;
+background-color: rgba(255, 182, 193, 0.5);
+cursor: pointer;
+transition: background-color 0.3s;
+}
+.indicator.active {
+background-color: #FF1493;
+}
+.indicator:hover {
+background-color: rgba(255, 20, 147, 0.8);
+}
+
+
+/* Product Grid */
+.product-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 20px;
+}
+.product-item {
+background: #fff;
+border: 1px solid #eee;
+border-radius: 10px;
+padding: 15px;
+text-align: center;
+transition: box-shadow 0.3s;
+}
+.product-item:hover {
+box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.product-item img {
+width: 100%;
+height: 200px;
+object-fit: cover;
+border-radius: 5px;
+}
+.product-item h3 {
+font-size: 16px;
+margin: 10px 0;
+color: #333;
+}
+.product-item p {
+color: #ff1493;
+font-weight: bold;
+}
+.product-item a {
+display: inline-block;
+background: #ff1493;
+color: #fff;
+padding: 8px 15px;
+border-radius: 5px;
+text-decoration: none;
+transition: background 0.3s;
+}
+.product-item a:hover {
+background: #ffb6c1;
+}
+
+
+/* Footer styling */
+footer {
+display: flex;
+justify-content: space-between;
+align-items: flex-start;
+padding: 20px;
+background-color: #FFB6C1;
+margin-top: 20px;
+flex-wrap: wrap;
+}
+.footer-left {
+flex: 0 0 65%;
+text-align: left;
+}
+.footer-right {
+flex: 1;
+display: flex;
+flex-direction: column;
+align-items: flex-end;
+}
+.footer-right p {
+text-align: left;
+margin-bottom: 10px;
+}
+.payment-methods {
+display: flex;
+align-items: center;
+flex-wrap: wrap;
+}
+.payment-methods img {
+width: 70px;
+height: 50px;
+object-fit: contain;
+margin: 0 5px;
+border: 1px solid #FF1493;
+border-radius: 5px;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+.header {
+flex-direction: column;
+text-align: center;
+}
+footer {
+flex-direction: column;
+text-align: center;
+}
+.footer-left, .footer-right {
+flex: none;
+width: 100%;
+}
+}
+
+<link rel="stylesheet" href="theme.css">
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+  <div class="logo">
+    <h1>
+      <a href="index.html" class="logo-home">Gia Hân Cosmetics Review</a>
+    </h1>
+    <p>KOL cho các thương hiệu mỹ phẩm uy tín – chính hãng</p>
+  </div>
+    <div class="search-box">
+      <input type="text" placeholder="Tìm kiếm sản phẩm, thương hiệu...">
+    </div>
+    <div class="header-actions"> <!-- Optional wrapper, but direct margin is easier -->
+    <a href="cart.html" class="pill cart">🛒</a>
+    <a href="login.html" class="pill login">Đăng Nhập</a>
+</div>
+  </header>
+  <!-- PILL BAR -->
+  <nav class="pill-bar">
+    <div class="menu-pills">
+      <a href="brand.html" class="pill brand">Thương Hiệu</a>
+      <a href="tapchi.html" class="pill brand">Tạp Chí Làm Đẹp</a>
+      <a href="km.html" class="pill login">Khuyến Mãi</a>
+      <a href="miffy.html" class="pill cart">MIFFY Chính Hãng</a>
+      <a href="td.html" class="pill login">Trang Điểm</a>
+      <a href="csd.html" class="pill login">Chăm Sóc Da Mặt</a>
+      <a href="csct.html" class="pill login">Chăm Sóc Cơ Thể</a>
+      <a href="spmoi.html" class="pill login">Sản Phẩm Mới</a>
+    </div>
+  </nav>

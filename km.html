@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Khuyến Mãi – Gia Hân Cosmetics Review</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --pink: #FF1493; --pink-pale: #fff0f5; --dark: #1a1a2e; }
+    body { font-family: 'Be Vietnam Pro', Arial, sans-serif; background: #fff; color: #333; }
+
+    /* MARQUEE – tím nhẹ, chậm */
+    .marquee-bar { background: #b39ddb; color: #fff; padding: 10px 0; overflow: hidden; white-space: nowrap; }
+    .marquee-track { display: inline-flex; animation: marquee 55s linear infinite; font-size: 14px; font-weight: 600; }
+    .marquee-track span { margin: 0 40px; flex-shrink: 0; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* HEADER */
+    .header { background: #fff; border-bottom: 1px solid #eee; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; position: sticky; top: 0; z-index: 900; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .logo h1 { color: var(--pink); font-size: 26px; margin: 0; }
+    .logo h1 a { text-decoration: none; color: inherit; }
+    .logo p { color: #666; font-size: 12px; }
+
+    /* SEARCH */
+    .search-box { position: relative; }
+    .search-box input { width: 360px; padding: 9px 36px 9px 14px; border: 1.5px solid var(--pink); border-radius: 999px; outline: none; font-family: inherit; font-size: 14px; transition: box-shadow 0.2s; }
+    .search-box input:focus { box-shadow: 0 0 0 3px rgba(255,20,147,0.15); }
+    .search-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #bbb; font-size: 16px; display: none; }
+    .search-clear.show { display: block; }
+    .search-results-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #fff; border: 1.5px solid #ffd6e7; border-radius: 14px; box-shadow: 0 8px 24px rgba(255,20,147,0.12); z-index: 9999; max-height: 400px; overflow-y: auto; display: none; }
+    .search-results-dropdown.show { display: block; }
+    .search-result-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; cursor: pointer; border-bottom: 1px solid #fff5f8; text-decoration: none; color: #333; transition: background 0.15s; }
+    .search-result-item:last-child { border-bottom: none; }
+    .search-result-item:hover { background: #fff0f8; }
+    .sri-icon { font-size: 22px; flex-shrink: 0; width: 34px; text-align: center; }
+    .sri-info { flex: 1; min-width: 0; }
+    .sri-name { font-size: 13px; font-weight: 600; color: #222; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sri-sub { font-size: 11px; color: #aaa; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sri-tag { font-size: 11px; font-weight: 700; color: var(--pink); background: #fff0f5; padding: 3px 10px; border-radius: 999px; flex-shrink: 0; }
+    .search-no-result { padding: 20px; text-align: center; color: #bbb; font-size: 13px; }
+
+    .header-actions { display: flex; gap: 8px; align-items: center; }
+    .pill { padding: 8px 18px; border-radius: 999px; font-size: 14px; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: all 0.2s; cursor: pointer; border: none; font-family: inherit; background: #f5f5f5; color: #333; }
+    .pill.cart { background: #f3e5f5; color: #7b1fa2; }
+    .pill.login { background: #e8eaf6; color: #3949ab; }
+    .pill:hover { transform: translateY(-1px); box-shadow: 0 3px 8px rgba(0,0,0,0.12); }
+
+    /* NAV PILLS – dàn đều */
+    .pill-bar { background: #fff; padding: 8px 16px; border-bottom: 1px solid #eee; }
+    .menu-pills { display: flex; justify-content: space-evenly; width: 100%; }
+    .menu-pills .pill { flex: 1; text-align: center; justify-content: center; font-size: 13px; padding: 7px 8px; white-space: nowrap; }
+    .menu-pills .pill:nth-child(1) { background: #fce4ec; }
+    .menu-pills .pill:nth-child(2) { background: #e1f5fe; }
+    .menu-pills .pill:nth-child(3) { background: #ffe0b2; }
+    .menu-pills .pill:nth-child(4) { background: #fde2e4; }
+    .menu-pills .pill:nth-child(5) { background: #e8f5e9; }
+    .menu-pills .pill:nth-child(6) { background: #fce4ec; }
+    .menu-pills .pill:nth-child(7) { background: #f3e5f5; }
+    .menu-pills .pill:nth-child(8) { background: #e8eaf6; }
+    .menu-pills .pill.active { background: #ffe0b2 !important; color: #bf360c; font-weight: 700; }
+    .menu-pills .pill:hover { background: #ffd6e7 !important; color: var(--pink); transform: translateY(-1px); }
+
+    /* CONTENT */
+    .promo-container { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
+    .miffy-banner img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 30px; }
+    .promo-title { font-size: 26px; font-weight: 800; color: var(--dark); margin-bottom: 24px; text-transform: uppercase; }
+    .promo-title span { color: var(--pink); }
+
+    .search-panel { background: #fff0f5; border: 1.5px solid #ffd6e7; border-radius: 14px; padding: 18px 20px; margin-bottom: 24px; display: none; }
+    .search-panel.show { display: block; }
+    .sp-title { font-size: 13px; color: #999; margin-bottom: 12px; }
+    .sp-title strong { color: var(--pink); }
+    .sp-link { display: flex; align-items: center; gap: 12px; padding: 9px 0; text-decoration: none; color: #333; border-bottom: 1px solid #ffe0f0; transition: color 0.15s; }
+    .sp-link:last-child { border-bottom: none; }
+    .sp-link:hover { color: var(--pink); }
+    .sp-link .sp-icon { font-size: 20px; }
+    .sp-link .sp-label { flex: 1; font-size: 13px; font-weight: 500; }
+    .sp-link .sp-go { font-size: 11px; color: var(--pink); font-weight: 700; }
+
+    .no-product-msg { text-align: center; padding: 80px 20px; font-size: 18px; font-weight: 700; color: #aaa; text-transform: uppercase; border: 2px dashed #eee; border-radius: 14px; margin-bottom: 50px; }
+    .no-product-msg .nm-icon { font-size: 52px; display: block; margin-bottom: 12px; }
+    .no-product-msg small { display: block; font-size: 14px; font-weight: 400; color: #bbb; text-transform: none; margin-top: 8px; }
+
+    footer { display: flex; justify-content: space-between; align-items: flex-start; padding: 24px 30px; background: #FFB6C1; margin-top: 30px; flex-wrap: wrap; gap: 16px; }
+    .footer-left { flex: 0 0 62%; }
+    .footer-left p { font-size: 13px; color: #333; margin-bottom: 8px; line-height: 1.6; }
+    .footer-right { flex: 1; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+    .footer-right p { font-size: 13px; font-weight: 600; }
+    .payment-methods { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+    .payment-methods img { width: 65px; height: 44px; object-fit: contain; border: 1px solid #FF1493; border-radius: 5px; background: #fff; }
+
+    @media (max-width: 768px) {
+      .search-box input { width: 200px; }
+      .menu-pills { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start !important; gap: 6px; }
+      .menu-pills .pill { flex: 0 0 auto; }
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>🚚 FREESHIP 15K MỌI ĐƠN HÀNG</span>
+    <span>💥 NHẬP MÃ T01FREESHIP30K – GIẢM NGAY 30K CHO ĐƠN HÀNG 199K</span>
+    <span>🎁 HỖ TRỢ GÓI QUÀ + KHẮC SÔN MIỄN PHÍ</span>
+    <span>✨ MUA ONLINE – NHẬN TẠI CỬA HÀNG GẦN NHẤT</span>
+    <span>🛍️ MIFFY CHÍNH HÃNG – ĐỒ CHƠI NHỒI BÔNG CAO CẤP</span>
+    <span>🌸 MỸ PHẨM CHÍNH HÃNG – GIÁ TỐT NHẤT THỊ TRƯỜNG</span>
+    <span>🚚 FREESHIP 15K MỌI ĐƠN HÀNG</span>
+    <span>💥 NHẬP MÃ T01FREESHIP30K – GIẢM NGAY 30K CHO ĐƠN HÀNG 199K</span>
+    <span>🎁 HỖ TRỢ GÓI QUÀ + KHẮC SÔN MIỄN PHÍ</span>
+    <span>✨ MUA ONLINE – NHẬN TẠI CỬA HÀNG GẦN NHẤT</span>
+    <span>🛍️ MIFFY CHÍNH HÃNG – ĐỒ CHƠI NHỒI BÔNG CAO CẤP</span>
+    <span>🌸 MỸ PHẨM CHÍNH HÃNG – GIÁ TỐT NHẤT THỊ TRƯỜNG</span>
+  </div>
+</div>
+
+<header class="header">
+  <div class="logo">
+    <h1><a href="index.html">Gia Hân Cosmetics Review</a></h1>
+    <p>KOL cho các thương hiệu mỹ phẩm uy tín – chính hãng</p>
+  </div>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm, thương hiệu..." autocomplete="off">
+    <button class="search-clear" id="searchClear">✕</button>
+    <div class="search-results-dropdown" id="searchDropdown"></div>
+  </div>
+  <div class="header-actions">
+    <a href="cart.html" class="pill cart">🛒 Giỏ Hàng</a>
+    <a href="login.html" class="pill login" id="loginPill">Đăng Nhập</a>
+  </div>
+</header>
+
+<nav class="pill-bar">
+  <div class="menu-pills">
+    <a href="brand.html" class="pill">Thương Hiệu</a>
+    <a href="tapchi.html" class="pill">Tạp Chí Làm Đẹp</a>
+    <a href="km.html" class="pill active">Khuyến Mãi</a>
+    <a href="miffy.html" class="pill">MIFFY Chính Hãng</a>
+    <a href="td.html" class="pill">Trang Điểm</a>
+    <a href="csd.html" class="pill">Chăm Sóc Da Mặt</a>
+    <a href="csct.html" class="pill">Chăm Sóc Cơ Thể</a>
+    <a href="spmoi.html" class="pill">Sản Phẩm Mới</a>
+  </div>
+</nav>
+
+<main class="promo-container">
+  <section class="miffy-banner">
+    <img src="images/deal.jpg.png" alt="Banner" onerror="this.style.display='none'">
+  </section>
+
+  <h2 class="promo-title">🏷️ Khuyến mãi hot – <span>đừng bỏ lỡ</span></h2>
+
+  <div class="search-panel" id="searchPanel">
+    <div class="sp-title">Kết quả tìm kiếm cho: <strong id="searchKeyword"></strong></div>
+    <div id="searchPanelLinks"></div>
+  </div>
+
+  <div class="no-product-msg" id="noProductMsg">
+    <span class="nm-icon">🏷️</span>
+    HIỆN CHƯA CÓ SẢN PHẨM KHUYẾN MÃI
+    <small>Quay lại sau để xem ưu đãi mới nhất từ Gia Hân nhé!</small>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-left">
+    <p>Website <strong>Gia Hân Cosmetics Review</strong> thuộc quyền quản lý và vận hành bởi <strong>KOL Gia Hân</strong>. Giấy chứng nhận đăng ký kinh doanh số <strong>0309802418</strong>, cấp ngày 23/01/2026 tại Sở Kế hoạch và Đầu tư TP. Hồ Chí Minh.</p>
+    <p>Gia Hân Cosmetics Review chuyên cung cấp mỹ phẩm chính hãng, được chọn lọc kỹ lưỡng từ các thương hiệu uy tín trong và ngoài nước.</p>
+    <p>Địa chỉ hoạt động: 613 Âu Cơ, Quận Tân Phú, TP. Hồ Chí Minh, Việt Nam.</p>
+    <p>Cam kết mang đến trải nghiệm mua sắm minh bạch, tiện lợi và đáng tin cậy cho khách hàng.</p>
+  </div>
+  <div class="footer-right">
+    <p>Phương thức thanh toán</p>
+    <div class="payment-methods">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/06414657-24ed-4da4-8a54-f207d45ab1be.webp" alt="payment">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/afebded0-f4e7-4c5f-aee3-aa01271174c3.webp" alt="payment">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/64102078-db30-4f18-a473-2582467505fd.webp" alt="payment">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/a19ac3f9-5d5e-43c3-aa84-49576cad1102.webp" alt="payment">
+      <img src="https://image.hsv-tech.io/0x24/bbx/common/3e4a7882-d755-4110-83b5-6496bf5e689c.webp" alt="payment">
+    </div>
+  </div>
+</footer>
+
+<script>
+const SITE_LINKS = [
+  { name:"Khuyến Mãi & Deal Hot", sub:"Ưu đãi, mã giảm giá, flash sale", icon:"🏷️", href:"km.html", tag:"Khuyến Mãi" },
+  { name:"Son Môi – Son tint, son thạch, son lì", sub:"AMUSE · PERIPERA · BBIA · CLUB CLIO", icon:"💋", href:"td.html", tag:"Son Môi" },
+  { name:"Phấn Nước Cushion SPF50+", sub:"CLUB CLIO Kill Cover · AMUSE Dew Tint", icon:"🪞", href:"td.html", tag:"Cushion" },
+  { name:"Mascara chống trôi lâu trôi", sub:"CLIO Kill Lash Superproof", icon:"👁️", href:"td.html", tag:"Mascara" },
+  { name:"Kem Nền & Phấn Phủ", sub:"CLUB CLIO · AMUSE · CODE GLOKOLOR", icon:"💄", href:"td.html", tag:"Trang Điểm" },
+  { name:"Kem Chống Nắng SPF50+ PA+++", sub:"COSRX Aloe · ANUA · INNISFREE", icon:"☀️", href:"csd.html", tag:"Chống Nắng" },
+  { name:"Serum Niacinamide, Retinol, HA", sub:"ANUA Heartleaf · COSRX · TORRIDEN", icon:"💧", href:"csd.html", tag:"Serum" },
+  { name:"Toner dưỡng ẩm phân tử nhỏ", sub:"TORRIDEN Dive-In · COSRX", icon:"🧪", href:"csd.html", tag:"Toner" },
+  { name:"Sữa tắm & Dưỡng thể", sub:"THE BODY SHOP · BATH AND BODY WORKS", icon:"🛁", href:"csct.html", tag:"Cơ Thể" },
+  { name:"MIFFY Chính Hãng – Thú bông", sub:"Đồ chơi nhồi bông MIFFY cao cấp", icon:"🐰", href:"miffy.html", tag:"MIFFY" },
+  { name:"Sản Phẩm Mới Về Liên Tục", sub:"Hàng mới cập nhật mỗi ngày", icon:"🆕", href:"spmoi.html", tag:"Sản Phẩm Mới" },
+  { name:"Thương Hiệu Mỹ Phẩm Chính Hãng", sub:"CLUB CLIO · AMUSE · COSRX · ANUA", icon:"🏢", href:"brand.html", tag:"Thương Hiệu" },
+  { name:"Tạp Chí Làm Đẹp – Tips & Review", sub:"Góc review, tin tức, bí quyết làm đẹp", icon:"📖", href:"tapchi.html", tag:"Tạp Chí" },
+];
+
+function normalize(s){ return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d'); }
+
+(function(){
+  const input=document.getElementById('searchInput'),
+        dd=document.getElementById('searchDropdown'),
+        clr=document.getElementById('searchClear'),
+        panel=document.getElementById('searchPanel'),
+        plLinks=document.getElementById('searchPanelLinks'),
+        kwEl=document.getElementById('searchKeyword'),
+        noMsg=document.getElementById('noProductMsg');
+  let t;
+
+  function run(q){
+    const nq=normalize(q.trim());
+    if(!nq){ dd.classList.remove('show'); panel.classList.remove('show'); noMsg.style.display=''; return; }
+    const res=SITE_LINKS.filter(p=>normalize(p.name).includes(nq)||normalize(p.sub).includes(nq)||normalize(p.tag).includes(nq));
+    dd.innerHTML = !res.length
+      ? '<div class="search-no-result">😔 Không tìm thấy. Thử từ khóa khác nhé!</div>'
+      : res.slice(0,7).map(p=>`<a class="search-result-item" href="${p.href}"><div class="sri-icon">${p.icon}</div><div class="sri-info"><div class="sri-name">${p.name}</div><div class="sri-sub">${p.sub}</div></div><div class="sri-tag">${p.tag}</div></a>`).join('');
+    dd.classList.add('show');
+    kwEl.textContent='"'+q.trim()+'"';
+    if(res.length){
+      plLinks.innerHTML=res.slice(0,5).map(p=>`<a class="sp-link" href="${p.href}"><span class="sp-icon">${p.icon}</span><span class="sp-label">${p.name}</span><span class="sp-go">→ Xem</span></a>`).join('');
+      panel.classList.add('show'); noMsg.style.display='none';
+    } else { panel.classList.remove('show'); noMsg.style.display=''; }
+  }
+
+  input.addEventListener('input',function(){ clearTimeout(t); clr.classList.toggle('show',this.value.length>0); t=setTimeout(()=>run(this.value),200); });
+  input.addEventListener('keydown',e=>{ if(e.key==='Escape'){dd.classList.remove('show');input.blur();} if(e.key==='Enter'&&input.value.trim()){const nq=normalize(input.value.trim());const best=SITE_LINKS.find(p=>normalize(p.name).includes(nq)||normalize(p.tag).includes(nq));if(best)window.location.href=best.href;} });
+  clr.addEventListener('click',()=>{ input.value=''; clr.classList.remove('show'); dd.classList.remove('show'); panel.classList.remove('show'); noMsg.style.display=''; input.focus(); });
+  document.addEventListener('click',e=>{ if(!e.target.closest('.search-box')) dd.classList.remove('show'); });
+})();
+
+document.addEventListener('DOMContentLoaded',function(){
+  const lp=document.getElementById('loginPill'); if(!lp) return;
+  const av=localStorage.getItem('userAvatar');
+  if(av){ const img=document.createElement('img'); img.src=av; img.style.cssText='width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #FF1493;cursor:pointer;'; img.title='Đăng xuất'; img.onclick=()=>{ if(confirm('Đăng xuất?')){localStorage.removeItem('userAvatar');location.reload();} }; lp.replaceWith(img); }
+  else if(localStorage.getItem('loggedIn')==='true'){ const u=localStorage.getItem('currentUser')||'U'; lp.textContent=u.charAt(0).toUpperCase(); lp.style.cssText+='background:#FF1493;color:#fff;font-weight:700;cursor:pointer;'; lp.onclick=()=>{ if(confirm('Đăng xuất?')){localStorage.removeItem('loggedIn');localStorage.removeItem('currentUser');location.reload();} }; }
+});
+</script>
+</body>
+</html>

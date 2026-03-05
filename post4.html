@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checklist Quà Tặng Cuối Năm - Gia Hân Cosmetics Review</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #222;
+    }
+
+    /* ===== BACK BAR ===== */
+    .back-bar {
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      padding: 12px 20px;
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #FF1493;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: #fff0f5;
+      border: 1.5px solid #ffb6d9;
+      transition: all 0.2s ease;
+    }
+    .back-btn:hover {
+      background: #ffd6e7;
+      color: #cc0077;
+    }
+    .back-btn .arrow {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    /* ===== ARTICLE ===== */
+    .article-wrapper {
+      max-width: 780px; margin: 40px auto; background: #fff;
+      padding: 40px 48px 60px; border-radius: 12px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    }
+    .article-wrapper h1 {
+      font-size: 32px; font-weight: 800; line-height: 1.35; color: #111; margin-bottom: 12px;
+    }
+    .meta { font-size: 14px; color: #888; margin-bottom: 28px; display: block; }
+    .banner-img { width: 100%; border-radius: 10px; margin-bottom: 30px; display: block; }
+
+    .article-body { font-size: 15.5px; line-height: 1.85; color: #333; }
+    .article-body p { margin-bottom: 16px; }
+
+    .article-body h2 {
+      font-size: 18px; font-weight: 800; color: #111;
+      margin: 36px 0 12px; padding-bottom: 8px;
+      border-bottom: 2px solid #FF1493;
+    }
+    .article-body h3 {
+      font-size: 16px; font-weight: 700; color: #FF1493; margin: 24px 0 10px;
+    }
+    .article-body h4 {
+      font-size: 15px; font-weight: 700; color: #333; margin: 16px 0 8px;
+    }
+
+    .article-body ul { list-style: none; padding: 0; margin-bottom: 16px; }
+    .article-body ul li { padding: 5px 0 5px 20px; position: relative; font-size: 15px; }
+    .article-body ul li::before { content: "–"; position: absolute; left: 0; color: #FF1493; font-weight: bold; }
+
+    .highlight-box {
+      background: #fff5f9; border-left: 4px solid #FF1493;
+      border-radius: 8px; padding: 18px 20px; margin: 20px 0;
+      font-size: 15px; line-height: 1.8; color: #444;
+    }
+
+    .product-box {
+      background: #f9f9f9; border: 1px solid #eee; border-radius: 10px;
+      padding: 14px 18px; margin: 16px 0;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .product-box img {
+      width: 80px; height: 80px; object-fit: contain;
+      border-radius: 8px; border: 1px solid #eee; flex-shrink: 0;
+    }
+    .product-box-info { font-size: 14px; color: #555; line-height: 1.6; }
+    .product-box-info strong { color: #111; font-size: 15px; display: block; margin-bottom: 4px; }
+
+    .audience-box {
+      border: 1.5px solid #FF1493; border-radius: 12px;
+      padding: 20px 22px; margin: 20px 0;
+    }
+    .audience-box .audience-title {
+      font-size: 16px; font-weight: 800; color: #FF1493; margin-bottom: 12px;
+    }
+
+    .budget-box {
+      border-radius: 10px; padding: 18px 20px; margin: 16px 0;
+    }
+    .budget-under { background: #f0fff4; border-left: 4px solid #22c55e; }
+    .budget-mid { background: #fff8f0; border-left: 4px solid #f97316; }
+    .budget-high { background: #fdf4ff; border-left: 4px solid #a855f7; }
+    .budget-box .budget-title { font-size: 16px; font-weight: 800; margin-bottom: 10px; }
+    .budget-under .budget-title { color: #16a34a; }
+    .budget-mid .budget-title { color: #ea580c; }
+    .budget-high .budget-title { color: #9333ea; }
+    .budget-box .strength {
+      margin-top: 12px; font-size: 14px; font-style: italic; color: #555;
+      padding: 8px 12px; background: rgba(255,255,255,0.7);
+      border-radius: 6px;
+    }
+
+    .combo-box {
+      background: #fff5f9; border-radius: 12px;
+      padding: 20px 22px; margin: 20px 0;
+      border: 1px dashed #FF1493;
+    }
+    .combo-box .combo-title {
+      font-size: 16px; font-weight: 800; color: #FF1493; margin-bottom: 8px;
+    }
+    .combo-box .combo-note {
+      font-size: 14px; color: #888; margin-bottom: 12px;
+    }
+    .combo-result {
+      margin-top: 12px; padding: 10px 14px;
+      background: #fff; border-radius: 8px;
+      font-size: 14px; color: #444;
+    }
+    .combo-result strong { color: #FF1493; }
+
+    .closing {
+      margin-top: 36px; padding: 28px 24px;
+      background: #fff5f9; border-radius: 12px;
+      font-size: 15px; color: #444; line-height: 1.9; text-align: center;
+    }
+    .closing .wish {
+      font-size: 18px; font-weight: 800; color: #FF1493;
+      margin-bottom: 12px; display: block;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 20px; background-color: #FFB6C1; margin-top: 20px; flex-wrap: wrap;
+    }
+    .footer-left { flex: 0 0 65%; text-align: left; }
+    .footer-left p { margin-bottom: 8px; font-size: 14px; color: #333; }
+    .footer-right { flex: 1; display: flex; flex-direction: column; align-items: flex-end; }
+    .footer-right p { text-align: left; margin-bottom: 10px; }
+    .payment-methods { display: flex; align-items: center; flex-wrap: wrap; }
+    .payment-methods img {
+      width: 70px; height: 50px; object-fit: contain;
+      margin: 0 5px; border: 1px solid #FF1493; border-radius: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .article-wrapper { padding: 24px 18px 40px; }
+      .article-wrapper h1 { font-size: 23px; }
+      footer { flex-direction: column; text-align: center; }
+      .footer-left, .footer-right { flex: none; width: 100%; }
+      .footer-right { align-items: center; }
+      .product-box { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NÚT BACK -->
+  <div class="back-bar">
+    <a href="tapchi.html" class="back-btn">
+      <span class="arrow">←</span> Tạp Chí Làm Đẹp
+    </a>
+  </div>
+
+  <!-- NỘI DUNG BÀI VIẾT -->
+  <div class="article-wrapper">
+
+    <h1>"Đốn Tim" Phái Đẹp Với Checklist Quà Tặng Cuối Năm Từ Gia Hân Cosmetics Review</h1>
+    <span class="meta">December 8, 2025 &nbsp;•&nbsp; Góc review</span>
+
+    <img class="banner-img" src="images/đốn tim.jpg" alt="Checklist Quà Tặng Cuối Năm">
+
+    <div class="article-body">
+
+      <p>Thời điểm không khí Giáng sinh ngập tràn mọi không gian và không khí se lạnh ùa về, cũng là lúc chúng ta rục rịch chuẩn bị những món quà ý nghĩa để khép lại một năm bận rộn. Giữa vô vàn lựa chọn, không gì có thể chiều lòng phái đẹp hơn những bộ mỹ phẩm hay sản phẩm skincare – món quà vừa thực tế, vừa chứa đựng sự quan tâm đầy tinh tế.</p>
+
+      <div class="highlight-box">
+        Tặng mỹ phẩm không chỉ là tặng một món đồ, mà là trao đi thông điệp yêu thương: <strong>"Chúc bạn luôn rạng rỡ và tự tin với phiên bản hoàn hảo nhất của chính mình."</strong>
+      </div>
+
+      <p>Nếu bạn đang cảm thấy choáng ngợp giữa 'ma trận' các thương hiệu làm đẹp, đừng lo lắng. Gia Hân Cosmetics Review đã thiết kế sẵn một checklist quà tặng skincare và makeup được tuyển chọn kỹ lưỡng, giúp bạn dễ dàng chọn được món quà 'chuẩn gu' và ghi điểm tuyệt đối trong mùa lễ hội này.</p>
+
+      <h2>1. Lựa Chọn Quà Tặng Theo Đối Tượng: Chạm Đúng "Tiếng Nói" Của Làn Da</h2>
+
+      <p>Sự cá nhân hóa là nguyên tắc vàng khi chọn quà tặng mỹ phẩm. Việc thấu hiểu sâu sắc nhu cầu thực tế và tình trạng da riêng biệt sẽ giúp món quà trở nên thiết thực và ý nghĩa hơn gấp bội.</p>
+
+      <div class="audience-box">
+        <div class="audience-title">👩 Quý Cô U30+ và Phụ Nữ Trung Niên: Phục Hồi Chuyên Sâu & Chống Lão Hóa</div>
+        <p>Ở giai đoạn tuổi này, làn da bắt đầu thể hiện rõ các dấu hiệu suy giảm cấu trúc, bao gồm mất độ đàn hồi, nếp nhăn li ti quanh mắt và miệng, cùng với tình trạng sạm nám, thiếu ẩm dai dẳng. Một set skincare lý tưởng cần tập trung vào việc củng cố hàng rào bảo vệ da, chống oxy hóa mạnh mẽ và kích thích sản sinh Collagen.</p>
+
+        <h4>Gợi ý các sản phẩm phù hợp:</h4>
+        <ul>
+          <li><strong>Serum ngừa và cải thiện lão hóa:</strong> Ưu tiên các loại serum chứa peptide, ceramide, vitamin A dạng ổn định hoặc chất chống oxy hóa. Phát huy hiệu quả tốt nhất khi sử dụng vào buổi tối.</li>
+          <li><strong>Kem Dưỡng Chuyên Biệt Chống Lão Hóa (Nâng cơ & Làm đầy):</strong> Ưu tiên kem dưỡng giàu dưỡng chất, kết hợp Collagen, Peptide để củng cố hàng rào ẩm và nâng cơ.</li>
+          <li><strong>Sản Phẩm Đặc Trị Vùng Mắt:</strong> Kem dưỡng mắt chuyên sâu giúp cấp ẩm tối ưu, làm mờ nếp nhăn và giảm sưng bọng – món quà tinh tế và thiết thực.</li>
+        </ul>
+
+        <div class="product-box">
+          <img src="https://image.hsv-tech.io/bbx/common/bef84256-c50e-4a7d-a38b-d5ee755f58aa.webp" alt="Yehwadam Serum">
+          <div class="product-box-info">
+            <strong>Tinh Chất Yehwadam Làm Săn Chắc Da Hwansaenggo Ultimate Rejuvenating Serum Concentrate</strong>
+            Công nghệ nano thẩm thấu sâu, tái tạo da lão hóa từ bên trong, cải thiện độ đàn hồi rõ rệt.
+          </div>
+        </div>
+      </div>
+
+      <div class="audience-box">
+        <div class="audience-title">🌸 Cô Nàng Đôi Mươi (20–25 Tuổi): Cấp Ẩm Tối Ưu & Thăng Hạng Độ Sáng</div>
+        <p>Gen Z và các cô nàng đôi mươi thường hướng tới làn da căng mọng (glowy), không tì vết và luôn bắt kịp xu hướng làm đẹp. Nhu cầu cốt lõi là dưỡng ẩm tối ưu, làm sáng và ngăn ngừa các vấn đề da do lối sống về đêm.</p>
+
+        <h4>Gợi ý các sản phẩm phù hợp:</h4>
+        <ul>
+          <li><strong>Serum Tăng Cường Độ Ẩm:</strong> Độ ẩm là chìa khóa để giữ cho làn da trẻ tuổi luôn tươi tắn. Serum cấp ẩm sâu giúp duy trì hàng rào bảo vệ da, làm da căng mọng tức thì.</li>
+          <li><strong>Serum Làm Sáng & Chống Oxy Hóa:</strong> Giúp xóa mờ thâm mụn, tăng cường độ sáng và bảo vệ da khỏi tác hại của ô nhiễm.</li>
+          <li><strong>Các Sản Phẩm Trang Điểm Bắt Trend & Tiện Lợi:</strong> Makeup đa năng, dễ dùng và có thể mang theo mọi lúc mọi nơi.</li>
+          <li><strong>Combo Mặt Nạ Dưỡng Ẩm Chuyên Sâu & Làm Dịu:</strong> Cung cấp độ ẩm tức thì, làm dịu làn da mệt mỏi do căng thẳng hoặc thời tiết khô hanh.</li>
+        </ul>
+
+        <div class="product-box">
+          <img src="https://image.hsv-tech.io/bbx/common/d689d2ea-5da5-47a7-a9d7-2d17afd3bd09.webp" alt="Goodal Serum">
+          <div class="product-box-info">
+            <strong>Tinh Chất Goodal Hỗ Trợ Làm Sáng Da, Mờ Đốm Nâu Green Tangerine Vita C Dark Spot Care Serum</strong>
+            Vitamin C dạng ổn định, làm sáng da và mờ thâm sau mụn hiệu quả.
+          </div>
+        </div>
+
+        <div class="product-box">
+          <img src="https://image.hsv-tech.io/bbx/common/78a0daa9-dc99-4645-97f9-9c2b32d9ee99.webp" alt="Clio Cushion">
+          <div class="product-box-info">
+            <strong>Phấn Nước Clio Mỏng Nhẹ & Che Khuyết Điểm Hoàn Hảo Kill Cover Founwear Cushion SPF50+ PA+++</strong>
+            Che phủ hoàn hảo, lên da mỏng nhẹ tự nhiên, bảo vệ da khỏi tia UV suốt ngày.
+          </div>
+        </div>
+      </div>
+
+      <div class="audience-box">
+        <div class="audience-title">🤝 Đồng Nghiệp & Bạn Thân: Trải Nghiệm Thư Giãn & Chăm Sóc Tức Thì</div>
+        <p>Nguyên tắc vàng là sự an toàn tuyệt đối và tính ứng dụng cao. Món quà lý tưởng nên là giải pháp thư giãn nhanh chóng và tiện lợi – nhỏ gọn, dễ dùng hằng ngày, không gây áp lực về sự phù hợp loại da.</p>
+
+        <h4>Gợi ý các sản phẩm phù hợp:</h4>
+        <ul>
+          <li><strong>Kem Dưỡng Tay:</strong> Vừa thiết thực vừa mang tính cá nhân cao. Hương thơm tinh tế tạo cảm giác thư thái và nâng cao tinh thần.</li>
+          <li><strong>Son Môi:</strong> "Vũ khí bí mật" không thể thiếu trong túi xách. Giúp người nhận tự tin thể hiện cá tính và hoàn thiện phong cách cá nhân.</li>
+          <li><strong>Combo Mặt Nạ Giấy Dưỡng Ẩm:</strong> Mặt nạ giấy phục hồi da mệt mỏi chỉ trong 15–20 phút. Chọn các set đa dạng công dụng để người nhận tùy ý lựa chọn.</li>
+          <li><strong>Nước Hoa:</strong> Lựa chọn sang trọng và cá nhân hóa cao, giúp người nhận kiến tạo phong cách và tạo dấu ấn cá nhân mạnh mẽ.</li>
+        </ul>
+
+        <div class="product-box">
+          <img src="https://image.hsv-tech.io/bbx/common/9e2bd1c0-f303-4a7b-ae92-3c07aeac36d3.webp" alt="Dear Dahlia Son">
+          <div class="product-box-info">
+            <strong>Son Thỏi Thuần Chay Dear Dahlia Dưỡng Ẩm, Bóng Nhẹ Lip Paradise Sensual Lip Glow</strong>
+            Dưỡng môi căng mọng, màu sắc tự nhiên rạng ngời, thành phần thuần chay an toàn.
+          </div>
+        </div>
+
+        <div class="product-box">
+          <img src="https://image.hsv-tech.io/bbx/common/19b27b0c-9589-4c75-9949-f002d4126477.webp" alt="The Face Shop Mask">
+          <div class="product-box-info">
+            <strong>Combo Mặt Nạ Giấy THE FACE SHOP Cấp Ẩm Real Nature Face Mask</strong>
+            Đa dạng công thức từ thiên nhiên, cấp ẩm tức thì và làm dịu da hiệu quả.
+          </div>
+        </div>
+      </div>
+
+      <h2>2. Chọn Set Quà Tặng Mỹ Phẩm Phù Hợp Ngân Sách Của Bạn</h2>
+
+      <p>Việc lập kế hoạch ngân sách thông minh sẽ giúp bạn tìm được món quà hoàn hảo. Tại Gia Hân Cosmetics Review, mọi sản phẩm dù ở mức chi tiêu nào cũng đều là hàng chính hãng, chất lượng cao và có giá trị sử dụng thiết thực.</p>
+
+      <div class="budget-box budget-under">
+        <div class="budget-title">💚 Dưới 300K – Món Quà "Nhỏ Mà Có Võ" và Thiết Thực</div>
+        <p style="margin-bottom:12px; font-size:14px; color:#555;">Mức ngân sách lý tưởng cho quà nhỏ, giao tiếp hoặc xã giao, nhưng vẫn tinh tế và hữu dụng hằng ngày.</p>
+        <ul>
+          <li>Mặt nạ giấy cấp ẩm, làm dịu da từ The Face Shop và Dermatory</li>
+          <li>Mặt nạ ngủ môi Laneige hay kem dưỡng tay cho mùa khô</li>
+          <li>Các dòng sữa rửa mặt làm sạch dịu nhẹ</li>
+        </ul>
+        <div class="strength">✅ Điểm mạnh: Dễ tặng, dễ dùng, phù hợp với mọi loại da.</div>
+      </div>
+
+      <div class="product-box">
+        <img src="https://image.hsv-tech.io/bbx/common/9ad99d7f-79b2-4fda-a34e-028d286a6f33.webp" alt="The Face Shop SRM">
+        <div class="product-box-info">
+          <strong>Sữa Rửa Mặt Làm Sạch Lỗ Chân Lông THE FACE SHOP Jeju Volcanic Lava Anti Dust Pore Cleansing Foam</strong>
+          Làm sạch sâu, loại bỏ bụi bẩn và bã nhờn tắc nghẽn lỗ chân lông hiệu quả.
+        </div>
+      </div>
+
+      <div class="budget-box budget-mid">
+        <div class="budget-title">🧡 Từ 300K – 700K – Phân Khúc "Vàng" Của Sự Lựa Chọn Đa Dạng</div>
+        <p style="margin-bottom:12px; font-size:14px; color:#555;">Chọn các sản phẩm Best-seller hoặc điều trị chuyên sâu hơn, giúp nâng cấp đáng kể chu trình chăm sóc da của người nhận.</p>
+        <ul>
+          <li><strong>Serum/Ampoule Entry-Level:</strong> Các dòng serum cấp ẩm B5, HA hoặc Niacinamide từ các thương hiệu uy tín</li>
+          <li><strong>Kem dưỡng ẩm:</strong> Ưu tiên các dòng kem cấp ẩm sâu, củng cố hàng rào bảo vệ, mang lại nền da mềm mượt</li>
+          <li><strong>Set Trang Điểm & Bảo Vệ Tối Giản:</strong> Kết hợp Kem Chống Nắng, Phấn Phủ, Má Hồng và Son – bộ đồ tự tin cho mọi buổi sáng</li>
+        </ul>
+        <div class="strength">✅ Điểm mạnh: Giá trị sử dụng cao, thể hiện sự quan tâm sâu sắc đến chu trình skincare.</div>
+      </div>
+
+      <div class="product-box">
+        <img src="https://image.hsv-tech.io/bbx/common/63b80248-f47e-462d-8acf-e233330b251d.webp" alt="Dear Dahlia Blush">
+        <div class="product-box-info">
+          <strong>Má Hồng Trang Điểm Dear Dahlia Blooming Edition Petal Glow Blush</strong>
+          Phiên bản giới hạn, sắc hồng rực rỡ, bền màu suốt ngày – bao bì sang trọng lý tưởng để làm quà.
+        </div>
+      </div>
+
+      <div class="budget-box budget-high">
+        <div class="budget-title">💜 Trên 1.000K – Gift Set Đẳng Cấp & Giá Trị Cao</div>
+        <p style="margin-bottom:12px; font-size:14px; color:#555;">Đầu tư cho những món quà quan trọng, cá nhân hóa cao dành tặng người thân yêu hoặc gift set doanh nghiệp sang trọng.</p>
+        <ul>
+          <li><strong>Gift Set Giới Hạn Mùa Lễ Hội:</strong> Được đóng gói với bao bì lộng lẫy, thường gồm sản phẩm fullsize kèm minisize độc quyền</li>
+          <li><strong>Sản phẩm Chống Lão Hóa Chuyên Sâu:</strong> Tinh chất, kem dưỡng mắt đặc trị từ các thương hiệu hàng đầu – đầu tư vào vẻ đẹp bền vững</li>
+          <li><strong>Thiết Bị Làm Đẹp Cá Nhân:</strong> Máy rửa mặt, máy đẩy tinh chất hoặc máy massage mặt cầm tay – trải nghiệm chăm sóc da tại nhà chuyên nghiệp</li>
+        </ul>
+        <div class="strength">✅ Điểm mạnh: Tạo ấn tượng mạnh mẽ và độc quyền, khẳng định sự trân trọng tuyệt đối dành cho người nhận.</div>
+      </div>
+
+      <div class="product-box">
+        <img src="https://image.hsv-tech.io/bbx/common/7e989ed5-02e4-4e11-b1ff-a84cda0f498c.webp" alt="Halio Device">
+        <div class="product-box-info">
+          <strong>Máy Rửa Mặt Dành Cho Da Nhạy Cảm Halio Sensitive Facial Device Baby Pink</strong>
+          Làm sạch sâu bằng sóng âm, dịu nhẹ với da nhạy cảm, mang lại làn da thông thoáng và hấp thu dưỡng chất tốt hơn.
+        </div>
+      </div>
+
+      <h2>3. Top Những Combo "Không Bao Giờ Fail": Gợi Ý Set Mỹ Phẩm Quà Tặng Khoa Học</h2>
+
+      <p>Gia Hân Cosmetics Review đã phối sẵn các set mỹ phẩm quà tặng theo chu trình chăm sóc da khoa học, dựa trên những nhu cầu cơ bản và phổ biến nhất.</p>
+
+      <div class="combo-box">
+        <div class="combo-title">🌿 Combo 1: Chu Trình Phục Hồi Chuyên Sâu – "Cứu Tinh" Làn Da Nhạy Cảm</div>
+        <div class="combo-note">Lý tưởng cho da nhạy cảm, dễ kích ứng hoặc chịu ảnh hưởng từ môi trường khô lạnh/stress.</div>
+        <p style="font-size:14px; color:#555; margin-bottom:10px;"><strong>Thành phần cốt lõi:</strong> Cica, Allantoin, Ceramide, B5.</p>
+        <ul>
+          <li>Serum/Ampoule Phục Hồi (chứa HA/B5 nồng độ cao)</li>
+          <li>Kem Dưỡng Chứa Ceramide/Cica (khóa ẩm và xây dựng lại rào cản da)</li>
+          <li>Xịt Khoáng Làm Dịu (sử dụng tức thì và khóa ẩm)</li>
+        </ul>
+        <div class="combo-result"><strong>Hiệu quả:</strong> Làm dịu nhanh chóng các dấu hiệu kích ứng, giảm mẩn đỏ, tái tạo nền da khỏe mạnh và kiên cố.</div>
+      </div>
+
+      <div class="combo-box">
+        <div class="combo-title">✨ Combo 2: Chu Trình Tăng Cường Độ Sáng – Tỏa Sáng Đón Lễ Hội</div>
+        <div class="combo-note">Dành cho người muốn cải thiện da xỉn màu, mờ thâm sau mụn hoặc muốn có làn da "bừng sáng" (Glowy) trong các buổi tiệc cuối năm.</div>
+        <p style="font-size:14px; color:#555; margin-bottom:10px;"><strong>Thành phần cốt lõi:</strong> Vitamin C, Niacinamide, AHA/BHA nồng độ thấp.</p>
+        <ul>
+          <li>Toner Làm Sáng Da (chứa AHA/BHA nồng độ thấp hoặc chiết xuất tự nhiên)</li>
+          <li>Serum Đặc Trị Sắc Tố (chứa Vitamin C hoặc Niacinamide)</li>
+          <li>Kem Dưỡng Ẩm Kết Cấu Gel Mỏng Nhẹ (cấp ẩm sâu mà không gây bí da)</li>
+        </ul>
+        <div class="combo-result"><strong>Hiệu quả:</strong> Xóa mờ thâm nám, cải thiện tông màu da đồng đều, tăng cường độ rạng rỡ tự nhiên (Glowy).</div>
+      </div>
+
+      <div class="combo-box">
+        <div class="combo-title">🛡️ Combo 3: Chu Trình Cơ Bản Toàn Diện – Lựa Chọn An Toàn Tuyệt Đối</div>
+        <div class="combo-note">Combo "quốc dân" – phù hợp với gần như mọi loại da và mọi đối tượng.</div>
+        <p style="font-size:14px; color:#555; margin-bottom:10px;"><strong>Thành phần cốt lõi:</strong> Làm sạch pH cân bằng, cấp ẩm đa tầng, khóa ẩm.</p>
+        <ul>
+          <li>Sữa Rửa Mặt Dịu Nhẹ (pH cân bằng, không gây khô căng)</li>
+          <li>Toner/Lotion Cân Bằng (không cồn, tăng cường độ ẩm tức thì)</li>
+          <li>Kem Dưỡng Khóa Ẩm Tối Ưu (kết cấu kem phổ thông, không gây kích ứng)</li>
+        </ul>
+        <div class="combo-result"><strong>Hiệu quả:</strong> Duy trì độ ẩm lý tưởng, làm sạch sâu nhẹ nhàng, giúp da ổn định và khỏe mạnh – là cơ sở để phát triển các routine nâng cao sau này.</div>
+      </div>
+
+      <div class="closing">
+        <span class="wish">🎁 Ghi Điểm Tuyệt Đối Mùa Lễ Hội Này!</span>
+        <p>Gia Hân Cosmetics Review luôn sẵn sàng đồng hành cùng bạn trong việc tìm kiếm món quà ý nghĩa nhất. Mọi sản phẩm đều chính hãng, chất lượng cao – xứng đáng với tình cảm bạn dành cho người thân yêu.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      <p>Website <strong>Gia Hân Cosmetics Review</strong> thuộc quyền quản lý và vận hành bởi <strong>KOL Gia Hân</strong>. Giấy chứng nhận đăng ký kinh doanh số <strong>0309802418</strong>, cấp ngày 23/01/2026 tại Sở Kế hoạch và Đầu tư TP. Hồ Chí Minh.</p>
+      <p>Gia Hân Cosmetics Review chuyên cung cấp mỹ phẩm chính hãng, được chọn lọc kỹ lưỡng từ các thương hiệu uy tín trong và ngoài nước.</p>
+      <p>Địa chỉ hoạt động: 613 Âu Cơ, Quận Tân Phú, TP. Hồ Chí Minh, Việt Nam.</p>
+      <p>Gia Hân Cosmetics Review cam kết mang đến trải nghiệm mua sắm minh bạch, tiện lợi và đáng tin cậy cho khách hàng.</p>
+    </div>
+    <div class="footer-right">
+      <p>Phương thức thanh toán</p>
+      <div class="payment-methods">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/06414657-24ed-4da4-8a54-f207d45ab1be.webp">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/afebded0-f4e7-4c5f-aee3-aa01271174c3.webp">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/64102078-db30-4f18-a473-2582467505fd.webp">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/a19ac3f9-5d5e-43c3-aa84-49576cad1102.webp">
+        <img src="https://image.hsv-tech.io/0x24/bbx/common/3e4a7882-d755-4110-83b5-6496bf5e689c.webp">
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/render.js"></script>
+</body>
+</html>
