@@ -32,8 +32,8 @@
     .login-box input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
     .login-btn { width: 100%; padding: 12px; background: #FF1493; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
     .close-btn { float: right; cursor: pointer; font-size: 20px; }
-  <link rel="stylesheet" href="theme.css">
   </style>
+  <link rel="stylesheet" href="theme.css">
 </head>
 <body>
   <div class="video-container">
@@ -51,7 +51,6 @@
     </div>
     
     <div class="header-actions">
-      <!-- ✅ ĐÃ XÓA NÚT GIỎ HÀNG KHỎI TRANG LOGIN/INDEX -->
       <button id="loginBtn" class="pill login" onclick="openLogin()">Đăng Nhập</button>
       <img id="userAvatar" class="user-avatar" src="" alt="User Avatar" title="Đăng xuất" onclick="handleLogout()">
     </div>
@@ -59,7 +58,7 @@
 
   <div class="main-content">
     <h2 style="font-size: 40px;">Chào mừng bạn đến với thế giới làm đẹp</h2>
-    <h3 Đăng nhập ngay để không bỏ lỡ những ưu đãi chỉ dành riêng cho bạn!</h3>
+    <h3>Đăng nhập ngay để không bỏ lỡ những ưu đãi chỉ dành riêng cho bạn!</h3>
     <p id="welcomeText">Đăng nhập ngay để nhận những ưu đãi độc quyền mà chỉ có bạn mới được nhận!</p>
   </div>
 
@@ -82,10 +81,19 @@
     function loadAndPlayVideo() {
       videoPlayer.src = videoList[currentVideoIdx];
       videoPlayer.load();
-      videoPlayer.play();
+      // Xử lý trường hợp trình duyệt chặn autoplay
+      videoPlayer.play().catch(() => {
+        document.addEventListener('click', () => videoPlayer.play(), { once: true });
+      });
     }
 
     videoPlayer.addEventListener('ended', () => {
+      currentVideoIdx = (currentVideoIdx + 1) % videoList.length;
+      loadAndPlayVideo();
+    });
+
+    // Nếu video bị lỗi (không tìm thấy file), chuyển sang video tiếp theo
+    videoPlayer.addEventListener('error', () => {
       currentVideoIdx = (currentVideoIdx + 1) % videoList.length;
       loadAndPlayVideo();
     });
@@ -137,5 +145,3 @@
   </script>
 </body>
 </html>
-
-
